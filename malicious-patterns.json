@@ -1,0 +1,282 @@
+{
+  "known_compromised_packages": {
+    "@crowdstrike/commitlint": ["8.1.1", "8.1.2"],
+    "@crowdstrike/falcon-shoelace": ["0.4.2"],
+    "@crowdstrike/foundry-js": ["0.19.2"],
+    "@crowdstrike/glide-core": ["0.34.2", "0.34.3"],
+    "@crowdstrike/logscale-dashboard": ["1.205.2"],
+    "@crowdstrike/logscale-file-editor": ["1.205.2"],
+    "@crowdstrike/logscale-parser-edit": ["1.205.1", "1.205.2"],
+    "@crowdstrike/logscale-search": ["1.205.2"],
+    "@crowdstrike/node-exporter": ["0.2.2"],
+    "@crowdstrike/threat-center": ["1.205.2"],
+    "@ctrl/tinycolor": ["*"],
+    "tailwind-toucan-base": ["5.0.2"],
+    "browser-webdriver-downloader": ["3.0.8"],
+    "monorepo-next": ["13.0.2"],
+    "remark-preset-lint-crowdstrike": ["4.0.2"],
+    "verror-extra": ["6.0.1"],
+    "yargs-help-output": ["5.0.3"],
+    "eslint-config-prettier": ["*"],
+    "eslint-config-crowdstrike": ["*"],
+    "npm-registry-fetch": ["*"],
+    "debug": ["*"],
+    "chalk": ["*"]
+  },
+  
+  "malicious_code_patterns": [
+    {
+      "pattern": "process\\.env\\.\\w+.*fetch\\(",
+      "description": "Potential credential exfiltration via HTTP",
+      "severity": "critical"
+    },
+    {
+      "pattern": "fs\\.readFileSync.*\\.ssh",
+      "description": "SSH key access attempt",
+      "severity": "critical"
+    },
+    {
+      "pattern": "fs\\.readFileSync.*\\.aws",
+      "description": "AWS credential access",
+      "severity": "critical"
+    },
+    {
+      "pattern": "fs\\.readFileSync.*\\.npmrc",
+      "description": "NPM token access",
+      "severity": "critical"
+    },
+    {
+      "pattern": "fs\\.readFileSync.*\\.env",
+      "description": "Environment file access",
+      "severity": "warning"
+    },
+    {
+      "pattern": "child_process\\.exec.*npm.*publish",
+      "description": "Automated npm package publishing",
+      "severity": "critical"
+    },
+    {
+      "pattern": "eval\\(.*atob\\(",
+      "description": "Obfuscated eval with base64",
+      "severity": "critical"
+    },
+    {
+      "pattern": "eval\\(.*Buffer\\.from\\(.*base64",
+      "description": "Base64 decoded eval execution",
+      "severity": "critical"
+    },
+    {
+      "pattern": "new Function\\(.*atob",
+      "description": "Dynamic function creation with base64",
+      "severity": "critical"
+    },
+    {
+      "pattern": "require\\(.*\\.replace\\(",
+      "description": "Dynamic require with string manipulation",
+      "severity": "warning"
+    },
+    {
+      "pattern": "TruffleHog|trufflehog",
+      "description": "TruffleHog secret scanner (Shai-Hulud indicator)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "bundle\\.js.*[3-9]\\.\\d+\\s*MB",
+      "description": "Abnormally large bundled file (>3MB)",
+      "severity": "warning"
+    },
+    {
+      "pattern": "\\bexec\\(.*curl.*\\|.*sh",
+      "description": "Remote code execution via curl",
+      "severity": "critical"
+    },
+    {
+      "pattern": "\\bexec\\(.*wget.*\\|.*bash",
+      "description": "Remote code execution via wget",
+      "severity": "critical"
+    },
+    {
+      "pattern": "net\\.connect.*\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",
+      "description": "Direct IP connection (bypass DNS)",
+      "severity": "warning"
+    },
+    {
+      "pattern": "crypto\\.createCipher(?!iv)",
+      "description": "Weak encryption without IV",
+      "severity": "warning"
+    },
+    {
+      "pattern": "localStorage\\.getItem.*password|token|secret",
+      "description": "Accessing sensitive data from localStorage",
+      "severity": "warning"
+    },
+    {
+      "pattern": "document\\.cookie.*fetch\\(",
+      "description": "Cookie exfiltration attempt",
+      "severity": "critical"
+    }
+  ],
+  
+  "suspicious_install_scripts": [
+    "curl -s http",
+    "wget -q http",
+    "npm config set",
+    "npm token",
+    "npm publish",
+    "node -e",
+    "python -c",
+    "bash -c",
+    "sh -c",
+    "powershell",
+    "echo.*>.*npmrc",
+    "echo.*>.*ssh"
+  ],
+  
+  "typosquatting_targets": [
+    "react",
+    "react-dom",
+    "express",
+    "lodash",
+    "axios",
+    "webpack",
+    "babel-core",
+    "typescript",
+    "eslint",
+    "jest",
+    "prettier",
+    "crowdstrike",
+    "electron",
+    "vue",
+    "angular",
+    "next",
+    "gatsby",
+    "styled-components",
+    "redux",
+    "mobx",
+    "graphql",
+    "apollo",
+    "mongoose",
+    "sequelize",
+    "passport",
+    "bcrypt",
+    "jsonwebtoken",
+    "dotenv",
+    "cors",
+    "helmet",
+    "morgan",
+    "winston",
+    "nodemailer"
+  ],
+  
+  "suspicious_domains": [
+    "npmjs\\.org(?!$)",
+    "nprnjs\\.",
+    "npmj5\\.",
+    "npn-js\\.",
+    "nprn-js\\.",
+    "npmjss\\.",
+    "npm-js\\.",
+    "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",
+    "bit\\.ly",
+    "tinyurl\\.com",
+    "shorturl\\.at",
+    "rebrand\\.ly",
+    "cutt\\.ly",
+    "ow\\.ly",
+    "is\\.gd",
+    "buff\\.ly"
+  ],
+  
+  "worm_indicators": [
+    {
+      "description": "Self-propagation code",
+      "indicators": [
+        "npm.*whoami",
+        "npm.*token.*list",
+        "npm.*publish.*--access.*public",
+        "fs.*writeFileSync.*package\\.json",
+        "child_process.*npm.*init",
+        "glob.*node_modules.*package\\.json"
+      ]
+    },
+    {
+      "description": "Credential harvesting",
+      "indicators": [
+        "process\\.env\\.NPM_TOKEN",
+        "process\\.env\\.NODE_AUTH_TOKEN",
+        "process\\.env\\.GITHUB_TOKEN",
+        "process\\.env\\.AWS_SECRET",
+        "process\\.env\\.AZURE_CLIENT_SECRET"
+      ]
+    }
+  ],
+  
+  "high_risk_behaviors": {
+    "network_exfiltration": {
+      "patterns": [
+        "fetch.*process\\.env",
+        "axios.*process\\.env",
+        "request.*process\\.env",
+        "http.*request.*JSON\\.stringify\\(process\\.env"
+      ],
+      "severity": "critical"
+    },
+    "filesystem_tampering": {
+      "patterns": [
+        "fs\\.writeFileSync.*node_modules",
+        "fs\\.appendFileSync.*\\.bashrc",
+        "fs\\.writeFileSync.*\\.zshrc",
+        "fs\\.writeFileSync.*\\.profile"
+      ],
+      "severity": "critical"
+    },
+    "persistence_mechanisms": {
+      "patterns": [
+        "crontab.*-e",
+        "systemctl.*enable",
+        "launchctl.*load",
+        "schtasks.*\\/create",
+        "at\\s+\\d+:\\d+"
+      ],
+      "severity": "critical"
+    }
+  },
+  
+  "safe_exceptions": [
+    "test/",
+    "tests/",
+    "__tests__/",
+    "*.test.js",
+    "*.spec.js",
+    "*.test.ts",
+    "*.spec.ts",
+    "node_modules/@types/",
+    "node_modules/.bin/"
+  ],
+  
+  "notification_config": {
+    "critical_threshold": 1,
+    "warning_threshold": 5,
+    "webhook_template": {
+      "title": " NPM Supply Chain Security Alert",
+      "color": "#ff0000",
+      "fields": [
+        {
+          "name": "Project",
+          "value": "{project_path}",
+          "inline": true
+        },
+        {
+          "name": "Critical Issues",
+          "value": "{critical_count}",
+          "inline": true
+        },
+        {
+          "name": "Total Issues",
+          "value": "{total_count}",
+          "inline": true
+        }
+      ]
+    }
+  }
+}
