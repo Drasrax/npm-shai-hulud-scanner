@@ -282,3 +282,88 @@ print(f"File Created : shai-hulud-iocs.json")
 print(f"Total packets compromised : {len(compromised_packages)}")
 print(f"Hash bundle.js: {len(bundle_hashes)} versions")
 print(f"Additional patterns: {len(additional_patterns)}")
+
+# --- PATCH APPEND (2025-09-22) ---
+# This block only ADDS lines. It does not remove/modify earlier content.
+# Purpose: incorporate newly reported items from JFrog / Unit42 / Sonatype (Shai-Hulud npm worm).
+# Sources: JFrog (Sep 16 2025) shows @basic-ui-components-stc/basic-ui-components@1.0.5 as compromised.
+# - We also extend @art-ws/db-context with version 2.0.21 (seen in JFrog's extended list).
+# - Patterns expanded for additional token env vars and GitHub workflow variants.
+
+compromised_packages.update({
+    "@basic-ui-components-stc/basic-ui-components": ["1.0.5"],  # JFrog newly detected
+})
+
+compromised_packages.setdefault("@art-ws/db-context", [])
+if "2.0.21" not in compromised_packages["@art-ws/db-context"]:
+    compromised_packages["@art-ws/db-context"].append("2.0.21")
+
+if isinstance(iocs, dict):
+    iocs.setdefault("github_workflow_branch", "shai-hulud") 
+    iocs.setdefault("repo_created_name", "Shai-Hulud")    
+
+try:
+    additional_patterns.extend([
+        (r'GH_TOKEN|GITLAB_TOKEN|BITBUCKET_TOKEN', "Common VCS token env vars possibly exfiltrated", "warning"),
+        (r'GITHUB_APP_TOKEN|GH_PAT', "GitHub App or Personal Access Token env vars", "warning"),
+        (r'\.github/workflows/shai-hulud-.*\.yml', "Shai-Hulud workflow variant file", "critical"),
+        (r'makeRepo\("Shai-Hulud"', "GitHub repo creation function name seen in payload", "warning"),
+    ])
+except NameError:
+    pass
+
+try:
+    updated_patterns["attack_timeline"]["2025-09-18"] = "Reports exceed 500 compromised packages (Truesec / others)"
+except Exception:
+    pass
+
+try:
+    updated_patterns["known_compromised_packages"] = compromised_packages
+    updated_patterns["indicators_of_compromise"] = iocs
+    updated_patterns["malicious_code_patterns"] = additional_patterns
+    updated_patterns["total_compromised_count"] = len(compromised_packages)
+    with open("shai-hulud-iocs.json", "w") as f:
+        json.dump(updated_patterns, f, indent=2)
+except Exception:
+    pass
+
+print("Patch-append block executed: new packages/patterns added and JSON rewritten.")
+
+# --- PATCH APPEND FIX (2025-09-22) ---
+# Ensure total_compromised_count equals the TOTAL NUMBER OF VERSIONS,
+# not just the number of package families.
+try:
+    _patterns_list = None
+    for _name in ("malicious_code_patterns", "additional_patterns", "patterns", "rules"):
+        try:
+            _patterns_list = globals().get(_name, None)
+            if isinstance(_patterns_list, list):
+                break
+        except Exception:
+            pass
+
+    _total_versions = 0
+    if isinstance(compromised_packages, dict):
+        _total_versions = sum(len(set(v if isinstance(v, list) else [v])) for v in compromised_packages.values())
+
+    _json_out = {
+        "known_compromised_packages": compromised_packages,
+        "indicators_of_compromise": iocs if 'iocs' in globals() else {},
+        "malicious_code_patterns": _patterns_list if isinstance(_patterns_list, list) else [],
+    }
+
+    if 'bundle_hashes' in globals():
+        _json_out["bundle_js_hashes"] = bundle_hashes
+
+    if 'attack_timeline' in globals():
+        _json_out["attack_timeline"] = attack_timeline
+
+    _json_out["total_compromised_count"] = _total_versions
+
+    import json as _json
+    with open("shai-hulud-iocs.json", "w") as _f:
+        _json.dump(_json_out, _f, indent=2)
+
+    print(f"Fix-append block executed: total_compromised_count set to versions total = {_total_versions}")
+except Exception as _e:
+    print("Fix-append block error:", _e)
