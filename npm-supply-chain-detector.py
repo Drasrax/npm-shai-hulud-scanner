@@ -61,6 +61,17 @@ class NPMSecurityScanner:
             (r'TruffleHog|trufflehog', "TruffleHog scanner usage"),
             (r'npm.*publish.*--access.*public', "Automated npm publishing"),
             
+            # Cloud metadata endpoints (IMDS)
+            (r'169\.254\.169\.254', "AWS metadata endpoint access"),
+            (r'http://169\.254\.169\.254', "AWS IMDS full URL"),
+            (r'fd00:ec2::254', "AWS metadata IPv6"),
+            (r'\[fd00:ec2::254\]', "AWS metadata IPv6 brackets"),
+            (r'metadata\.google\.internal', "GCP metadata endpoint"),
+            (r'http://metadata\.google\.internal', "GCP metadata full URL"),
+            (r'metadata\.azure\.com', "Azure metadata endpoint"),
+            (r'/latest/meta-data/', "AWS IMDS path"),
+            (r'/computeMetadata/v1/', "GCP metadata path"),
+            
             (r'net\.connect|tls\.connect.*\d{1,3}\.\d{1,3}', "Direct IP connection"),
             (r'dns\.resolve.*exec|spawn', "DNS resolution with command execution"),
             
@@ -444,7 +455,6 @@ class NPMSecurityScanner:
         return False
 
     def add_finding(self, severity: str, message: str, location: str, details: Dict = None):
-        """Ajoute une découverte à la liste"""
         finding = {
             "severity": severity,
             "message": message,
@@ -463,7 +473,7 @@ class NPMSecurityScanner:
             print(f"   Location: {location}")
 
     def generate_statistics(self) -> Dict:
-        """Génère des statistiques sur le scan"""
+        """Scan stats"""
         stats = {
             "total_findings": len(self.findings),
             "critical": sum(1 for f in self.findings if f["severity"] == "critical"),
@@ -476,7 +486,7 @@ class NPMSecurityScanner:
         return stats
 
     def generate_report(self, results: Dict, output_format: str = "json") -> str:
-        """Génère un rapport des résultats"""
+        """Report"""
         if output_format == "json":
             return json.dumps(results, indent=2)
             
@@ -625,7 +635,6 @@ def main():
     sys.exit(exit_code)
 
 def send_webhook_notification(webhook_url: str, results: Dict):
-    """Envoie une notification webhook pour les findings critiques"""
     try:
         import urllib.request
         import urllib.parse

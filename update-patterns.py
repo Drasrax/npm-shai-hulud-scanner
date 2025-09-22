@@ -256,10 +256,17 @@ additional_patterns = [
     (r'rm -rf \.github/workflows', "GitHub workflows deletion", "critical"),
     (r'git.*mirror.*clone', "Git mirror operations", "warning"),
     
-    # Cloud metadata
-    (r'169\.254\.169\.254', "AWS metadata endpoint access", "critical"),
+    # Cloud metadata endpoints (IMDS)
+    (r'169\.254\.169\.254', "AWS metadata endpoint access (IMDSv1/v2)", "critical"),
+    (r'http://169\.254\.169\.254', "AWS IMDS endpoint full URL", "critical"),
+    (r'fd00:ec2::254', "AWS metadata endpoint IPv6", "critical"),
+    (r'\[fd00:ec2::254\]', "AWS metadata endpoint IPv6 bracket notation", "critical"),
     (r'metadata\.google\.internal', "GCP metadata endpoint access", "critical"),
-    (r'metadata\.azure\.com', "Azure metadata endpoint access", "critical")
+    (r'http://metadata\.google\.internal', "GCP metadata endpoint full URL", "critical"),
+    (r'metadata\.azure\.com', "Azure metadata endpoint access", "critical"),
+    (r'/latest/meta-data/', "AWS IMDS path pattern", "critical"),
+    (r'/computeMetadata/v1/', "GCP metadata path pattern", "critical"),
+    (r'Metadata: true', "Azure metadata header pattern", "warning")
 ]
 
 updated_patterns = {

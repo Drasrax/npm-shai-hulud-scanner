@@ -208,6 +208,21 @@
         "process\\.env\\.AWS_SECRET",
         "process\\.env\\.AZURE_CLIENT_SECRET"
       ]
+    },
+    {
+      "description": "Cloud metadata endpoint access (IMDS)",
+      "indicators": [
+        "169\\.254\\.169\\.254",
+        "http://169\\.254\\.169\\.254",
+        "fd00:ec2::254",
+        "\\[fd00:ec2::254\\]",
+        "metadata\\.google\\.internal",
+        "http://metadata\\.google\\.internal",
+        "metadata\\.azure\\.com",
+        "/latest/meta-data/",
+        "/computeMetadata/v1/",
+        "Metadata: true"
+      ]
     }
   ],
   
