@@ -10,18 +10,27 @@
     "@crowdstrike/logscale-search": ["1.205.2"],
     "@crowdstrike/node-exporter": ["0.2.2"],
     "@crowdstrike/threat-center": ["1.205.2"],
-    "@ctrl/tinycolor": ["*"],
+    "@ctrl/tinycolor": ["4.1.1", "4.1.2"],
     "tailwind-toucan-base": ["5.0.2"],
     "browser-webdriver-downloader": ["3.0.8"],
-    "monorepo-next": ["13.0.2"],
+    "monorepo-next": ["13.0.1", "13.0.2"],
     "remark-preset-lint-crowdstrike": ["4.0.2"],
     "verror-extra": ["6.0.1"],
     "yargs-help-output": ["5.0.3"],
-    "eslint-config-prettier": ["*"],
-    "eslint-config-crowdstrike": ["*"],
+    "eslint-config-prettier": ["9.1.0"],
+    "eslint-config-crowdstrike": ["11.0.2", "11.0.3"],
     "npm-registry-fetch": ["*"],
     "debug": ["*"],
-    "chalk": ["*"]
+    "chalk": ["*"],
+    "ansi-styles": ["*"],
+    "@typescript_eslinter/eslint": ["*"],
+    "larpexodus": ["*"],
+    "pupeter": ["*"],
+    "pupetier": ["*"],
+    "haski": ["*"],
+    "angulartics2": ["14.1.1", "14.1.2"],
+    "ngx-toastr": ["19.0.1", "19.0.2"],
+    "eslint-config-crowdstrike-node": ["4.0.3", "4.0.4"]
   },
   
   "malicious_code_patterns": [
@@ -78,6 +87,36 @@
     {
       "pattern": "TruffleHog|trufflehog",
       "description": "TruffleHog secret scanner (Shai-Hulud indicator)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "\\bnpmjs\\.help",
+      "description": "Phishing domain used in 2FA attacks",
+      "severity": "critical"
+    },
+    {
+      "pattern": "blockchain.*getContract|web3.*eth",
+      "description": "Blockchain-based C2 communication",
+      "severity": "critical"
+    },
+    {
+      "pattern": "ethereum.*smart.*contract",
+      "description": "Ethereum smart contract usage for C2",
+      "severity": "warning"
+    },
+    {
+      "pattern": "Windows.*Startup.*folder",
+      "description": "Windows persistence mechanism",
+      "severity": "critical"
+    },
+    {
+      "pattern": "%APPDATA%.*Microsoft.*Windows.*Start Menu",
+      "description": "Windows startup folder path",
+      "severity": "critical"
+    },
+    {
+      "pattern": "CVE-2025-54313",
+      "description": "Known CVE for eslint-config-prettier compromise",
       "severity": "critical"
     },
     {
@@ -165,7 +204,13 @@
     "helmet",
     "morgan",
     "winston",
-    "nodemailer"
+    "nodemailer",
+    "puppeteer",
+    "husky",
+    "typescript-eslint",
+    "@types/node",
+    "zoom",
+    "vscode"
   ],
   
   "suspicious_domains": [
@@ -176,6 +221,9 @@
     "nprn-js\\.",
     "npmjss\\.",
     "npm-js\\.",
+    "npmjs\\.help",
+    "npmjs\\.support",
+    "npmjs\\.security",
     "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",
     "bit\\.ly",
     "tinyurl\\.com",
@@ -251,7 +299,11 @@
         "systemctl.*enable",
         "launchctl.*load",
         "schtasks.*\\/create",
-        "at\\s+\\d+:\\d+"
+        "at\\s+\\d+:\\d+",
+        "HKCU.*Software.*Microsoft.*Windows.*CurrentVersion.*Run",
+        "StartupItems",
+        "LaunchAgents",
+        "LaunchDaemons"
       ],
       "severity": "critical"
     }
