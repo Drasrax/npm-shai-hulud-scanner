@@ -17,7 +17,13 @@
     "remark-preset-lint-crowdstrike": ["4.0.2"],
     "verror-extra": ["6.0.1"],
     "yargs-help-output": ["5.0.3"],
-    "eslint-config-prettier": ["9.1.0"],
+    "eslint-config-prettier": ["8.10.1", "9.1.0", "9.1.1", "10.1.6", "10.1.7"],
+    "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
+    "synckit": ["0.11.9"],
+    "@pkgr/core": ["0.2.8"],
+    "napi-postinstall": ["0.3.1"],
+    "got-fetch": ["5.1.11", "5.1.12"],
+    "is": ["3.3.1", "5.0.0"],
     "eslint-config-crowdstrike": ["11.0.2", "11.0.3"],
     "npm-registry-fetch": ["*"],
     "debug": ["*"],
@@ -153,6 +159,51 @@
       "pattern": "document\\.cookie.*fetch\\(",
       "description": "Cookie exfiltration attempt",
       "severity": "critical"
+    },
+    {
+      "pattern": "logDiskSpace",
+      "description": "Scavenger malware indicator function (CVE-2025-54313)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "FuckOff",
+      "description": "Scavenger malware XOR key (CVE-2025-54313)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "node-gyp\\.dll|loader\\.dll|version\\.dll|umpdc\\.dll|profapi\\.dll",
+      "description": "Scavenger malicious DLL files (CVE-2025-54313)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "node-gyp\\.so|loader\\.so|version\\.so|libumpdc\\.so|libprofapi\\.so",
+      "description": "Scavenger malicious SO files (CVE-2025-54313)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "s1ngularity.*Nx",
+      "description": "s1ngularity/Nx attack campaign identifier",
+      "severity": "critical"
+    },
+    {
+      "pattern": "MUT-8694|mut-8694",
+      "description": "MUT-8694 campaign identifier",
+      "severity": "critical"
+    },
+    {
+      "pattern": "crypto.*wallet.*drain|metamask.*seed|ledger.*recovery",
+      "description": "Cryptocurrency wallet drainer patterns",
+      "severity": "critical"
+    },
+    {
+      "pattern": "\\.(vscode|vscodium|cursor).*extensions",
+      "description": "VS Code extensions directory access",
+      "severity": "warning"
+    },
+    {
+      "pattern": "rxnt-authentication.*0\\.0\\.3",
+      "description": "Patient zero package (Shai-Hulud)",
+      "severity": "critical"
     }
   ],
   
@@ -167,8 +218,11 @@
     "bash -c",
     "sh -c",
     "powershell",
+    "rundll32",
+    "regsvr32",
     "echo.*>.*npmrc",
-    "echo.*>.*ssh"
+    "echo.*>.*ssh",
+    "install\\.js"
   ],
   
   "typosquatting_targets": [
@@ -221,9 +275,13 @@
     "nprn-js\\.",
     "npmjss\\.",
     "npm-js\\.",
+    "npnjs\\.com",
     "npmjs\\.help",
     "npmjs\\.support",
     "npmjs\\.security",
+    "firebase\\.su",
+    "dieorsuffer\\.com",
+    "smartscreen-api\\.com",
     "\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}",
     "bit\\.ly",
     "tinyurl\\.com",

@@ -1,21 +1,29 @@
 # NPM Supply Chain Security Scanner
 
-Security toolkit for detecting supply chain vulnerabilities in NPM projects, based on the analysis of the 2025 CrowdStrike/Shai-Hulud attack.
+Security toolkit for detecting supply chain vulnerabilities in NPM projects, designed to detect patterns from **two major 2025 npm supply chain attacks**:
+
+- **CVE-2025-54313** (Scavenger malware - July 2025)
+- **Shai-Hulud worm** (September 2025)
 
 ## Purpose
 
 Detect and notify security vulnerabilities in NPM dependencies, including:
-- Known compromised packages
+
+- **549+ known compromised packages** (536 Shai-Hulud + 13 CVE-2025-54313)
 - Typosquatting attempts
-- Injected malicious code
+- Injected malicious code (DLL/SO files, obfuscated scripts)
 - Suspicious installation scripts
 - Worm-like/propagation behaviors
+- C2 domain communication
+- Cloud metadata endpoint (IMDS) access
 
 ## Files
 
 - `npm-supply-chain-detector.py` - Main Python detection script
 - `scan-npm-security.sh` - Bash automation and monitoring script
-- `malicious-patterns.json` - Malicious patterns database
+- `malicious-patterns.json` - Malicious patterns database (production)
+- `shai-hulud-iocs.json` - Extended IOCs database (549 packages, 10 hashes, C2 domains)
+- `update-patterns.py` - Pattern database generator/updater
 
 ## Installation
 
@@ -61,6 +69,12 @@ python3 npm-supply-chain-detector.py -v -o markdown -f report.md
 
 # With webhook notifications (Slack, Discord, etc.)
 ./scan-npm-security.sh -w https://hooks.slack.com/services/XXX
+
+# Quarantine suspicious packages (moves to .npm-quarantine/)
+./scan-npm-security.sh --quarantine
+
+# Restore quarantined packages if false positive
+./.npm-quarantine/restore.sh
 ```
 
 ### Available options
@@ -74,37 +88,100 @@ python3 npm-supply-chain-detector.py -v -o markdown -f report.md
 #### Bash Script (`scan-npm-security.sh`)
 - `-c, --continuous`: Continuous monitoring mode
 - `-i, --interval`: Interval between scans (seconds)
-- `-d, --deep`: Deep scan
-- `--quarantine`: Move suspicious packages
-- `--update-patterns`: Update patterns
+- `-d, --deep`: Deep scan (includes npm audit, outdated packages)
+- `--quarantine`: **Move suspicious packages to quarantine folder**
+- `--update-patterns`: Update patterns from file
+
+## Quarantine Feature
+
+The `--quarantine` option automatically isolates compromised packages:
+
+**How it works:**
+
+1. Scans for critical vulnerabilities
+2. Identifies compromised packages from scan results
+3. Moves packages from `node_modules/` to `.npm-quarantine/packages/`
+4. Creates JSON manifest with metadata (versions, paths, timestamps)
+5. Generates automatic `restore.sh` script
+
+**Directory structure created:**
+```
+.npm-quarantine/
+├── packages/              # Isolated packages
+│   ├── package-name/
+│   └── @scope_package-name/
+├── logs/                  # Scan logs
+├── quarantine-manifest-*.json  # Metadata
+└── restore.sh            # Restoration script
+```
+
+**To restore (if false positive):**
+```bash
+cd .npm-quarantine
+./restore.sh              # Interactive confirmation required
+```
 
 ## Detections
 
-### 1. Known compromised packages
-The scanner checks a list of known compromised packages, including:
-- Affected CrowdStrike packages
-- eslint-config-prettier (CVE-2025-54313)
-- @ctrl/tinycolor
-- Others from the Shai-Hulud attack
+### 1. Known compromised packages (549 total)
+
+**CVE-2025-54313 (Scavenger - July 2025):**
+
+- eslint-config-prettier (8.10.1, 9.1.1, 10.1.6, 10.1.7)
+- eslint-plugin-prettier (4.2.2, 4.2.3)
+- synckit (0.11.9)
+- @pkgr/core (0.2.8)
+- napi-postinstall (0.3.1)
+- got-fetch (5.1.11, 5.1.12)
+- is (3.3.1, 5.0.0)
+
+**Shai-Hulud worm (536+ packages - September 2025):**
+
+- CrowdStrike packages (@crowdstrike/*)
+- @ctrl/tinycolor (4.1.1, 4.1.2)
+- @nativescript-community/* packages
+- @operato/* packages
+- @things-factory/* packages
+- Many others (see shai-hulud-iocs.json)
 
 ### 2. Typosquatting detection
+
 - Levenshtein distance analysis
 - Common substitutions (0→o, 1→i, etc.)
 - Dash/underscore variations
 
 ### 3. Malicious code patterns
-- Credential exfiltration (AWS, npm, SSH)
+
+- Credential exfiltration (AWS, npm, SSH, GitHub tokens)
 - Remote code execution (curl|sh, eval)
-- Obfuscation (base64, atob)
-- Suspicious network communication
-- Self-propagation (worm patterns)
+- Obfuscation (base64, atob, XOR encryption)
+- Suspicious network communication to C2 domains
+- Self-propagation (worm patterns, npm publishing)
+- Cloud metadata endpoint (IMDS) access
+- **CVE-2025-54313 specific:** DLL/SO loading, logDiskSpace function
 
 ### 4. Suspicious installation scripts
 - Malicious preinstall/postinstall hooks
 - Script download and execution
 - npm token manipulation
+- **Windows DLL execution** (rundll32, regsvr32)
+- Malicious files: node-gyp.dll, loader.dll, version.dll
 
-### 5. Integrity analysis
+### 5. Hash-based detection (10 variants)
+- **Shai-Hulud bundle.js** (7 SHA-256 hashes)
+- **CVE-2025-54313 Scavenger** (3 SHA-256 hashes)
+  - node-gyp.dll: c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441
+  - Scavenger stage 2: 5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9
+  - install.js: 32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf
+
+### 6. C2 domain detection
+- firebase.su (CVE-2025-54313)
+- dieorsuffer.com (CVE-2025-54313)
+- smartscreen-api.com (CVE-2025-54313)
+- npnjs.com (typosquatting)
+- webhook.site/bb8ca5f6-4175-45d2-b042-fc9ebb8170b7 (Shai-Hulud)
+
+### 7. Integrity analysis
 - Verification via `npm audit`
 - Large JS file detection (>3MB)
 - npm domain validation
@@ -189,6 +266,7 @@ stage('Security Scan') {
 ## Custom configuration
 
 Modify `malicious-patterns.json` to:
+
 - Add new compromised packages
 - Define custom patterns
 - Adjust notification thresholds
@@ -222,20 +300,31 @@ sudo systemctl start npm-security-monitor
 
 ## What to do when detection occurs?
 
-1. **Critical findings**: 
-   - Immediately remove compromised packages
-   - Regenerate all exposed tokens/secrets
-   - Audit affected systems
+1. **Critical findings**:
+   - **Use quarantine mode**: `./scan-npm-security.sh --quarantine`
+   - Immediately isolate compromised packages
+   - Regenerate all exposed tokens/secrets (npm, GitHub, AWS, SSH keys)
+   - Audit affected systems for credential exposure
+   - Check for unauthorized GitHub repositories named "Shai-Hulud"
+   - Review cloud metadata endpoint (IMDS) access logs
 
-2. **Warnings**:
+2. **CVE-2025-54313 specific**:
+   - Check for malicious DLL/SO files (node-gyp.dll, loader.dll, etc.)
+   - Scan for connections to C2 domains (firebase.su, dieorsuffer.com, smartscreen-api.com)
+   - Windows systems: Review rundll32/regsvr32 execution logs
+
+3. **Warnings**:
    - Investigate suspicious patterns
-   - Verify package legitimacy
+   - Verify package legitimacy before restoration
    - Update to safe versions
+   - Review package maintainer changes
 
-3. **Post-incident**:
+4. **Post-incident**:
+   - Replace with safe package versions: `npm install <package>@<safe-version>`
    - `npm audit fix` for automatic fixes
-   - Dependency review
-   - Set up continuous monitoring
+   - Dependency review and lockfile verification
+   - Set up continuous monitoring (`-c -i 300`)
+   - Consider restoring from quarantine only after verification
 
 ## References
 
@@ -245,10 +334,14 @@ sudo systemctl start npm-security-monitor
 
 ## Notes
 
+- **549 compromised package versions** tracked (updated 2025-10-27)
+- **10 malware file hashes** detected (7 Shai-Hulud + 3 Scavenger)
+- **2 separate attack campaigns** covered (CVE-2025-54313 + Shai-Hulud)
 - Scanner designed to minimize false positives
-- Patterns based on real observed attacks
+- Patterns based on real observed attacks (July-September 2025)
 - Regular update of malicious patterns recommended
 - Compatible with all standard NPM projects
+- Quarantine feature allows safe isolation with restoration option
 
 ## Limitations
 
@@ -259,8 +352,17 @@ sudo systemctl start npm-security-monitor
 
 ## Contributing
 
-To add new patterns or compromised packages, modify `malicious-patterns.json` and test with:
+To add new patterns or compromised packages:
 
-```bash
-python3 npm-supply-chain-detector.py -v test-project/
-```
+1. **Update pattern files:**
+   - Edit `update-patterns.py` to add new packages/patterns
+   - Run `python3 update-patterns.py` to regenerate `shai-hulud-iocs.json`
+   - Or manually edit `malicious-patterns.json` for quick updates
+
+2. **Test changes:**
+   ```bash
+   python3 npm-supply-chain-detector.py -v test-project/
+   ```
+
+3. **Update documentation:**
+   - Update statistics in `README.md`

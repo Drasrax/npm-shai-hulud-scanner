@@ -26,7 +26,7 @@ class NPMSecurityScanner:
         self.suspicious_patterns = []
         self.load_iocs()
         
-        #(CrowdStrike attack 2025)
+        # Known compromised packages (Shai-Hulud + CVE-2025-54313)
         self.known_compromised = {
             "@crowdstrike/commitlint": ["8.1.1", "8.1.2"],
             "@crowdstrike/falcon-shoelace": ["0.4.2"],
@@ -41,11 +41,16 @@ class NPMSecurityScanner:
             "remark-preset-lint-crowdstrike": ["4.0.2"],
             "verror-extra": ["6.0.1"],
             "yargs-help-output": ["5.0.3"],
-            "eslint-config-prettier": ["*"],  # CVE-2025-54313
-            "@ctrl/tinycolor": ["*"]  # Initial compromise
+            "@ctrl/tinycolor": ["*"], 
+            "eslint-config-prettier": ["8.10.1", "9.1.0", "9.1.1", "10.1.6", "10.1.7"],
+            "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
+            "synckit": ["0.11.9"],
+            "@pkgr/core": ["0.2.8"],
+            "napi-postinstall": ["0.3.1"],
+            "got-fetch": ["5.1.11", "5.1.12"],
+            "is": ["3.3.1", "5.0.0"]
         }
         
-        # Patterns
         self.malicious_patterns = [
             (r"process\.env\.\w+.*fetch\(", "Potential credential exfiltration"),
             (r"fs\.readFileSync.*\.ssh", "SSH key access attempt"),
@@ -61,7 +66,6 @@ class NPMSecurityScanner:
             (r'TruffleHog|trufflehog', "TruffleHog scanner usage"),
             (r'npm.*publish.*--access.*public', "Automated npm publishing"),
             
-            # Cloud metadata endpoints (IMDS)
             (r'169\.254\.169\.254', "AWS metadata endpoint access"),
             (r'http://169\.254\.169\.254', "AWS IMDS full URL"),
             (r'fd00:ec2::254', "AWS metadata IPv6"),
@@ -74,20 +78,34 @@ class NPMSecurityScanner:
             
             (r'net\.connect|tls\.connect.*\d{1,3}\.\d{1,3}', "Direct IP connection"),
             (r'dns\.resolve.*exec|spawn', "DNS resolution with command execution"),
-            
-            # Typosquatting indicators
+
+            (r'logDiskSpace', "Scavenger malware indicator function"),
+            (r'FuckOff', "Scavenger malware XOR key"),
+            (r'node-gyp\.dll|loader\.dll|version\.dll|umpdc\.dll|profapi\.dll', "Scavenger malicious DLL"),
+            (r'node-gyp\.so|loader\.so|version\.so|libumpdc\.so|libprofapi\.so', "Scavenger malicious SO"),
+            (r'rundll32|regsvr32', "Windows DLL execution"),
+
+            (r's1ngularity.*Nx', "s1ngularity/Nx campaign"),
+            (r'MUT-8694|mut-8694', "MUT-8694 campaign"),
+            (r'crypto.*wallet.*drain|metamask.*seed|ledger.*recovery', "Cryptocurrency wallet drainer"),
+            (r'rxnt-authentication.*0\.0\.3', "Patient zero package"),
+
             (r'crowdstrlke|cr0wdstrike|crowdstr1ke', "Potential typosquatting"),
         ]
         
         self.suspicious_domains = [
-            r'npmjs\.org(?!$)',  
+            r'npmjs\.org(?!$)',
             r'nprnjs\.',
             r'npmj5\.',
             r'npn-js\.',
-            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',  # IPs
+            r'npnjs\.com',
+            r'firebase\.su',
+            r'dieorsuffer\.com',
+            r'smartscreen-api\.com',
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',  
         ]
         
-        # Hash (Shai-Hulud)
+        # Malicious file hashes (Shai-Hulud + CVE-2025-54313)
         self.malicious_hashes = {
             "de0e25a3e6c1e1e5998b306b7141b3dc4c0088da9d7bb47c1c00c91e6e4f85d6": "Shai-Hulud v1",
             "81d2a004a1bca6ef87a1caf7d0e0b355ad1764238e40ff6d1b1cb77ad4f595c3": "Shai-Hulud v2",
@@ -95,7 +113,10 @@ class NPMSecurityScanner:
             "4b2399646573bb737c4969563303d8ee2e9ddbd1b271f1ca9e35ea78062538db": "Shai-Hulud v4",
             "dc67467a39b70d1cd4c1f7f7a459b35058163592f4a9e8fb4dffcbba98ef210c": "Shai-Hulud v5",
             "46faab8ab153fae6e80e7cca38eab363075bb524edd79e42269217a083628f09": "Shai-Hulud v6",
-            "b74caeaa75e077c99f7d44f46daaf9796a3be43ecf24f2a1fd381844669da777": "Shai-Hulud v7"
+            "b74caeaa75e077c99f7d44f46daaf9796a3be43ecf24f2a1fd381844669da777": "Shai-Hulud v7",
+            "c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441": "Scavenger node-gyp.dll",
+            "5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9": "Scavenger malware stage 2",
+            "32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf": "Scavenger install.js"
         }
     
     def load_iocs(self):
@@ -183,7 +204,7 @@ class NPMSecurityScanner:
         node_modules = self.project_path / "node_modules"
         suspicious_files = ["bundle.js", "webpack.config.js", ".npmrc"]
         
-        print("📦 Scanning node_modules...")
+        print(" Scanning node_modules...")
         
         for root, dirs, files in os.walk(node_modules):
             root_path = Path(root)
@@ -222,7 +243,7 @@ class NPMSecurityScanner:
 
     def check_install_hooks(self):
         """Checks for installation hooks in all package.json"""
-        print("🪝 Checking install hooks...")
+        print(" Checking install hooks...")
         
         for pkg_json in self.project_path.rglob("package.json"):
             try:
@@ -248,7 +269,6 @@ class NPMSecurityScanner:
         """Detects potential typosquatted packages"""
         print(" Detecting typosquatting...")
         
-        # Liste de paquets populaires à vérifier
         popular_packages = [
             "react", "express", "lodash", "axios", "webpack", "babel",
             "typescript", "eslint", "jest", "prettier", "crowdstrike"

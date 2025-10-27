@@ -963,6 +963,11 @@
     "postinstall_hook": "postInstall",
     "github_workflow_branch": "shai-hulud",
     "repo_created_name": "Shai-Hulud",
+    "patient_zero": {
+      "package": "rxnt-authentication",
+      "version": "0.0.3",
+      "published": "2025-09-14T17:58:50Z"
+    },
     "phishing_domains": [
       "npmjs.help",
       "npmjs.support",
@@ -975,6 +980,44 @@
       "MUT-8694",
       "s1ngularity/Nx"
     ]
+  },
+  "cve_2025_54313_scavenger": {
+    "description": "Separate supply chain attack targeting eslint-config-prettier and related packages",
+    "attack_date": "2025-07-18",
+    "malware_name": "Scavenger",
+    "compromised_packages": {
+      "eslint-config-prettier": ["8.10.1", "9.1.1", "10.1.6", "10.1.7"],
+      "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
+      "synckit": ["0.11.9"],
+      "@pkgr/core": ["0.2.8"],
+      "napi-postinstall": ["0.3.1"],
+      "got-fetch": ["5.1.11", "5.1.12"],
+      "is": ["3.3.1", "5.0.0"]
+    },
+    "c2_domains": [
+      "firebase.su",
+      "dieorsuffer.com",
+      "smartscreen-api.com",
+      "npnjs.com"
+    ],
+    "file_hashes_sha256": {
+      "node-gyp.dll": "c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441",
+      "scavenger_malware": "5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9",
+      "install.js": "32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf"
+    },
+    "malicious_files": {
+      "windows": ["node-gyp.dll", "loader.dll", "version.dll", "umpdc.dll", "profapi.dll"],
+      "linux": ["node-gyp.so", "loader.so", "version.so", "libumpdc.so", "libprofapi.so"]
+    },
+    "behavioral_indicators": [
+      "logDiskSpace function",
+      "XOR key: FuckOff",
+      "rundll32 execution",
+      "Platform checks (Windows/Linux)",
+      "Child process spawning"
+    ],
+    "cvss": "High",
+    "phishing_vector": "Spoofed NPM login page and typosquatted domain"
   },
   "malicious_code_patterns": [
     [
@@ -1152,5 +1195,13 @@
     "version_6": "46faab8ab153fae6e80e7cca38eab363075bb524edd79e42269217a083628f09",
     "version_7": "b74caeaa75e077c99f7d44f46daaf9796a3be43ecf24f2a1fd381844669da777"
   },
-  "total_compromised_count": 536
+  "attack_timeline": {
+    "2025-07-18": "CVE-2025-54313: eslint-config-prettier and related packages compromised (Scavenger malware)",
+    "2025-09-14": "Shai-Hulud worm: Patient zero (rxnt-authentication@0.0.3) published at 17:58:50 UTC",
+    "2025-09-15": "Multiple bursts, 100+ packages compromised by Shai-Hulud worm",
+    "2025-09-16": "CrowdStrike packages compromised at 01:14 UTC",
+    "2025-09-18": "Reports exceed 500 compromised packages (Truesec and others)",
+    "2025-09-23": "CISA alert issued for widespread npm supply chain compromise"
+  },
+  "total_compromised_count": 549
 }

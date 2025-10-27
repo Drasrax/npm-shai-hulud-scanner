@@ -231,7 +231,18 @@ iocs = {
     "github_repo_name": "Shai-Hulud",
     "github_migration_repos": "Shai-Hulud Migration",
     "malicious_script": "bundle.js",
-    "postinstall_hook": "postInstall"
+    "postinstall_hook": "postInstall",
+    "patient_zero": {
+        "package": "rxnt-authentication",
+        "version": "0.0.3",
+        "published": "2025-09-14T17:58:50Z"
+    },
+    "cve_2025_54313_c2_domains": ["firebase.su", "dieorsuffer.com", "smartscreen-api.com", "npnjs.com"],
+    "cve_2025_54313_hashes": {
+        "node-gyp.dll": "c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441",
+        "scavenger_malware": "5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9",
+        "install.js": "32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf"
+    }
 }
 
 additional_patterns = [
@@ -266,7 +277,19 @@ additional_patterns = [
     (r'metadata\.azure\.com', "Azure metadata endpoint access", "critical"),
     (r'/latest/meta-data/', "AWS IMDS path pattern", "critical"),
     (r'/computeMetadata/v1/', "GCP metadata path pattern", "critical"),
-    (r'Metadata: true', "Azure metadata header pattern", "warning")
+    (r'Metadata: true', "Azure metadata header pattern", "warning"),
+
+    # CVE-2025-54313 (Scavenger) patterns
+    (r'logDiskSpace', "Scavenger malware indicator function (CVE-2025-54313)", "critical"),
+    (r'FuckOff', "Scavenger malware XOR key (CVE-2025-54313)", "critical"),
+    (r'node-gyp\.dll|loader\.dll|version\.dll|umpdc\.dll|profapi\.dll', "Scavenger malicious DLL files", "critical"),
+    (r'node-gyp\.so|loader\.so|version\.so|libumpdc\.so|libprofapi\.so', "Scavenger malicious SO files", "critical"),
+    (r'firebase\.su|dieorsuffer\.com|smartscreen-api\.com', "CVE-2025-54313 C2 domains", "critical"),
+    (r'rundll32|regsvr32', "Windows DLL execution commands", "warning"),
+
+    # Campaign identifiers
+    (r's1ngularity.*Nx', "s1ngularity/Nx attack campaign identifier", "critical"),
+    (r'crypto.*wallet.*drain|metamask.*seed|ledger.*recovery', "Cryptocurrency wallet drainer patterns", "critical")
 ]
 
 updated_patterns = {
@@ -275,9 +298,12 @@ updated_patterns = {
     "indicators_of_compromise": iocs,
     "malicious_code_patterns": additional_patterns,
     "attack_timeline": {
-        "2025-09-14": "First observed compromise (17:58 UTC)",
-        "2025-09-15": "Multiple bursts, 100+ packages compromised",
-        "2025-09-16": "CrowdStrike packages compromised (01:14 UTC)"
+        "2025-07-18": "CVE-2025-54313: eslint-config-prettier and related packages compromised (Scavenger malware)",
+        "2025-09-14": "Shai-Hulud worm: Patient zero (rxnt-authentication@0.0.3) published at 17:58:50 UTC",
+        "2025-09-15": "Multiple bursts, 100+ packages compromised by Shai-Hulud worm",
+        "2025-09-16": "CrowdStrike packages compromised (01:14 UTC)",
+        "2025-09-18": "Reports exceed 500 compromised packages (Truesec and others)",
+        "2025-09-23": "CISA alert issued for widespread npm supply chain compromise"
     },
     "total_compromised_count": 526
 }
@@ -299,7 +325,20 @@ print(f"Additional patterns: {len(additional_patterns)}")
 
 compromised_packages.update({
     "@basic-ui-components-stc/basic-ui-components": ["1.0.5"],  # JFrog newly detected
+    # CVE-2025-54313 (Scavenger malware) - July 2025
+    "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
+    "synckit": ["0.11.9"],
+    "@pkgr/core": ["0.2.8"],
+    "napi-postinstall": ["0.3.1"],
+    "got-fetch": ["5.1.11", "5.1.12"],
+    "is": ["3.3.1", "5.0.0"],
 })
+
+# Update eslint-config-prettier with CVE-2025-54313 versions
+compromised_packages.setdefault("eslint-config-prettier", [])
+for version in ["8.10.1", "9.1.1", "10.1.6", "10.1.7"]:
+    if version not in compromised_packages["eslint-config-prettier"]:
+        compromised_packages["eslint-config-prettier"].append(version)
 
 compromised_packages.setdefault("@art-ws/db-context", [])
 if "2.0.21" not in compromised_packages["@art-ws/db-context"]:
