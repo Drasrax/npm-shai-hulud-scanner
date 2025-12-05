@@ -1,44 +1,2584 @@
 {
   "known_compromised_packages": {
-    "@crowdstrike/commitlint": ["8.1.1", "8.1.2"],
-    "@crowdstrike/falcon-shoelace": ["0.4.2"],
-    "@crowdstrike/foundry-js": ["0.19.2"],
-    "@crowdstrike/glide-core": ["0.34.2", "0.34.3"],
-    "@crowdstrike/logscale-dashboard": ["1.205.2"],
-    "@crowdstrike/logscale-file-editor": ["1.205.2"],
-    "@crowdstrike/logscale-parser-edit": ["1.205.1", "1.205.2"],
-    "@crowdstrike/logscale-search": ["1.205.2"],
-    "@crowdstrike/node-exporter": ["0.2.2"],
-    "@crowdstrike/threat-center": ["1.205.2"],
-    "@ctrl/tinycolor": ["4.1.1", "4.1.2"],
-    "tailwind-toucan-base": ["5.0.2"],
-    "browser-webdriver-downloader": ["3.0.8"],
-    "monorepo-next": ["13.0.1", "13.0.2"],
-    "remark-preset-lint-crowdstrike": ["4.0.2"],
-    "verror-extra": ["6.0.1"],
-    "yargs-help-output": ["5.0.3"],
-    "eslint-config-prettier": ["8.10.1", "9.1.0", "9.1.1", "10.1.6", "10.1.7"],
-    "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
-    "synckit": ["0.11.9"],
-    "@pkgr/core": ["0.2.8"],
-    "napi-postinstall": ["0.3.1"],
-    "got-fetch": ["5.1.11", "5.1.12"],
-    "is": ["3.3.1", "5.0.0"],
-    "eslint-config-crowdstrike": ["11.0.2", "11.0.3"],
-    "npm-registry-fetch": ["*"],
-    "debug": ["*"],
-    "chalk": ["*"],
-    "ansi-styles": ["*"],
-    "@typescript_eslinter/eslint": ["*"],
-    "larpexodus": ["*"],
-    "pupeter": ["*"],
-    "pupetier": ["*"],
-    "haski": ["*"],
-    "angulartics2": ["14.1.1", "14.1.2"],
-    "ngx-toastr": ["19.0.1", "19.0.2"],
-    "eslint-config-crowdstrike-node": ["4.0.3", "4.0.4"]
+    "@ahmedhfarag/ngx-perfect-scrollbar": [
+      "20.0.20"
+    ],
+    "@ahmedhfarag/ngx-virtual-scroller": [
+      "4.0.4"
+    ],
+    "@art-ws/common": [
+      "2.0.28"
+    ],
+    "@art-ws/config-eslint": [
+      "2.0.4",
+      "2.0.5"
+    ],
+    "@art-ws/config-ts": [
+      "2.0.7",
+      "2.0.8"
+    ],
+    "@art-ws/db-context": [
+      "2.0.24",
+      "2.0.21"
+    ],
+    "@art-ws/di-node": [
+      "2.0.13"
+    ],
+    "@art-ws/di": [
+      "2.0.28",
+      "2.0.32"
+    ],
+    "@art-ws/eslint": [
+      "1.0.5",
+      "1.0.6"
+    ],
+    "@art-ws/fastify-http-server": [
+      "2.0.24",
+      "2.0.27"
+    ],
+    "@art-ws/http-server": [
+      "2.0.21",
+      "2.0.25"
+    ],
+    "@art-ws/openapi": [
+      "0.1.12",
+      "0.1.9"
+    ],
+    "@art-ws/package-base": [
+      "1.0.5",
+      "1.0.6"
+    ],
+    "@art-ws/prettier": [
+      "1.0.5",
+      "1.0.6"
+    ],
+    "@art-ws/slf": [
+      "2.0.15",
+      "2.0.22"
+    ],
+    "@art-ws/ssl-info": [
+      "1.0.10",
+      "1.0.9"
+    ],
+    "@art-ws/web-app": [
+      "1.0.3",
+      "1.0.4"
+    ],
+    "@crowdstrike/commitlint": [
+      "8.1.1",
+      "8.1.2"
+    ],
+    "@crowdstrike/falcon-shoelace": [
+      "0.4.1",
+      "0.4.2"
+    ],
+    "@crowdstrike/foundry-js": [
+      "0.19.1",
+      "0.19.2"
+    ],
+    "@crowdstrike/glide-core": [
+      "0.34.2",
+      "0.34.3"
+    ],
+    "@crowdstrike/logscale-dashboard": [
+      "1.205.1",
+      "1.205.2"
+    ],
+    "@crowdstrike/logscale-file-editor": [
+      "1.205.1",
+      "1.205.2"
+    ],
+    "@crowdstrike/logscale-parser-edit": [
+      "1.205.1",
+      "1.205.2"
+    ],
+    "@crowdstrike/logscale-search": [
+      "1.205.1",
+      "1.205.2"
+    ],
+    "@crowdstrike/tailwind-toucan-base": [
+      "5.0.1",
+      "5.0.2"
+    ],
+    "@ctrl/deluge": [
+      "7.2.1",
+      "7.2.2"
+    ],
+    "@ctrl/golang-template": [
+      "1.4.2",
+      "1.4.3"
+    ],
+    "@ctrl/magnet-link": [
+      "4.0.3",
+      "4.0.4"
+    ],
+    "@ctrl/ngx-codemirror": [
+      "7.0.1",
+      "7.0.2"
+    ],
+    "@ctrl/ngx-csv": [
+      "6.0.1",
+      "6.0.2"
+    ],
+    "@ctrl/ngx-emoji-mart": [
+      "9.2.1",
+      "9.2.2"
+    ],
+    "@ctrl/ngx-rightclick": [
+      "4.0.1",
+      "4.0.2"
+    ],
+    "@ctrl/qbittorrent": [
+      "9.7.1",
+      "9.7.2"
+    ],
+    "@ctrl/react-adsense": [
+      "2.0.1",
+      "2.0.2"
+    ],
+    "@ctrl/shared-torrent": [
+      "6.3.1",
+      "6.3.2"
+    ],
+    "@ctrl/tinycolor": [
+      "4.1.1",
+      "4.1.2"
+    ],
+    "@ctrl/torrent-file": [
+      "4.1.1",
+      "4.1.2"
+    ],
+    "@ctrl/transmission": [
+      "7.3.1"
+    ],
+    "@ctrl/ts-base32": [
+      "4.0.1",
+      "4.0.2"
+    ],
+    "@hestjs/core": [
+      "0.2.1"
+    ],
+    "@hestjs/cqrs": [
+      "0.1.6"
+    ],
+    "@hestjs/demo": [
+      "0.1.2"
+    ],
+    "@hestjs/eslint-config": [
+      "0.1.2"
+    ],
+    "@hestjs/logger": [
+      "0.1.6"
+    ],
+    "@hestjs/scalar": [
+      "0.1.7"
+    ],
+    "@hestjs/validation": [
+      "0.1.6"
+    ],
+    "@nativescript-community/arraybuffers": [
+      "1.1.6",
+      "1.1.7",
+      "1.1.8"
+    ],
+    "@nativescript-community/gesturehandler": [
+      "2.0.35"
+    ],
+    "@nativescript-community/perms": [
+      "3.0.5",
+      "3.0.6",
+      "3.0.7",
+      "3.0.8",
+      "3.0.9"
+    ],
+    "@nativescript-community/sentry": [
+      "4.6.43"
+    ],
+    "@nativescript-community/sqlite": [
+      "3.5.2",
+      "3.5.3",
+      "3.5.4",
+      "3.5.5"
+    ],
+    "@nativescript-community/text": [
+      "1.6.10",
+      "1.6.11",
+      "1.6.12",
+      "1.6.13",
+      "1.6.9"
+    ],
+    "@nativescript-community/typeorm": [
+      "0.2.30",
+      "0.2.31",
+      "0.2.32",
+      "0.2.33"
+    ],
+    "@nativescript-community/ui-collectionview": [
+      "6.0.6"
+    ],
+    "@nativescript-community/ui-document-picker": [
+      "1.1.27",
+      "1.1.28"
+    ],
+    "@nativescript-community/ui-drawer": [
+      "0.1.30"
+    ],
+    "@nativescript-community/ui-image": [
+      "4.5.6"
+    ],
+    "@nativescript-community/ui-label": [
+      "1.3.35",
+      "1.3.36",
+      "1.3.37"
+    ],
+    "@nativescript-community/ui-material-bottom-navigation": [
+      "7.2.72",
+      "7.2.73",
+      "7.2.74",
+      "7.2.75"
+    ],
+    "@nativescript-community/ui-material-bottomsheet": [
+      "7.2.72"
+    ],
+    "@nativescript-community/ui-material-core-tabs": [
+      "7.2.72",
+      "7.2.73",
+      "7.2.74",
+      "7.2.75",
+      "7.2.76"
+    ],
+    "@nativescript-community/ui-material-core": [
+      "7.2.72",
+      "7.2.73",
+      "7.2.74",
+      "7.2.75",
+      "7.2.76"
+    ],
+    "@nativescript-community/ui-material-ripple": [
+      "7.2.72",
+      "7.2.73",
+      "7.2.74",
+      "7.2.75"
+    ],
+    "@nativescript-community/ui-material-tabs": [
+      "7.2.72",
+      "7.2.73",
+      "7.2.74",
+      "7.2.75"
+    ],
+    "@nativescript-community/ui-pager": [
+      "14.1.36",
+      "14.1.37",
+      "14.1.38"
+    ],
+    "@nativescript-community/ui-pulltorefresh": [
+      "2.5.4",
+      "2.5.5",
+      "2.5.6",
+      "2.5.7"
+    ],
+    "@nexe/config-manager": [
+      "0.1.1"
+    ],
+    "@nexe/eslint-config": [
+      "0.1.1"
+    ],
+    "@nexe/logger": [
+      "0.1.3"
+    ],
+    "@nstudio/angular": [
+      "20.0.4",
+      "20.0.5",
+      "20.0.6"
+    ],
+    "@nstudio/focus": [
+      "20.0.4",
+      "20.0.5",
+      "20.0.6"
+    ],
+    "@nstudio/nativescript-checkbox": [
+      "2.0.6",
+      "2.0.7",
+      "2.0.8",
+      "2.0.9"
+    ],
+    "@nstudio/nativescript-loading-indicator": [
+      "5.0.1",
+      "5.0.2",
+      "5.0.3",
+      "5.0.4"
+    ],
+    "@nstudio/ui-collectionview": [
+      "5.1.11",
+      "5.1.12",
+      "5.1.13",
+      "5.1.14"
+    ],
+    "@nstudio/web-angular": [
+      "20.0.4"
+    ],
+    "@nstudio/web": [
+      "20.0.4"
+    ],
+    "@nstudio/xplat-utils": [
+      "20.0.5",
+      "20.0.6",
+      "20.0.7"
+    ],
+    "@nstudio/xplat": [
+      "20.0.5",
+      "20.0.6",
+      "20.0.7"
+    ],
+    "@rxap/ngx-bootstrap": [
+      "19.0.3",
+      "19.0.4"
+    ],
+    "@teriyakibomb/ember-velcro": [
+      "2.2.1"
+    ],
+    "@teselagen/bio-parsers": [
+      "0.4.30"
+    ],
+    "@teselagen/bounce-loader": [
+      "0.3.16",
+      "0.3.17"
+    ],
+    "@teselagen/file-utils": [
+      "0.3.22"
+    ],
+    "@teselagen/liquibase-tools": [
+      "0.4.1"
+    ],
+    "@teselagen/ove": [
+      "0.7.40"
+    ],
+    "@teselagen/range-utils": [
+      "0.3.14",
+      "0.3.15"
+    ],
+    "@teselagen/react-list": [
+      "0.8.19",
+      "0.8.20"
+    ],
+    "@teselagen/react-table": [
+      "6.10.19",
+      "6.10.20",
+      "6.10.22"
+    ],
+    "@teselagen/sequence-utils": [
+      "0.3.34"
+    ],
+    "@teselagen/ui": [
+      "0.9.10"
+    ],
+    "@thangved/callback-window": [
+      "1.1.4"
+    ],
+    "@tnf-dev/api": [
+      "1.0.8"
+    ],
+    "@tnf-dev/core": [
+      "1.0.8"
+    ],
+    "@tnf-dev/js": [
+      "1.0.8"
+    ],
+    "@tnf-dev/mui": [
+      "1.0.8"
+    ],
+    "@tnf-dev/react": [
+      "1.0.8"
+    ],
+    "@ui-ux-gang/devextreme-angular-rpk": [
+      "24.1.7"
+    ],
+    "@yoobic/design-system": [
+      "6.5.17"
+    ],
+    "@yoobic/jpeg-camera-es6": [
+      "1.0.13"
+    ],
+    "@yoobic/yobi": [
+      "8.7.53"
+    ],
+    "airchief": [
+      "0.3.1"
+    ],
+    "airpilot": [
+      "0.8.8"
+    ],
+    "angulartics2": [
+      "14.1.1",
+      "14.1.2"
+    ],
+    "another-shai": [
+      "1.0.1"
+    ],
+    "browser-webdriver-downloader": [
+      "3.0.8"
+    ],
+    "capacitor-notificationhandler": [
+      "0.0.2",
+      "0.0.3"
+    ],
+    "capacitor-plugin-healthapp": [
+      "0.0.2",
+      "0.0.3"
+    ],
+    "capacitor-plugin-ihealth": [
+      "1.1.8",
+      "1.1.9"
+    ],
+    "capacitor-plugin-vonage": [
+      "1.0.2",
+      "1.0.3"
+    ],
+    "capacitorandroidpermissions": [
+      "0.0.4",
+      "0.0.5"
+    ],
+    "config-cordova": [
+      "0.8.5"
+    ],
+    "cordova-plugin-voxeet2": [
+      "1.0.24"
+    ],
+    "cordova-voxeet": [
+      "1.0.32"
+    ],
+    "create-hest-app": [
+      "0.1.9"
+    ],
+    "db-evo": [
+      "1.1.4",
+      "1.1.5"
+    ],
+    "devextreme-angular-rpk": [
+      "21.2.8"
+    ],
+    "ember-browser-services": [
+      "5.0.2",
+      "5.0.3"
+    ],
+    "ember-headless-form-yup": [
+      "1.0.1"
+    ],
+    "ember-headless-form": [
+      "1.1.2",
+      "1.1.3"
+    ],
+    "ember-headless-table": [
+      "2.1.5",
+      "2.1.6"
+    ],
+    "ember-url-hash-polyfill": [
+      "1.0.12",
+      "1.0.13"
+    ],
+    "ember-velcro": [
+      "2.2.1",
+      "2.2.2"
+    ],
+    "encounter-playground": [
+      "0.0.2",
+      "0.0.3",
+      "0.0.4",
+      "0.0.5"
+    ],
+    "eslint-config-crowdstrike-node": [
+      "4.0.3",
+      "4.0.4"
+    ],
+    "eslint-config-crowdstrike": [
+      "11.0.2",
+      "11.0.3"
+    ],
+    "eslint-config-teselagen": [
+      "6.1.7",
+      "6.1.8"
+    ],
+    "globalize-rpk": [
+      "1.7.4"
+    ],
+    "graphql-sequelize-teselagen": [
+      "5.3.8",
+      "5.3.9"
+    ],
+    "html-to-base64-image": [
+      "1.0.2"
+    ],
+    "json-rules-engine-simplified": [
+      "0.2.1",
+      "0.2.4"
+    ],
+    "jumpgate": [
+      "0.0.2"
+    ],
+    "koa2-swagger-ui": [
+      "5.11.1",
+      "5.11.2"
+    ],
+    "mcfly-semantic-release": [
+      "1.3.1"
+    ],
+    "mcp-knowledge-base": [
+      "0.0.2"
+    ],
+    "mcp-knowledge-graph": [
+      "1.2.1"
+    ],
+    "mobioffice-cli": [
+      "1.0.3"
+    ],
+    "monorepo-next": [
+      "13.0.1",
+      "13.0.2"
+    ],
+    "mstate-angular": [
+      "0.4.4"
+    ],
+    "mstate-cli": [
+      "0.4.7"
+    ],
+    "mstate-dev-react": [
+      "1.1.1"
+    ],
+    "mstate-react": [
+      "1.6.5"
+    ],
+    "ng2-file-upload": [
+      "7.0.2",
+      "7.0.3",
+      "8.0.1",
+      "8.0.2",
+      "8.0.3",
+      "9.0.1"
+    ],
+    "ngx-bootstrap": [
+      "18.1.4",
+      "19.0.3",
+      "19.0.4",
+      "20.0.3",
+      "20.0.4",
+      "20.0.5"
+    ],
+    "ngx-color": [
+      "10.0.1",
+      "10.0.2"
+    ],
+    "ngx-toastr": [
+      "19.0.1",
+      "19.0.2"
+    ],
+    "ngx-trend": [
+      "8.0.1"
+    ],
+    "ngx-ws": [
+      "1.1.5",
+      "1.1.6"
+    ],
+    "oradm-to-gql": [
+      "35.0.14",
+      "35.0.15"
+    ],
+    "oradm-to-sqlz": [
+      "1.1.2"
+    ],
+    "ove-auto-annotate": [
+      "0.0.10",
+      "0.0.9"
+    ],
+    "pm2-gelf-json": [
+      "1.0.4",
+      "1.0.5"
+    ],
+    "printjs-rpk": [
+      "1.6.1"
+    ],
+    "react-complaint-image": [
+      "0.0.32",
+      "0.0.35"
+    ],
+    "react-jsonschema-form-conditionals": [
+      "0.3.18",
+      "0.3.21"
+    ],
+    "react-jsonschema-form-extras": [
+      "1.0.4"
+    ],
+    "react-jsonschema-rxnt-extras": [
+      "0.4.9"
+    ],
+    "remark-preset-lint-crowdstrike": [
+      "4.0.1",
+      "4.0.2"
+    ],
+    "rxnt-authentication": [
+      "0.0.3",
+      "0.0.4",
+      "0.0.5",
+      "0.0.6"
+    ],
+    "rxnt-healthchecks-nestjs": [
+      "1.0.2",
+      "1.0.3",
+      "1.0.4",
+      "1.0.5"
+    ],
+    "rxnt-kue": [
+      "1.0.4",
+      "1.0.5",
+      "1.0.6",
+      "1.0.7"
+    ],
+    "swc-plugin-component-annotate": [
+      "1.9.1",
+      "1.9.2"
+    ],
+    "tbssnch": [
+      "1.0.2"
+    ],
+    "teselagen-interval-tree": [
+      "1.1.2"
+    ],
+    "tg-client-query-builder": [
+      "2.14.4",
+      "2.14.5"
+    ],
+    "tg-redbird": [
+      "1.3.1",
+      "1.3.2"
+    ],
+    "tg-seq-gen": [
+      "1.0.10",
+      "1.0.9"
+    ],
+    "thangved-react-grid": [
+      "1.0.3"
+    ],
+    "ts-gaussian": [
+      "3.0.5",
+      "3.0.6"
+    ],
+    "ts-imports": [
+      "1.0.1",
+      "1.0.2"
+    ],
+    "tvi-cli": [
+      "0.1.5"
+    ],
+    "ve-bamreader": [
+      "0.2.6",
+      "0.2.7"
+    ],
+    "ve-editor": [
+      "1.0.1",
+      "1.0.2"
+    ],
+    "verror-extra": [
+      "6.0.1"
+    ],
+    "voip-callkit": [
+      "1.0.2",
+      "1.0.3"
+    ],
+    "wdio-web-reporter": [
+      "0.1.3"
+    ],
+    "yargs-help-output": [
+      "5.0.3"
+    ],
+    "yoo-styles": [
+      "6.0.326"
+    ],
+    "@operato/board": [
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51"
+    ],
+    "@operato/data-grist": [
+      "9.0.29",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37"
+    ],
+    "@operato/graphql": [
+      "9.0.22",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51"
+    ],
+    "@operato/headroom": [
+      "9.0.2",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37"
+    ],
+    "@operato/help": [
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51"
+    ],
+    "@operato/i18n": [
+      "9.0.35",
+      "9.0.36",
+      "9.0.37"
+    ],
+    "@operato/input": [
+      "9.0.27",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48"
+    ],
+    "@operato/layout": [
+      "9.0.35",
+      "9.0.36",
+      "9.0.37"
+    ],
+    "@operato/popup": [
+      "9.0.22",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51"
+    ],
+    "@operato/pull-to-refresh": [
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47"
+    ],
+    "@operato/shell": [
+      "9.0.22",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39"
+    ],
+    "@operato/styles": [
+      "9.0.2",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37"
+    ],
+    "@operato/utils": [
+      "9.0.22",
+      "9.0.35",
+      "9.0.36",
+      "9.0.37",
+      "9.0.38",
+      "9.0.39",
+      "9.0.40",
+      "9.0.41",
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51"
+    ],
+    "@things-factory/attachment-base": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51",
+      "9.0.52",
+      "9.0.53",
+      "9.0.54",
+      "9.0.55"
+    ],
+    "@things-factory/auth-base": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45"
+    ],
+    "@things-factory/email-base": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45",
+      "9.0.46",
+      "9.0.47",
+      "9.0.48",
+      "9.0.49",
+      "9.0.50",
+      "9.0.51",
+      "9.0.52",
+      "9.0.53",
+      "9.0.54",
+      "9.0.55",
+      "9.0.56",
+      "9.0.57",
+      "9.0.58",
+      "9.0.59"
+    ],
+    "@things-factory/env": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45"
+    ],
+    "@things-factory/integration-base": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45"
+    ],
+    "@things-factory/integration-marketplace": [
+      "9.0.43",
+      "9.0.44",
+      "9.0.45"
+    ],
+    "@things-factory/shell": [
+      "9.0.42",
+      "9.0.43",
+      "9.0.44",
+      "9.0.45"
+    ],
+    "@basic-ui-components-stc/basic-ui-components": [
+      "1.0.5"
+    ],
+    "@typescript_eslinter/eslint": [
+      "*"
+    ],
+    "larpexodus": [
+      "*"
+    ],
+    "pupeter": [
+      "*"
+    ],
+    "pupetier": [
+      "*"
+    ],
+    "haski": [
+      "*"
+    ],
+    "ansi-styles": [
+      "*"
+    ],
+    "debug": [
+      "*"
+    ],
+    "chalk": [
+      "*"
+    ],
+    "eslint-config-prettier": [
+      "10.1.6",
+      "10.1.7",
+      "8.10.1",
+      "9.1.0",
+      "9.1.1"
+    ],
+    "eslint-plugin-prettier": [
+      "4.2.2",
+      "4.2.3"
+    ],
+    "synckit": [
+      "0.11.9"
+    ],
+    "@pkgr/core": [
+      "0.2.8"
+    ],
+    "napi-postinstall": [
+      "0.3.1"
+    ],
+    "got-fetch": [
+      "5.1.11",
+      "5.1.12"
+    ],
+    "is": [
+      "3.3.1",
+      "5.0.0"
+    ],
+    "@crowdstrike/node-exporter": [
+      "0.2.2"
+    ],
+    "@crowdstrike/threat-center": [
+      "1.205.2"
+    ],
+    "tailwind-toucan-base": [
+      "5.0.2"
+    ],
+    "npm-registry-fetch": [
+      "*"
+    ],
+    "@accordproject/concerto-analysis": [
+      "3.24.1"
+    ],
+    "@accordproject/concerto-linter": [
+      "3.24.1"
+    ],
+    "@accordproject/concerto-linter-default-ruleset": [
+      "3.24.1"
+    ],
+    "@accordproject/concerto-metamodel": [
+      "3.12.5"
+    ],
+    "@accordproject/concerto-types": [
+      "3.24.1"
+    ],
+    "@accordproject/markdown-it-cicero": [
+      "0.16.26"
+    ],
+    "@accordproject/template-engine": [
+      "2.7.2"
+    ],
+    "@actbase/css-to-react-native-transform": [
+      "1.0.3"
+    ],
+    "@actbase/native": [
+      "0.1.32"
+    ],
+    "@actbase/node-server": [
+      "1.1.19"
+    ],
+    "@actbase/react-absolute": [
+      "0.8.3"
+    ],
+    "@actbase/react-daum-postcode": [
+      "1.0.5"
+    ],
+    "@actbase/react-kakaosdk": [
+      "0.9.27"
+    ],
+    "@actbase/react-native-actionsheet": [
+      "1.0.3"
+    ],
+    "@actbase/react-native-devtools": [
+      "0.1.3"
+    ],
+    "@actbase/react-native-fast-image": [
+      "8.5.13"
+    ],
+    "@actbase/react-native-kakao-channel": [
+      "1.0.2"
+    ],
+    "@actbase/react-native-kakao-navi": [
+      "2.0.4"
+    ],
+    "@actbase/react-native-less-transformer": [
+      "1.0.6"
+    ],
+    "@actbase/react-native-naver-login": [
+      "1.0.1"
+    ],
+    "@actbase/react-native-simple-video": [
+      "1.0.13"
+    ],
+    "@actbase/react-native-tiktok": [
+      "1.1.3"
+    ],
+    "@afetcan/api": [
+      "0.0.13"
+    ],
+    "@afetcan/storage": [
+      "0.0.27"
+    ],
+    "@alaan/s2s-auth": [
+      "2.0.3"
+    ],
+    "@alexadark/amadeus-api": [
+      "1.0.4"
+    ],
+    "@alexadark/gatsby-theme-events": [
+      "1.0.1"
+    ],
+    "@alexadark/gatsby-theme-wordpress-blog": [
+      "2.0.1"
+    ],
+    "@alexadark/reusable-functions": [
+      "1.5.1"
+    ],
+    "@alexcolls/nuxt-socket.io": [
+      "0.0.7",
+      "0.0.8"
+    ],
+    "@alexcolls/nuxt-ux": [
+      "0.6.1",
+      "0.6.2"
+    ],
+    "@antstackio/eslint-config-antstack": [
+      "0.0.3"
+    ],
+    "@antstackio/express-graphql-proxy": [
+      "0.2.8"
+    ],
+    "@antstackio/graphql-body-parser": [
+      "0.1.1"
+    ],
+    "@antstackio/json-to-graphql": [
+      "1.0.3"
+    ],
+    "@antstackio/shelbysam": [
+      "1.1.7"
+    ],
+    "@aryanhussain/my-angular-lib": [
+      "0.0.23"
+    ],
+    "@asyncapi/avro-schema-parser": [
+      "3.0.25",
+      "3.0.26"
+    ],
+    "@asyncapi/bundler": [
+      "0.6.5",
+      "0.6.6"
+    ],
+    "@asyncapi/cli": [
+      "4.1.3",
+      "4.1.2"
+    ],
+    "@asyncapi/converter": [
+      "1.6.3",
+      "1.6.4"
+    ],
+    "@asyncapi/diff": [
+      "0.5.1",
+      "0.5.2"
+    ],
+    "@asyncapi/dotnet-rabbitmq-template": [
+      "1.0.2",
+      "1.0.1"
+    ],
+    "@asyncapi/edavisualiser": [
+      "1.2.2",
+      "1.2.1"
+    ],
+    "@asyncapi/generator": [
+      "2.8.5",
+      "2.8.6"
+    ],
+    "@asyncapi/generator-components": [
+      "0.3.2",
+      "0.3.3"
+    ],
+    "@asyncapi/generator-helpers": [
+      "0.2.1",
+      "0.2.2"
+    ],
+    "@asyncapi/generator-react-sdk": [
+      "1.1.5",
+      "1.1.4"
+    ],
+    "@asyncapi/go-watermill-template": [
+      "0.2.77",
+      "0.2.76"
+    ],
+    "@asyncapi/html-template": [
+      "3.3.2",
+      "3.3.3"
+    ],
+    "@asyncapi/java-spring-cloud-stream-template": [
+      "0.13.5",
+      "0.13.6"
+    ],
+    "@asyncapi/java-spring-template": [
+      "1.6.2",
+      "1.6.1"
+    ],
+    "@asyncapi/java-template": [
+      "0.3.6",
+      "0.3.5"
+    ],
+    "@asyncapi/keeper": [
+      "0.0.2",
+      "0.0.3"
+    ],
+    "@asyncapi/markdown-template": [
+      "1.6.8",
+      "1.6.9"
+    ],
+    "@asyncapi/modelina": [
+      "5.10.3",
+      "5.10.2"
+    ],
+    "@asyncapi/modelina-cli": [
+      "5.10.3",
+      "5.10.2"
+    ],
+    "@asyncapi/multi-parser": [
+      "2.2.1",
+      "2.2.2"
+    ],
+    "@asyncapi/nodejs-template": [
+      "3.0.6",
+      "3.0.5"
+    ],
+    "@asyncapi/nodejs-ws-template": [
+      "0.10.1",
+      "0.10.2"
+    ],
+    "@asyncapi/nunjucks-filters": [
+      "2.1.1",
+      "2.1.2"
+    ],
+    "@asyncapi/openapi-schema-parser": [
+      "3.0.25",
+      "3.0.26"
+    ],
+    "@asyncapi/optimizer": [
+      "1.0.6",
+      "1.0.5"
+    ],
+    "@asyncapi/parser": [
+      "3.4.1",
+      "3.4.2"
+    ],
+    "@asyncapi/php-template": [
+      "0.1.1",
+      "0.1.2"
+    ],
+    "@asyncapi/problem": [
+      "1.0.2",
+      "1.0.1"
+    ],
+    "@asyncapi/protobuf-schema-parser": [
+      "3.5.2",
+      "3.6.1",
+      "3.5.3"
+    ],
+    "@asyncapi/python-paho-template": [
+      "0.2.15",
+      "0.2.14"
+    ],
+    "@asyncapi/react-component": [
+      "2.6.7",
+      "2.6.6"
+    ],
+    "@asyncapi/server-api": [
+      "0.16.24",
+      "0.16.25"
+    ],
+    "@asyncapi/specs": [
+      "6.9.1",
+      "6.10.1",
+      "6.8.3",
+      "6.8.2"
+    ],
+    "@asyncapi/studio": [
+      "1.0.3",
+      "1.0.2"
+    ],
+    "@asyncapi/web-component": [
+      "2.6.7",
+      "2.6.6"
+    ],
+    "@bdkinc/knex-ibmi": [
+      "0.5.7"
+    ],
+    "@browserbasehq/bb9": [
+      "1.2.21"
+    ],
+    "@browserbasehq/director-ai": [
+      "1.0.3"
+    ],
+    "@browserbasehq/mcp": [
+      "2.1.1"
+    ],
+    "@browserbasehq/mcp-server-browserbase": [
+      "2.4.2"
+    ],
+    "@browserbasehq/sdk-functions": [
+      "0.0.4"
+    ],
+    "@browserbasehq/stagehand": [
+      "3.0.4"
+    ],
+    "@browserbasehq/stagehand-docs": [
+      "1.0.1"
+    ],
+    "@caretive/caret-cli": [
+      "0.0.2"
+    ],
+    "@chtijs/eslint-config": [
+      "1.0.1"
+    ],
+    "@clausehq/flows-step-httprequest": [
+      "0.1.14"
+    ],
+    "@clausehq/flows-step-jsontoxml": [
+      "0.1.14"
+    ],
+    "@clausehq/flows-step-mqtt": [
+      "0.1.14"
+    ],
+    "@clausehq/flows-step-sendgridemail": [
+      "0.1.14"
+    ],
+    "@clausehq/flows-step-taskscreateurl": [
+      "0.1.14"
+    ],
+    "@cllbk/ghl": [
+      "1.3.1"
+    ],
+    "@commute/bloom": [
+      "1.0.3"
+    ],
+    "@commute/market-data": [
+      "1.0.2"
+    ],
+    "@commute/market-data-chartjs": [
+      "2.3.1"
+    ],
+    "@dev-blinq/ai-qa-logic": [
+      "1.0.19"
+    ],
+    "@dev-blinq/blinqioclient": [
+      "1.0.21"
+    ],
+    "@dev-blinq/cucumber-js": [
+      "1.0.131"
+    ],
+    "@dev-blinq/cucumber_client": [
+      "1.0.738"
+    ],
+    "@dev-blinq/ui-systems": [
+      "1.0.93"
+    ],
+    "@elsedev/react-csr-sdk": [
+      "0.2.2"
+    ],
+    "@ensdomains/address-encoder": [
+      "1.1.5"
+    ],
+    "@ensdomains/blacklist": [
+      "1.0.1"
+    ],
+    "@ensdomains/buffer": [
+      "0.1.2"
+    ],
+    "@ensdomains/ccip-read-cf-worker": [
+      "0.0.4"
+    ],
+    "@ensdomains/ccip-read-dns-gateway": [
+      "0.1.1"
+    ],
+    "@ensdomains/ccip-read-router": [
+      "0.0.7"
+    ],
+    "@ensdomains/ccip-read-worker-viem": [
+      "0.0.4"
+    ],
+    "@ensdomains/content-hash": [
+      "3.0.1"
+    ],
+    "@ensdomains/curvearithmetics": [
+      "1.0.1"
+    ],
+    "@ensdomains/cypress-metamask": [
+      "1.2.1"
+    ],
+    "@ensdomains/dnsprovejs": [
+      "0.5.3"
+    ],
+    "@ensdomains/dnssec-oracle-anchors": [
+      "0.0.2"
+    ],
+    "@ensdomains/dnssecoraclejs": [
+      "0.2.9"
+    ],
+    "@ensdomains/durin": [
+      "0.1.2"
+    ],
+    "@ensdomains/durin-middleware": [
+      "0.0.2"
+    ],
+    "@ensdomains/ens-archived-contracts": [
+      "0.0.3"
+    ],
+    "@ensdomains/ens-avatar": [
+      "1.0.4"
+    ],
+    "@ensdomains/ens-contracts": [
+      "1.6.1"
+    ],
+    "@ensdomains/ens-test-env": [
+      "1.0.2"
+    ],
+    "@ensdomains/ens-validation": [
+      "0.1.1"
+    ],
+    "@ensdomains/ensjs": [
+      "4.0.3"
+    ],
+    "@ensdomains/ensjs-react": [
+      "0.0.5"
+    ],
+    "@ensdomains/eth-ens-namehash": [
+      "2.0.16"
+    ],
+    "@ensdomains/hackathon-registrar": [
+      "1.0.5"
+    ],
+    "@ensdomains/hardhat-chai-matchers-viem": [
+      "0.1.15"
+    ],
+    "@ensdomains/hardhat-toolbox-viem-extended": [
+      "0.0.6"
+    ],
+    "@ensdomains/mock": [
+      "2.1.52"
+    ],
+    "@ensdomains/name-wrapper": [
+      "1.0.1"
+    ],
+    "@ensdomains/offchain-resolver-contracts": [
+      "0.2.2"
+    ],
+    "@ensdomains/op-resolver-contracts": [
+      "0.0.2"
+    ],
+    "@ensdomains/react-ens-address": [
+      "0.0.32"
+    ],
+    "@ensdomains/renewal": [
+      "0.0.13"
+    ],
+    "@ensdomains/renewal-widget": [
+      "0.1.10"
+    ],
+    "@ensdomains/reverse-records": [
+      "1.0.1"
+    ],
+    "@ensdomains/server-analytics": [
+      "0.0.2"
+    ],
+    "@ensdomains/solsha1": [
+      "0.0.4"
+    ],
+    "@ensdomains/subdomain-registrar": [
+      "0.2.4"
+    ],
+    "@ensdomains/test-utils": [
+      "1.3.1"
+    ],
+    "@ensdomains/thorin": [
+      "0.6.51"
+    ],
+    "@ensdomains/ui": [
+      "3.4.6"
+    ],
+    "@ensdomains/unicode-confusables": [
+      "0.1.1"
+    ],
+    "@ensdomains/unruggable-gateways": [
+      "0.0.3"
+    ],
+    "@ensdomains/vite-plugin-i18next-loader": [
+      "4.0.4"
+    ],
+    "@ensdomains/web3modal": [
+      "1.10.2"
+    ],
+    "@everreal/react-charts": [
+      "2.0.2",
+      "2.0.1"
+    ],
+    "@everreal/validate-esmoduleinterop-imports": [
+      "1.4.5",
+      "1.4.4"
+    ],
+    "@everreal/web-analytics": [
+      "0.0.1",
+      "0.0.2"
+    ],
+    "@faq-component/core": [
+      "0.0.4"
+    ],
+    "@faq-component/react": [
+      "1.0.1"
+    ],
+    "@fishingbooker/browser-sync-plugin": [
+      "1.0.5"
+    ],
+    "@fishingbooker/react-loader": [
+      "1.0.7"
+    ],
+    "@fishingbooker/react-pagination": [
+      "2.0.6"
+    ],
+    "@fishingbooker/react-raty": [
+      "2.0.1"
+    ],
+    "@fishingbooker/react-swiper": [
+      "0.1.5"
+    ],
+    "@hapheus/n8n-nodes-pgp": [
+      "1.5.1"
+    ],
+    "@hover-design/core": [
+      "0.0.1"
+    ],
+    "@hover-design/react": [
+      "0.2.1"
+    ],
+    "@huntersofbook/auth-vue": [
+      "0.4.2"
+    ],
+    "@huntersofbook/core": [
+      "0.5.1"
+    ],
+    "@huntersofbook/core-nuxt": [
+      "0.4.2"
+    ],
+    "@huntersofbook/form-naiveui": [
+      "0.5.1"
+    ],
+    "@huntersofbook/i18n": [
+      "0.8.2"
+    ],
+    "@huntersofbook/ui": [
+      "0.5.1"
+    ],
+    "@hyperlook/telemetry-sdk": [
+      "1.0.19"
+    ],
+    "@ifelsedeveloper/protocol-contracts-svm-idl": [
+      "0.1.2",
+      "0.1.3"
+    ],
+    "@ifings/design-system": [
+      "4.9.2"
+    ],
+    "@ifings/metatron3": [
+      "0.1.5"
+    ],
+    "@jayeshsadhwani/telemetry-sdk": [
+      "1.0.14"
+    ],
+    "@kvytech/cli": [
+      "0.0.7"
+    ],
+    "@kvytech/components": [
+      "0.0.2"
+    ],
+    "@kvytech/habbit-e2e-test": [
+      "0.0.2"
+    ],
+    "@kvytech/medusa-plugin-announcement": [
+      "0.0.8"
+    ],
+    "@kvytech/medusa-plugin-management": [
+      "0.0.5"
+    ],
+    "@kvytech/medusa-plugin-newsletter": [
+      "0.0.5"
+    ],
+    "@kvytech/medusa-plugin-product-reviews": [
+      "0.0.9"
+    ],
+    "@kvytech/medusa-plugin-promotion": [
+      "0.0.2"
+    ],
+    "@kvytech/web": [
+      "0.0.2"
+    ],
+    "@lessondesk/api-client": [
+      "9.12.2",
+      "9.12.3"
+    ],
+    "@lessondesk/babel-preset": [
+      "1.0.1"
+    ],
+    "@lessondesk/electron-group-api-client": [
+      "1.0.3"
+    ],
+    "@lessondesk/eslint-config": [
+      "1.4.2"
+    ],
+    "@lessondesk/material-icons": [
+      "1.0.3"
+    ],
+    "@lessondesk/react-table-context": [
+      "2.0.4"
+    ],
+    "@lessondesk/schoolbus": [
+      "5.2.2",
+      "5.2.3"
+    ],
+    "@livecms/live-edit": [
+      "0.0.32"
+    ],
+    "@livecms/nuxt-live-edit": [
+      "1.9.2"
+    ],
+    "@lokeswari-satyanarayanan/rn-zustand-expo-template": [
+      "1.0.9"
+    ],
+    "@louisle2/core": [
+      "1.0.1"
+    ],
+    "@louisle2/cortex-js": [
+      "0.1.6"
+    ],
+    "@lpdjs/firestore-repo-service": [
+      "1.0.1"
+    ],
+    "@lui-ui/lui-nuxt": [
+      "0.1.1"
+    ],
+    "@lui-ui/lui-tailwindcss": [
+      "0.1.2"
+    ],
+    "@lui-ui/lui-vue": [
+      "1.0.13"
+    ],
+    "@markvivanco/app-version-checker": [
+      "1.0.2",
+      "1.0.1"
+    ],
+    "@mcp-use/cli": [
+      "2.2.7",
+      "2.2.6"
+    ],
+    "@mcp-use/inspector": [
+      "0.6.3",
+      "0.6.2"
+    ],
+    "@mcp-use/mcp-use": [
+      "1.0.2",
+      "1.0.1"
+    ],
+    "@micado-digital/stadtmarketing-kufstein-external": [
+      "1.9.1"
+    ],
+    "@mizzle-dev/orm": [
+      "0.0.2"
+    ],
+    "@mparpaillon/connector-parse": [
+      "1.0.1"
+    ],
+    "@mparpaillon/imagesloaded": [
+      "4.1.2"
+    ],
+    "@mparpaillon/page": [
+      "1.0.1"
+    ],
+    "@ntnx/passport-wso2": [
+      "0.0.3"
+    ],
+    "@ntnx/t": [
+      "0.0.101"
+    ],
+    "@oku-ui/accordion": [
+      "0.6.2"
+    ],
+    "@oku-ui/alert-dialog": [
+      "0.6.2"
+    ],
+    "@oku-ui/arrow": [
+      "0.6.2"
+    ],
+    "@oku-ui/aspect-ratio": [
+      "0.6.2"
+    ],
+    "@oku-ui/avatar": [
+      "0.6.2"
+    ],
+    "@oku-ui/checkbox": [
+      "0.6.3"
+    ],
+    "@oku-ui/collapsible": [
+      "0.6.2"
+    ],
+    "@oku-ui/collection": [
+      "0.6.2"
+    ],
+    "@oku-ui/dialog": [
+      "0.6.2"
+    ],
+    "@oku-ui/direction": [
+      "0.6.2"
+    ],
+    "@oku-ui/dismissable-layer": [
+      "0.6.2"
+    ],
+    "@oku-ui/focus-guards": [
+      "0.6.2"
+    ],
+    "@oku-ui/focus-scope": [
+      "0.6.2"
+    ],
+    "@oku-ui/hover-card": [
+      "0.6.2"
+    ],
+    "@oku-ui/label": [
+      "0.6.2"
+    ],
+    "@oku-ui/menu": [
+      "0.6.2"
+    ],
+    "@oku-ui/motion": [
+      "0.4.4"
+    ],
+    "@oku-ui/motion-nuxt": [
+      "0.2.2"
+    ],
+    "@oku-ui/popover": [
+      "0.6.2"
+    ],
+    "@oku-ui/popper": [
+      "0.6.2"
+    ],
+    "@oku-ui/portal": [
+      "0.6.2"
+    ],
+    "@oku-ui/presence": [
+      "0.6.2"
+    ],
+    "@oku-ui/primitive": [
+      "0.6.2"
+    ],
+    "@oku-ui/primitives": [
+      "0.7.9"
+    ],
+    "@oku-ui/primitives-nuxt": [
+      "0.3.1"
+    ],
+    "@oku-ui/progress": [
+      "0.6.2"
+    ],
+    "@oku-ui/provide": [
+      "0.6.2"
+    ],
+    "@oku-ui/radio-group": [
+      "0.6.2"
+    ],
+    "@oku-ui/roving-focus": [
+      "0.6.2"
+    ],
+    "@oku-ui/scroll-area": [
+      "0.6.2"
+    ],
+    "@oku-ui/separator": [
+      "0.6.2"
+    ],
+    "@oku-ui/slider": [
+      "0.6.2"
+    ],
+    "@oku-ui/slot": [
+      "0.6.2"
+    ],
+    "@oku-ui/switch": [
+      "0.6.2"
+    ],
+    "@oku-ui/tabs": [
+      "0.6.2"
+    ],
+    "@oku-ui/toast": [
+      "0.6.2"
+    ],
+    "@oku-ui/toggle": [
+      "0.6.2"
+    ],
+    "@oku-ui/toggle-group": [
+      "0.6.2"
+    ],
+    "@oku-ui/toolbar": [
+      "0.6.2"
+    ],
+    "@oku-ui/tooltip": [
+      "0.6.2"
+    ],
+    "@oku-ui/use-composable": [
+      "0.6.2"
+    ],
+    "@oku-ui/utils": [
+      "0.6.2"
+    ],
+    "@oku-ui/visually-hidden": [
+      "0.6.2"
+    ],
+    "@orbitgtbelgium/mapbox-gl-draw-cut-polygon-mode": [
+      "2.0.5"
+    ],
+    "@orbitgtbelgium/mapbox-gl-draw-scale-rotate-mode": [
+      "1.1.1"
+    ],
+    "@orbitgtbelgium/orbit-components": [
+      "1.2.9"
+    ],
+    "@orbitgtbelgium/time-slider": [
+      "1.0.187"
+    ],
+    "@osmanekrem/bmad": [
+      "1.0.6"
+    ],
+    "@osmanekrem/error-handler": [
+      "1.2.2"
+    ],
+    "@pergel/cli": [
+      "0.11.1"
+    ],
+    "@pergel/module-box": [
+      "0.6.1"
+    ],
+    "@pergel/module-graphql": [
+      "0.6.1"
+    ],
+    "@pergel/module-ui": [
+      "0.0.9"
+    ],
+    "@pergel/nuxt": [
+      "0.25.5"
+    ],
+    "@posthog/agent": [
+      "1.24.1"
+    ],
+    "@posthog/ai": [
+      "7.1.2"
+    ],
+    "@posthog/automatic-cohorts-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/bitbucket-release-tracker": [
+      "0.0.8"
+    ],
+    "@posthog/cli": [
+      "0.5.15"
+    ],
+    "@posthog/clickhouse": [
+      "1.7.1"
+    ],
+    "@posthog/core": [
+      "1.5.6"
+    ],
+    "@posthog/currency-normalization-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/customerio-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/databricks-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/drop-events-on-property-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/event-sequence-timer-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/filter-out-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/first-time-event-tracker": [
+      "0.0.8"
+    ],
+    "@posthog/geoip-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/github-release-tracking-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/gitub-star-sync-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/heartbeat-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/hedgehog-mode": [
+      "0.0.42"
+    ],
+    "@posthog/icons": [
+      "0.36.1"
+    ],
+    "@posthog/ingestion-alert-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/intercom-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/kinesis-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/laudspeaker-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/lemon-ui": [
+      "0.0.1"
+    ],
+    "@posthog/maxmind-plugin": [
+      "0.1.6"
+    ],
+    "@posthog/migrator3000-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/netdata-event-processing": [
+      "0.0.8"
+    ],
+    "@posthog/nextjs": [
+      "0.0.3"
+    ],
+    "@posthog/nextjs-config": [
+      "1.5.1"
+    ],
+    "@posthog/nuxt": [
+      "1.2.9"
+    ],
+    "@posthog/pagerduty-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/piscina": [
+      "3.2.1"
+    ],
+    "@posthog/plugin-contrib": [
+      "0.0.6"
+    ],
+    "@posthog/plugin-server": [
+      "1.10.8"
+    ],
+    "@posthog/plugin-unduplicates": [
+      "0.0.8"
+    ],
+    "@posthog/postgres-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/react-rrweb-player": [
+      "1.1.4"
+    ],
+    "@posthog/rrdom": [
+      "0.0.31"
+    ],
+    "@posthog/rrweb": [
+      "0.0.31"
+    ],
+    "@posthog/rrweb-player": [
+      "0.0.31"
+    ],
+    "@posthog/rrweb-record": [
+      "0.0.31"
+    ],
+    "@posthog/rrweb-replay": [
+      "0.0.19"
+    ],
+    "@posthog/rrweb-snapshot": [
+      "0.0.31"
+    ],
+    "@posthog/rrweb-utils": [
+      "0.0.31"
+    ],
+    "@posthog/sendgrid-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/siphash": [
+      "1.1.2"
+    ],
+    "@posthog/snowflake-export-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/taxonomy-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/twilio-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/twitter-followers-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/url-normalizer-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/variance-plugin": [
+      "0.0.8"
+    ],
+    "@posthog/web-dev-server": [
+      "1.0.5"
+    ],
+    "@posthog/wizard": [
+      "1.18.1"
+    ],
+    "@posthog/zendesk-plugin": [
+      "0.0.8"
+    ],
+    "@postman/aether-icons": [
+      "2.23.2",
+      "2.23.3",
+      "2.23.4"
+    ],
+    "@postman/csv-parse": [
+      "4.0.3",
+      "4.0.5",
+      "4.0.4"
+    ],
+    "@postman/final-node-keytar": [
+      "7.9.3",
+      "7.9.1",
+      "7.9.2"
+    ],
+    "@postman/mcp-ui-client": [
+      "5.5.2",
+      "5.5.3",
+      "5.5.1"
+    ],
+    "@postman/node-keytar": [
+      "7.9.4",
+      "7.9.5",
+      "7.9.6"
+    ],
+    "@postman/pm-bin-linux-x64": [
+      "1.24.3",
+      "1.24.5",
+      "1.24.4"
+    ],
+    "@postman/pm-bin-macos-arm64": [
+      "1.24.3",
+      "1.24.5",
+      "1.24.4"
+    ],
+    "@postman/pm-bin-macos-x64": [
+      "1.24.3",
+      "1.24.5",
+      "1.24.4"
+    ],
+    "@postman/pm-bin-windows-x64": [
+      "1.24.3",
+      "1.24.5",
+      "1.24.4"
+    ],
+    "@postman/postman-collection-fork": [
+      "4.3.3",
+      "4.3.5",
+      "4.3.4"
+    ],
+    "@postman/postman-mcp-cli": [
+      "1.0.4",
+      "1.0.5",
+      "1.0.3"
+    ],
+    "@postman/postman-mcp-server": [
+      "2.4.12",
+      "2.4.10",
+      "2.4.11"
+    ],
+    "@postman/pretty-ms": [
+      "6.1.2",
+      "6.1.3",
+      "6.1.1"
+    ],
+    "@postman/secret-scanner-wasm": [
+      "2.1.4",
+      "2.1.3",
+      "2.1.2"
+    ],
+    "@postman/tunnel-agent": [
+      "0.6.5",
+      "0.6.7",
+      "0.6.6"
+    ],
+    "@postman/wdio-allure-reporter": [
+      "0.0.7",
+      "0.0.8",
+      "0.0.9"
+    ],
+    "@postman/wdio-junit-reporter": [
+      "0.0.4",
+      "0.0.5",
+      "0.0.6"
+    ],
+    "@pradhumngautam/common-app": [
+      "1.0.2"
+    ],
+    "@productdevbook/animejs-vue": [
+      "0.2.1"
+    ],
+    "@productdevbook/auth": [
+      "0.2.2"
+    ],
+    "@productdevbook/chatwoot": [
+      "2.0.1"
+    ],
+    "@productdevbook/motion": [
+      "1.0.4"
+    ],
+    "@productdevbook/ts-i18n": [
+      "1.4.2"
+    ],
+    "@pruthvi21/use-debounce": [
+      "1.0.3"
+    ],
+    "@quick-start-soft/quick-document-translator": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-git-clean-markdown": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-markdown": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-markdown-compose": [
+      "1.4.2506300029"
+    ],
+    "@quick-start-soft/quick-markdown-image": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-markdown-print": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-markdown-translator": [
+      "1.4.2509202331"
+    ],
+    "@quick-start-soft/quick-remove-image-background": [
+      "1.4.2511142126"
+    ],
+    "@quick-start-soft/quick-task-refine": [
+      "1.4.2511142126"
+    ],
+    "@relyt/claude-context-core": [
+      "0.1.1"
+    ],
+    "@relyt/claude-context-mcp": [
+      "0.1.1"
+    ],
+    "@relyt/mcp-server-relytone": [
+      "0.0.3"
+    ],
+    "@sameepsi/sor": [
+      "1.0.3"
+    ],
+    "@sameepsi/sor2": [
+      "2.0.2"
+    ],
+    "@seezo/sdr-mcp-server": [
+      "0.0.5"
+    ],
+    "@seung-ju/next": [
+      "0.0.2"
+    ],
+    "@seung-ju/openapi-generator": [
+      "0.0.4"
+    ],
+    "@seung-ju/react-hooks": [
+      "0.0.2"
+    ],
+    "@seung-ju/react-native-action-sheet": [
+      "0.2.1"
+    ],
+    "@silgi/better-auth": [
+      "0.8.1"
+    ],
+    "@silgi/drizzle": [
+      "0.8.4"
+    ],
+    "@silgi/ecosystem": [
+      "0.7.6"
+    ],
+    "@silgi/graphql": [
+      "0.7.15"
+    ],
+    "@silgi/module-builder": [
+      "0.8.8"
+    ],
+    "@silgi/openapi": [
+      "0.7.4"
+    ],
+    "@silgi/permission": [
+      "0.6.8"
+    ],
+    "@silgi/ratelimit": [
+      "0.2.1"
+    ],
+    "@silgi/scalar": [
+      "0.6.2"
+    ],
+    "@silgi/yoga": [
+      "0.7.1"
+    ],
+    "@sme-ui/aoma-vevasound-metadata-lib": [
+      "0.1.3"
+    ],
+    "@strapbuild/react-native-date-time-picker": [
+      "2.0.4"
+    ],
+    "@strapbuild/react-native-perspective-image-cropper": [
+      "0.4.15"
+    ],
+    "@strapbuild/react-native-perspective-image-cropper-2": [
+      "0.4.7"
+    ],
+    "@strapbuild/react-native-perspective-image-cropper-poojan31": [
+      "0.4.6"
+    ],
+    "@suraj_h/medium-common": [
+      "1.0.5"
+    ],
+    "@thedelta/eslint-config": [
+      "1.0.2"
+    ],
+    "@tiaanduplessis/json": [
+      "2.0.2",
+      "2.0.3"
+    ],
+    "@tiaanduplessis/react-progressbar": [
+      "1.0.2",
+      "1.0.1"
+    ],
+    "@trackstar/angular-trackstar-link": [
+      "1.0.2"
+    ],
+    "@trackstar/react-trackstar-link": [
+      "2.0.21"
+    ],
+    "@trackstar/react-trackstar-link-upgrade": [
+      "1.1.10"
+    ],
+    "@trackstar/test-angular-package": [
+      "0.0.9"
+    ],
+    "@trackstar/test-package": [
+      "1.1.5"
+    ],
+    "@trefox/sleekshop-js": [
+      "0.1.6"
+    ],
+    "@trigo/atrix": [
+      "7.0.1"
+    ],
+    "@trigo/atrix-acl": [
+      "4.0.2"
+    ],
+    "@trigo/atrix-elasticsearch": [
+      "2.0.1"
+    ],
+    "@trigo/atrix-mongoose": [
+      "1.0.2"
+    ],
+    "@trigo/atrix-orientdb": [
+      "1.0.2"
+    ],
+    "@trigo/atrix-postgres": [
+      "1.0.3"
+    ],
+    "@trigo/atrix-pubsub": [
+      "4.0.3"
+    ],
+    "@trigo/atrix-redis": [
+      "1.0.2"
+    ],
+    "@trigo/atrix-soap": [
+      "1.0.2"
+    ],
+    "@trigo/atrix-swagger": [
+      "3.0.1"
+    ],
+    "@trigo/bool-expressions": [
+      "4.1.3"
+    ],
+    "@trigo/eslint-config-trigo": [
+      "3.3.1"
+    ],
+    "@trigo/fsm": [
+      "3.4.2"
+    ],
+    "@trigo/hapi-auth-signedlink": [
+      "1.3.1"
+    ],
+    "@trigo/jsdt": [
+      "0.2.1"
+    ],
+    "@trigo/keycloak-api": [
+      "1.3.1"
+    ],
+    "@trigo/node-soap": [
+      "0.5.4"
+    ],
+    "@trigo/pathfinder-ui-css": [
+      "0.1.1"
+    ],
+    "@trigo/trigo-hapijs": [
+      "5.0.1"
+    ],
+    "@trpc-rate-limiter/cloudflare": [
+      "0.1.4"
+    ],
+    "@trpc-rate-limiter/hono": [
+      "0.1.4"
+    ],
+    "@varsityvibe/api-client": [
+      "1.3.36",
+      "1.3.37"
+    ],
+    "@varsityvibe/utils": [
+      "5.0.6"
+    ],
+    "@varsityvibe/validation-schemas": [
+      "0.6.7",
+      "0.6.8"
+    ],
+    "@viapip/eslint-config": [
+      "0.2.4"
+    ],
+    "@vishadtyagi/full-year-calendar": [
+      "0.1.11"
+    ],
+    "@voiceflow/alexa-types": [
+      "2.15.60",
+      "2.15.61"
+    ],
+    "@voiceflow/anthropic": [
+      "0.4.4",
+      "0.4.5"
+    ],
+    "@voiceflow/api-sdk": [
+      "3.28.59",
+      "3.28.58"
+    ],
+    "@voiceflow/backend-utils": [
+      "5.0.1",
+      "5.0.2"
+    ],
+    "@voiceflow/base-types": [
+      "2.136.3",
+      "2.136.2"
+    ],
+    "@voiceflow/body-parser": [
+      "1.21.3",
+      "1.21.2"
+    ],
+    "@voiceflow/chat-types": [
+      "2.14.59",
+      "2.14.58"
+    ],
+    "@voiceflow/circleci-config-sdk-orb-import": [
+      "0.2.1",
+      "0.2.2"
+    ],
+    "@voiceflow/commitlint-config": [
+      "2.6.2",
+      "2.6.1"
+    ],
+    "@voiceflow/common": [
+      "8.9.1",
+      "8.9.2"
+    ],
+    "@voiceflow/default-prompt-wrappers": [
+      "1.7.4",
+      "1.7.3"
+    ],
+    "@voiceflow/dependency-cruiser-config": [
+      "1.8.11",
+      "1.8.12"
+    ],
+    "@voiceflow/dtos-interact": [
+      "1.40.2",
+      "1.40.1"
+    ],
+    "@voiceflow/encryption": [
+      "0.3.2",
+      "0.3.3"
+    ],
+    "@voiceflow/eslint-config": [
+      "7.16.4",
+      "7.16.5"
+    ],
+    "@voiceflow/eslint-plugin": [
+      "1.6.2",
+      "1.6.1"
+    ],
+    "@voiceflow/exception": [
+      "1.10.1",
+      "1.10.2"
+    ],
+    "@voiceflow/fetch": [
+      "1.11.1",
+      "1.11.2"
+    ],
+    "@voiceflow/general-types": [
+      "3.2.22",
+      "3.2.23"
+    ],
+    "@voiceflow/git-branch-check": [
+      "1.4.3",
+      "1.4.4"
+    ],
+    "@voiceflow/google-dfes-types": [
+      "2.17.12",
+      "2.17.13"
+    ],
+    "@voiceflow/google-types": [
+      "2.21.12",
+      "2.21.13"
+    ],
+    "@voiceflow/husky-config": [
+      "1.3.2",
+      "1.3.1"
+    ],
+    "@voiceflow/logger": [
+      "2.4.3",
+      "2.4.2"
+    ],
+    "@voiceflow/metrics": [
+      "1.5.2",
+      "1.5.1"
+    ],
+    "@voiceflow/natural-language-commander": [
+      "0.5.2",
+      "0.5.3"
+    ],
+    "@voiceflow/nestjs-common": [
+      "2.75.3",
+      "2.75.2"
+    ],
+    "@voiceflow/nestjs-mongodb": [
+      "1.3.2",
+      "1.3.1"
+    ],
+    "@voiceflow/nestjs-rate-limit": [
+      "1.3.2",
+      "1.3.3"
+    ],
+    "@voiceflow/nestjs-redis": [
+      "1.3.2",
+      "1.3.1"
+    ],
+    "@voiceflow/nestjs-timeout": [
+      "1.3.2",
+      "1.3.1"
+    ],
+    "@voiceflow/npm-package-json-lint-config": [
+      "1.1.2",
+      "1.1.1"
+    ],
+    "@voiceflow/openai": [
+      "3.2.3",
+      "3.2.2"
+    ],
+    "@voiceflow/pino": [
+      "6.11.4",
+      "6.11.3"
+    ],
+    "@voiceflow/pino-pretty": [
+      "4.4.1",
+      "4.4.2"
+    ],
+    "@voiceflow/prettier-config": [
+      "1.10.1",
+      "1.10.2"
+    ],
+    "@voiceflow/react-chat": [
+      "1.65.3",
+      "1.65.4"
+    ],
+    "@voiceflow/runtime": [
+      "1.29.2",
+      "1.29.1"
+    ],
+    "@voiceflow/runtime-client-js": [
+      "1.17.2",
+      "1.17.3"
+    ],
+    "@voiceflow/sdk-runtime": [
+      "1.43.2",
+      "1.43.1"
+    ],
+    "@voiceflow/secrets-provider": [
+      "1.9.2",
+      "1.9.3"
+    ],
+    "@voiceflow/semantic-release-config": [
+      "1.4.2",
+      "1.4.1"
+    ],
+    "@voiceflow/serverless-plugin-typescript": [
+      "2.1.8",
+      "2.1.7"
+    ],
+    "@voiceflow/slate-serializer": [
+      "1.7.4",
+      "1.7.3"
+    ],
+    "@voiceflow/stitches-react": [
+      "2.3.3",
+      "2.3.2"
+    ],
+    "@voiceflow/storybook-config": [
+      "1.2.3",
+      "1.2.2"
+    ],
+    "@voiceflow/stylelint-config": [
+      "1.1.2",
+      "1.1.1"
+    ],
+    "@voiceflow/test-common": [
+      "2.1.1",
+      "2.1.2"
+    ],
+    "@voiceflow/tsconfig": [
+      "1.12.1",
+      "1.12.2"
+    ],
+    "@voiceflow/tsconfig-paths": [
+      "1.1.5",
+      "1.1.4"
+    ],
+    "@voiceflow/utils-designer": [
+      "1.74.20",
+      "1.74.19"
+    ],
+    "@voiceflow/verror": [
+      "1.1.5",
+      "1.1.4"
+    ],
+    "@voiceflow/vite-config": [
+      "2.6.2",
+      "2.6.3"
+    ],
+    "@voiceflow/vitest-config": [
+      "1.10.3",
+      "1.10.2"
+    ],
+    "@voiceflow/voice-types": [
+      "2.10.58",
+      "2.10.59"
+    ],
+    "@voiceflow/voiceflow-types": [
+      "3.32.45",
+      "3.32.46"
+    ],
+    "@voiceflow/widget": [
+      "1.7.18",
+      "1.7.19"
+    ],
+    "@vucod/email": [
+      "0.0.3"
+    ],
+    "@zapier/ai-actions": [
+      "0.1.18",
+      "0.1.19",
+      "0.1.20"
+    ],
+    "@zapier/ai-actions-react": [
+      "0.1.13",
+      "0.1.12",
+      "0.1.14"
+    ],
+    "@zapier/babel-preset-zapier": [
+      "6.4.2",
+      "6.4.1",
+      "6.4.3"
+    ],
+    "@zapier/browserslist-config-zapier": [
+      "1.0.4",
+      "1.0.5",
+      "1.0.3"
+    ],
+    "@zapier/eslint-plugin-zapier": [
+      "11.0.5",
+      "11.0.3",
+      "11.0.4"
+    ],
+    "@zapier/mcp-integration": [
+      "3.0.3",
+      "3.0.1",
+      "3.0.2"
+    ],
+    "@zapier/secret-scrubber": [
+      "1.1.5",
+      "1.1.3",
+      "1.1.4"
+    ],
+    "@zapier/spectral-api-ruleset": [
+      "1.9.3",
+      "1.9.2",
+      "1.9.1"
+    ],
+    "@zapier/stubtree": [
+      "0.1.4",
+      "0.1.3",
+      "0.1.2"
+    ],
+    "@zapier/zapier-sdk": [
+      "0.15.7",
+      "0.15.6",
+      "0.15.5"
+    ]
   },
-  
   "malicious_code_patterns": [
     {
       "pattern": "process\\.env\\.\\w+.*fetch\\(",
@@ -206,7 +2746,6 @@
       "severity": "critical"
     }
   ],
-  
   "suspicious_install_scripts": [
     "curl -s http",
     "wget -q http",
@@ -224,7 +2763,6 @@
     "echo.*>.*ssh",
     "install\\.js"
   ],
-  
   "typosquatting_targets": [
     "react",
     "react-dom",
@@ -266,7 +2804,6 @@
     "zoom",
     "vscode"
   ],
-  
   "suspicious_domains": [
     "npmjs\\.org(?!$)",
     "nprnjs\\.",
@@ -292,7 +2829,6 @@
     "is\\.gd",
     "buff\\.ly"
   ],
-  
   "worm_indicators": [
     {
       "description": "Self-propagation code",
@@ -331,7 +2867,6 @@
       ]
     }
   ],
-  
   "high_risk_behaviors": {
     "network_exfiltration": {
       "patterns": [
@@ -366,7 +2901,6 @@
       "severity": "critical"
     }
   },
-  
   "safe_exceptions": [
     "test/",
     "tests/",
@@ -378,7 +2912,6 @@
     "node_modules/@types/",
     "node_modules/.bin/"
   ],
-  
   "notification_config": {
     "critical_threshold": 1,
     "warning_threshold": 5,

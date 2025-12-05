@@ -9,7 +9,8 @@ Security toolkit for detecting supply chain vulnerabilities in NPM projects, des
 
 Detect and notify security vulnerabilities in NPM dependencies, including:
 
-- **549+ known compromised packages** (536 Shai-Hulud + 13 CVE-2025-54313)
+- **1193+ compromised package versions** (Shai-Hulud + CVE-2025-54313, incl. Wiz Shai-Hulud 2.0 list)
+- Shai-Hulud 2.0 Bun payloads (`setup_bun.js`, `bun_environment.js`)
 - Typosquatting attempts
 - Injected malicious code (DLL/SO files, obfuscated scripts)
 - Suspicious installation scripts
@@ -22,7 +23,7 @@ Detect and notify security vulnerabilities in NPM dependencies, including:
 - `npm-supply-chain-detector.py` - Main Python detection script
 - `scan-npm-security.sh` - Bash automation and monitoring script
 - `malicious-patterns.json` - Malicious patterns database (production)
-- `shai-hulud-iocs.json` - Extended IOCs database (549 packages, 10 hashes, C2 domains)
+- `shai-hulud-iocs.json` - Extended IOCs database (692 packages / 1193 versions, 14 hashes, C2 domains)
 - `update-patterns.py` - Pattern database generator/updater
 
 ## Installation
@@ -123,7 +124,7 @@ cd .npm-quarantine
 
 ## Detections
 
-### 1. Known compromised packages (549 total)
+### 1. Known compromised packages (1193 versions)
 
 **CVE-2025-54313 (Scavenger - July 2025):**
 
@@ -134,8 +135,13 @@ cd .npm-quarantine
 - napi-postinstall (0.3.1)
 - got-fetch (5.1.11, 5.1.12)
 - is (3.3.1, 5.0.0)
+- npm-registry-fetch (*)
+- @crowdstrike/node-exporter (0.2.2)
+- @crowdstrike/threat-center (1.205.2)
+- tailwind-toucan-base (5.0.2)
+- **Shai-Hulud 2.0 (Wiz, 27 nov 2025)** : ~470 packages / versions (e.g. `@asyncapi/*`, `@actbase/*`, `@accordproject/*`, `@antstackio/*`, etc.) – voir `shai-hulud-iocs.json` pour la liste complète
 
-**Shai-Hulud worm (536+ packages - September 2025):**
+**Shai-Hulud worm (September 2025):**
 
 - CrowdStrike packages (@crowdstrike/*)
 - @ctrl/tinycolor (4.1.1, 4.1.2)
@@ -143,6 +149,14 @@ cd .npm-quarantine
 - @operato/* packages
 - @things-factory/* packages
 - Many others (see shai-hulud-iocs.json)
+
+**Shai-Hulud 2.0 (novembre 2025, Unit42 & Wiz)**
+
+- Nouveaux payloads : `setup_bun.js`, `bun_environment.js`
+- Hashes bun_environment.js : `62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0`, `f099c5d9ec417d4445a0328ac0ada9cde79fc37410914103ae9c609cbc0ee068`, `cbb9bc5a8496243e02f3cc080efbe3e4a1430ba0671f2e43a202bf45b05479cd`
+- Hash setup_bun.js : `a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a`
+- Exfil GitHub : description « Sha1-Hulud: The Second Coming »
+- Fallback destructif possible (`rm -rf ~` / `$HOME`)
 
 ### 2. Typosquatting detection
 
@@ -167,8 +181,9 @@ cd .npm-quarantine
 - **Windows DLL execution** (rundll32, regsvr32)
 - Malicious files: node-gyp.dll, loader.dll, version.dll
 
-### 5. Hash-based detection (10 variants)
+### 5. Hash-based detection (14 variants)
 - **Shai-Hulud bundle.js** (7 SHA-256 hashes)
+- **Shai-Hulud 2.0 Bun payloads**: `bun_environment.js` (3 hashes), `setup_bun.js` (1 hash)
 - **CVE-2025-54313 Scavenger** (3 SHA-256 hashes)
   - node-gyp.dll: c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441
   - Scavenger stage 2: 5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9

@@ -35,6 +35,8 @@ class NPMSecurityScanner:
             "@crowdstrike/logscale-dashboard": ["1.205.2"],
             "@crowdstrike/logscale-file-editor": ["1.205.2"],
             "@crowdstrike/logscale-parser-edit": ["1.205.1", "1.205.2"],
+            "@crowdstrike/node-exporter": ["0.2.2"],
+            "@crowdstrike/threat-center": ["1.205.2"],
             "tailwind-toucan-base": ["5.0.2"],
             "browser-webdriver-downloader": ["3.0.8"],
             "monorepo-next": ["13.0.2"],
@@ -42,6 +44,7 @@ class NPMSecurityScanner:
             "verror-extra": ["6.0.1"],
             "yargs-help-output": ["5.0.3"],
             "@ctrl/tinycolor": ["*"], 
+            "npm-registry-fetch": ["*"],
             "eslint-config-prettier": ["8.10.1", "9.1.0", "9.1.1", "10.1.6", "10.1.7"],
             "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
             "synckit": ["0.11.9"],
@@ -91,6 +94,10 @@ class NPMSecurityScanner:
             (r'rxnt-authentication.*0\.0\.3', "Patient zero package"),
 
             (r'crowdstrlke|cr0wdstrike|crowdstr1ke', "Potential typosquatting"),
+            (r'setup_bun\.js|bun_environment\.js', "Shai-Hulud 2.0 Bun payload file"),
+            (r'preinstall.*bun_environment\.js', "Shai-Hulud 2.0 preinstall hook"),
+            (r'Sha1-Hulud: The Second Coming', "Shai-Hulud 2.0 GitHub exfil description"),
+            (r'rm -rf\\s+(~|\\$HOME)', "Shai-Hulud 2.0 destructive fallback wiping home"),
         ]
         
         self.suspicious_domains = [
@@ -114,6 +121,10 @@ class NPMSecurityScanner:
             "dc67467a39b70d1cd4c1f7f7a459b35058163592f4a9e8fb4dffcbba98ef210c": "Shai-Hulud v5",
             "46faab8ab153fae6e80e7cca38eab363075bb524edd79e42269217a083628f09": "Shai-Hulud v6",
             "b74caeaa75e077c99f7d44f46daaf9796a3be43ecf24f2a1fd381844669da777": "Shai-Hulud v7",
+            "62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0": "Shai-Hulud 2.0 bun_environment.js v1",
+            "f099c5d9ec417d4445a0328ac0ada9cde79fc37410914103ae9c609cbc0ee068": "Shai-Hulud 2.0 bun_environment.js v2",
+            "cbb9bc5a8496243e02f3cc080efbe3e4a1430ba0671f2e43a202bf45b05479cd": "Shai-Hulud 2.0 bun_environment.js v3",
+            "a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a": "Shai-Hulud 2.0 setup_bun.js",
             "c68e42f416f482d43653f36cd14384270b54b68d6496a8e34ce887687de5b441": "Scavenger node-gyp.dll",
             "5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9": "Scavenger malware stage 2",
             "32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf": "Scavenger install.js"
@@ -202,7 +213,7 @@ class NPMSecurityScanner:
     def scan_node_modules(self):
         """Scan the node_modules folder for suspicious files"""
         node_modules = self.project_path / "node_modules"
-        suspicious_files = ["bundle.js", "webpack.config.js", ".npmrc"]
+        suspicious_files = ["bundle.js", "bun_environment.js", "setup_bun.js", "webpack.config.js", ".npmrc"]
         
         print(" Scanning node_modules...")
         
@@ -229,7 +240,7 @@ class NPMSecurityScanner:
                             )
                             self.analyze_file(file_path)
                             
-                        if file == "bundle.js":
+                        if file in {"bundle.js", "bun_environment.js", "setup_bun.js"}:
                             file_hash = self.calculate_file_hash(file_path)
                             if file_hash in self.malicious_hashes:
                                 self.add_finding(
