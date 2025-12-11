@@ -135,7 +135,6 @@ cd .npm-quarantine
 - napi-postinstall (0.3.1)
 - got-fetch (5.1.11, 5.1.12)
 - is (3.3.1, 5.0.0)
-- npm-registry-fetch (*)
 - @crowdstrike/node-exporter (0.2.2)
 - @crowdstrike/threat-center (1.205.2)
 - tailwind-toucan-base (5.0.2)

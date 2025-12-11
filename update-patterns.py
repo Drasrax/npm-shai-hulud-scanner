@@ -18,7 +18,6 @@ NEW_SHAI_PACKAGES: Dict[str, List[str]] = {
     "@crowdstrike/node-exporter": ["0.2.2"],
     "@crowdstrike/threat-center": ["1.205.2"],
     "tailwind-toucan-base": ["5.0.2"],
-    "npm-registry-fetch": ["*"],
 }
 
 # CVE-2025-54313 packages (Scavenger malware) kept in a dedicated section,
