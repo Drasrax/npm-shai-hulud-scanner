@@ -24,8 +24,8 @@ class NPMSecurityScanner:
         self.findings = []
         self.high_risk_packages = set()
         self.suspicious_patterns = []
-        self.load_iocs()
-        
+        self.pypi_compromised = {}
+
         # Known compromised packages (Shai-Hulud + CVE-2025-54313)
         self.known_compromised = {
             "@crowdstrike/commitlint": ["8.1.1", "8.1.2"],
@@ -108,7 +108,14 @@ class NPMSecurityScanner:
             r'firebase\.su',
             r'dieorsuffer\.com',
             r'smartscreen-api\.com',
-            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',  
+            # 2026 Mini Shai-Hulud / TeamPCP C2 & exfil infra
+            r't\.m-kosche\.com',
+            r'm-kosche\.com',
+            r'filev2\.getsession\.org',
+            r'api\.masscan\.cloud',
+            r'git-tanstack\.com',
+            r'audit\.checkmarx\.cx',
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
         ]
         
         # Malicious file hashes (Shai-Hulud + CVE-2025-54313)
@@ -128,30 +135,57 @@ class NPMSecurityScanner:
             "5bed39728e404838ecd679df65048abcb443f8c7a9484702a2ded60104b8c4a9": "Scavenger malware stage 2",
             "32d0dbdfef0e5520ba96a2673244267e204b94a49716ea13bf635fa9af6f66bf": "Scavenger install.js"
         }
-    
+
+        # Load the external IOC database LAST, once every base attribute above
+        # exists (calling it earlier silently fails - the attributes it augments
+        # would not be defined yet).
+        self.load_iocs()
+
     def load_iocs(self):
         """Loads IOCs from the shai-hulud-iocs.json file if available"""
         ioc_file = Path(__file__).parent / "shai-hulud-iocs.json"
-        if ioc_file.exists():
-            try:
-                with open(ioc_file) as f:
-                    iocs = json.load(f)
-                    
-                if "known_compromised_packages" in iocs:
-                    self.known_compromised.update(iocs["known_compromised_packages"])
-                    
-                if "bundle_js_hashes" in iocs:
-                    for version, hash_val in iocs["bundle_js_hashes"].items():
-                        self.malicious_hashes[hash_val] = f"Shai-Hulud {version}"
-                        
-                if "malicious_code_patterns" in iocs:
-                    for pattern_data in iocs["malicious_code_patterns"]:
+        if not ioc_file.exists():
+            return
+        try:
+            with open(ioc_file) as f:
+                iocs = json.load(f)
+
+            if "known_compromised_packages" in iocs:
+                self.known_compromised.update(iocs["known_compromised_packages"])
+
+            # Legacy Shai-Hulud bundle.js hashes (keyed by version label)
+            if "bundle_js_hashes" in iocs:
+                for version, hash_val in iocs["bundle_js_hashes"].items():
+                    self.malicious_hashes[hash_val] = f"Shai-Hulud {version}"
+
+            # 2026 Mini Shai-Hulud / TeamPCP family: hashes + C2 + PyPI
+            mini = iocs.get("mini_shai_hulud_2026", {})
+            for hash_val, label in mini.get("file_hashes_sha256", {}).items():
+                self.malicious_hashes[hash_val] = label
+            for domain in mini.get("c2_domains", []):
+                pattern = re.escape(domain)
+                if pattern not in self.suspicious_domains:
+                    self.suspicious_domains.append(pattern)
+
+            pypi = iocs.get("pypi_hades_2026", {})
+            self.pypi_compromised.update(pypi.get("compromised_packages", {}))
+            for hash_val, label in pypi.get("file_hashes_sha256", {}).items():
+                self.malicious_hashes[hash_val] = label
+
+            # Code patterns (skip ones already present to avoid duplicate findings)
+            if "malicious_code_patterns" in iocs:
+                existing = {p[0] for p in self.malicious_patterns}
+                for pattern_data in iocs["malicious_code_patterns"]:
+                    if pattern_data[0] not in existing:
                         self.malicious_patterns.append((pattern_data[0], pattern_data[1]))
-                        
-                print(f" Loaded {len(self.known_compromised)} compromised packages from IOCs")
-            except Exception as e:
-                if self.verbose:
-                    print(f"Warning: Could not load IOCs: {e}")
+                        existing.add(pattern_data[0])
+
+            print(f" Loaded {len(self.known_compromised)} compromised npm packages, "
+                  f"{len(self.pypi_compromised)} PyPI packages, "
+                  f"{len(self.malicious_hashes)} hashes from IOCs")
+        except Exception as e:
+            if self.verbose:
+                print(f"Warning: Could not load IOCs: {e}")
 
     def scan(self) -> Dict:
         """Launch project scan"""
@@ -176,9 +210,13 @@ class NPMSecurityScanner:
         self.scan_source_code()
         
         self.verify_package_integrity()
-        
+
         self.check_github_workflows()
-        
+
+        self.check_agent_config_persistence()
+
+        self.check_pypi_dependencies()
+
         results["findings"] = self.findings
         results["statistics"] = self.generate_statistics()
         
@@ -196,23 +234,44 @@ class NPMSecurityScanner:
             with open(package_json) as f:
                 pkg_data = json.load(f)
                 
-            for dep_type in ["dependencies", "devDependencies", "peerDependencies"]:
-                if dep_type in pkg_data:
-                    for pkg_name, version in pkg_data[dep_type].items():
-                        self.check_compromised_package(pkg_name, version)
-                        
+            for dep_type in ["dependencies", "devDependencies", "optionalDependencies", "peerDependencies"]:
+                for pkg_name, version in (pkg_data.get(dep_type) or {}).items():
+                    self.check_compromised_package(pkg_name, version)
+                    # GitHub commit-pinned tarball dep (TanStack-style injection vector)
+                    if isinstance(version, str) and re.match(r'github:.+#[0-9a-f]{40}$', version):
+                        self.add_finding(
+                            "warning",
+                            f"Dependency pinned to a GitHub commit tarball: {pkg_name} -> {version}",
+                            "package.json",
+                            {"package": pkg_name, "ref": version}
+                        )
+
             if "scripts" in pkg_data:
                 for script_name, script_cmd in pkg_data["scripts"].items():
                     if any(hook in script_name.lower() for hook in ["preinstall", "postinstall", "prepare"]):
                         self.analyze_script(script_name, script_cmd)
-                        
+
+            # Run the malicious-pattern/domain engine over package.json itself so
+            # injected install hooks and attacker dependencies are caught too.
+            self.analyze_file(package_json)
+
         except Exception as e:
             self.add_finding("error", f"Failed to parse package.json: {e}", str(package_json))
 
     def scan_node_modules(self):
         """Scan the node_modules folder for suspicious files"""
         node_modules = self.project_path / "node_modules"
-        suspicious_files = ["bundle.js", "bun_environment.js", "setup_bun.js", "webpack.config.js", ".npmrc"]
+        suspicious_files = [
+            "bundle.js", "bun_environment.js", "setup_bun.js", "webpack.config.js", ".npmrc",
+            # 2026 Mini Shai-Hulud / TeamPCP payload & loader filenames
+            "setup.mjs", "execution.js", "bw1.js", "bw_setup.js",
+            "router_init.js", "tanstack_runner.js", "_index.js",
+        ]
+        hash_check_files = {
+            "bundle.js", "bun_environment.js", "setup_bun.js",
+            "setup.mjs", "execution.js", "bw1.js", "bw_setup.js",
+            "router_init.js", "tanstack_runner.js", "_index.js",
+        }
         
         print(" Scanning node_modules...")
         
@@ -239,7 +298,7 @@ class NPMSecurityScanner:
                             )
                             self.analyze_file(file_path)
                             
-                        if file in {"bundle.js", "bun_environment.js", "setup_bun.js"}:
+                        if file in hash_check_files:
                             file_hash = self.calculate_file_hash(file_path)
                             if file_hash in self.malicious_hashes:
                                 self.add_finding(
@@ -383,9 +442,128 @@ class NPMSecurityScanner:
                             "Remote code execution in GitHub workflow",
                             str(workflow_file)
                         )
+
+                    # Shai-Hulud 2.0 self-hosted runner abused as C2
+                    if "SHA1HULUD" in content or "actions-runner-linux-x64-2.330.0" in content:
+                        self.add_finding(
+                            "critical",
+                            "Shai-Hulud self-hosted runner / C2 marker in workflow",
+                            str(workflow_file)
+                        )
+
+                    # Command injection via attacker-controlled discussion/issue body
+                    if re.search(r"\$\{\{\s*github\.event\.(discussion|issue)\.body\s*\}\}", content):
+                        self.add_finding(
+                            "critical",
+                            "Untrusted github.event.*.body interpolated into workflow run (injection)",
+                            str(workflow_file)
+                        )
+
+                    # Apply the full malicious-pattern/domain engine to the workflow
+                    self.analyze_file(workflow_file)
                 except:
                     pass
-    
+
+    def check_agent_config_persistence(self):
+        """Detect malware persistence written into agent/IDE config files.
+
+        The 2026 Mini Shai-Hulud waves drop Bun loaders (setup.mjs/execution.js)
+        and wire them into editor/agent configs so they re-run on folder open and
+        survive `npm uninstall`. Only configs that actually reference those loaders
+        are flagged - legitimate configs are left untouched.
+        """
+        print(" Checking agent/IDE config persistence...")
+
+        config_files = [
+            ".claude/settings.json", ".claude/settings.local.json",
+            ".vscode/tasks.json", ".cursor/settings.json", ".cursor/tasks.json",
+        ]
+        for rel in config_files:
+            cfg = self.project_path / rel
+            if cfg.exists():
+                self.analyze_file(cfg)
+
+        loader_names = {"setup.mjs", "execution.js", "router_init.js",
+                        "router_runtime.js", "tanstack_runner.js", "_index.js"}
+        for d in [".claude", ".vscode", ".cursor"]:
+            dpath = self.project_path / d
+            if not dpath.exists():
+                continue
+            for f in dpath.iterdir():
+                if f.is_file() and f.name in loader_names:
+                    self.add_finding(
+                        "critical",
+                        f"Malware loader dropped in {d}/ ({f.name}) - agent/IDE persistence",
+                        str(f),
+                        {"campaign": "Mini Shai-Hulud"}
+                    )
+                    self.analyze_file(f)
+
+    def check_pypi_dependencies(self):
+        """Cross-ecosystem coverage: scan Python manifests for Hades-wave
+        compromised PyPI packages, malicious *.pth startup hooks, and _index.js
+        payloads."""
+        print(" Checking PyPI dependencies (Hades wave)...")
+
+        if self.pypi_compromised:
+            manifests = ["requirements.txt", "requirements-dev.txt", "pyproject.toml",
+                         "setup.py", "setup.cfg", "Pipfile"]
+            seen = set()
+            for name in manifests:
+                for path in self.project_path.rglob(name):
+                    if "node_modules" in str(path):
+                        continue
+                    try:
+                        text = path.read_text(encoding="utf-8", errors="ignore")
+                    except Exception:
+                        continue
+                    for pkg, versions in self.pypi_compromised.items():
+                        for m in re.finditer(
+                            rf'(?im)(?<![\w.\-]){re.escape(pkg)}\s*[=~!<>]=\s*["\']?([0-9][\w.\-]*)',
+                            text
+                        ):
+                            ver = m.group(1)
+                            if ver in versions and (str(path), pkg, ver) not in seen:
+                                seen.add((str(path), pkg, ver))
+                                self.add_finding(
+                                    "critical",
+                                    f"KNOWN COMPROMISED PyPI PACKAGE: {pkg}=={ver}",
+                                    str(path),
+                                    {"package": pkg, "version": ver, "attack": "Shai-Hulud Hades (PyPI)"}
+                                )
+
+        # Malicious Python startup hook: a *.pth that executes a Bun loader.
+        for pth in self.project_path.rglob("*.pth"):
+            if "node_modules" in str(pth):
+                continue
+            try:
+                text = pth.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                continue
+            if re.search(r'^\s*import\s', text, re.MULTILINE) and \
+               re.search(r'_index\.js|\.bun_ran|bun-v1\.3\.13|urlretrieve|subprocess', text):
+                self.add_finding(
+                    "critical",
+                    "Malicious Python .pth startup hook executing a Bun loader (Hades wave)",
+                    str(pth)
+                )
+
+        # _index.js payloads anywhere (hash-verified)
+        for idx in self.project_path.rglob("_index.js"):
+            if "node_modules" in str(idx):
+                continue
+            try:
+                h = self.calculate_file_hash(idx)
+            except Exception:
+                continue
+            if h in self.malicious_hashes:
+                self.add_finding(
+                    "critical",
+                    f"KNOWN MALICIOUS FILE: {self.malicious_hashes[h]}",
+                    str(idx),
+                    {"sha256": h}
+                )
+
     def verify_package_integrity(self):
         """integrity of installed packages"""
         print("Verifying package integrity...")
@@ -440,6 +618,8 @@ class NPMSecurityScanner:
             (r"eval\(", "Eval usage in script"),
             (r"npm.*token", "NPM token manipulation"),
             (r"npm.*publish", "Package publishing in script"),
+            (r"bun\s+(run\s+)?(index|execution|setup|router_init|tanstack_runner)",
+             "Bun loader invoked in install hook (Mini Shai-Hulud)"),
         ]
         
         for pattern, description in suspicious_patterns:
@@ -455,9 +635,10 @@ class NPMSecurityScanner:
         """Check suspicious script"""
         suspicious_keywords = [
             "curl", "wget", "eval", "base64", "atob", "Buffer.from",
-            "child_process", "exec", "spawn", "npm publish"
+            "child_process", "exec", "spawn", "npm publish",
+            "bun run", "setup.mjs", "execution.js", "_index.js"
         ]
-        
+
         return any(keyword in script.lower() for keyword in suspicious_keywords)
 
     def calculate_file_hash(self, file_path: Path) -> str:

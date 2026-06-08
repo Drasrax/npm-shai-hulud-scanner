@@ -1,15 +1,20 @@
 # NPM Supply Chain Security Scanner
 
-Security toolkit for detecting supply chain vulnerabilities in NPM projects, designed to detect patterns from **two major 2025 npm supply chain attacks**:
+Security toolkit for detecting supply chain vulnerabilities in NPM projects, designed to detect patterns from the major 2025-2026 npm supply chain attacks:
 
 - **CVE-2025-54313** (Scavenger malware - July 2025)
-- **Shai-Hulud worm** (September 2025)
+- **Shai-Hulud worm** (September 2025) and **Shai-Hulud 2.0 "The Second Coming"** (November 2025)
+- **Mini Shai-Hulud / TeamPCP family** (April-June 2026): SAP CAP, Bitwarden CLI, TanStack (**CVE-2026-45321**), AntV, Miasma (Red Hat), Hades (PyPI)
 
 ## Purpose
 
-Detect and notify security vulnerabilities in NPM dependencies, including:
+Detect and notify security vulnerabilities in NPM (and now PyPI) dependencies, including:
 
-- **1193+ compromised package versions** (Shai-Hulud + CVE-2025-54313, incl. Wiz Shai-Hulud 2.0 list)
+- **1340+ compromised package versions** (Shai-Hulud v1/v2 + CVE-2025-54313 + the 2026 Mini Shai-Hulud waves)
+- **Cross-ecosystem coverage**: npm + PyPI (Hades wave), with Maven spillover documented
+- Bun-runtime loaders used for EDR evasion (`setup.mjs`, `execution.js`, `bw1.js`, `_index.js`, pinned Bun v1.3.13)
+- Malware persistence via agent/IDE config files (survives `npm uninstall`)
+- OIDC / Trusted-Publishing abuse and GitHub commit-pinned tarball injection
 - Shai-Hulud 2.0 Bun payloads (`setup_bun.js`, `bun_environment.js`)
 - Typosquatting attempts
 - Injected malicious code (DLL/SO files, obfuscated scripts)
@@ -23,7 +28,7 @@ Detect and notify security vulnerabilities in NPM dependencies, including:
 - `npm-supply-chain-detector.py` - Main Python detection script
 - `scan-npm-security.sh` - Bash automation and monitoring script
 - `malicious-patterns.json` - Malicious patterns database (production)
-- `shai-hulud-iocs.json` - Extended IOCs database (692 packages / 1193 versions, 14 hashes, C2 domains)
+- `shai-hulud-iocs.json` - Extended IOCs database (740+ packages / 1340 versions, 29 hashes, C2 domains, 2026 Mini Shai-Hulud + PyPI Hades sections)
 - `update-patterns.py` - Pattern database generator/updater
 
 ## Installation
@@ -124,7 +129,7 @@ cd .npm-quarantine
 
 ## Detections
 
-### 1. Known compromised packages (1193 versions)
+### 1. Known compromised packages (1340 versions)
 
 **CVE-2025-54313 (Scavenger - July 2025):**
 
@@ -138,7 +143,7 @@ cd .npm-quarantine
 - @crowdstrike/node-exporter (0.2.2)
 - @crowdstrike/threat-center (1.205.2)
 - tailwind-toucan-base (5.0.2)
-- **Shai-Hulud 2.0 (Wiz, 27 nov 2025)** : ~470 packages / versions (e.g. `@asyncapi/*`, `@actbase/*`, `@accordproject/*`, `@antstackio/*`, etc.) – voir `shai-hulud-iocs.json` pour la liste complète
+- **Shai-Hulud 2.0 (Wiz, Nov 27 2025)**: ~470 packages / versions (e.g. `@asyncapi/*`, `@actbase/*`, `@accordproject/*`, `@antstackio/*`, etc.) – see `shai-hulud-iocs.json` for the full list
 
 **Shai-Hulud worm (September 2025):**
 
@@ -149,13 +154,28 @@ cd .npm-quarantine
 - @things-factory/* packages
 - Many others (see shai-hulud-iocs.json)
 
-**Shai-Hulud 2.0 (novembre 2025, Unit42 & Wiz)**
+**Shai-Hulud 2.0 (November 2025, Unit42 & Wiz)**
 
-- Nouveaux payloads : `setup_bun.js`, `bun_environment.js`
-- Hashes bun_environment.js : `62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0`, `f099c5d9ec417d4445a0328ac0ada9cde79fc37410914103ae9c609cbc0ee068`, `cbb9bc5a8496243e02f3cc080efbe3e4a1430ba0671f2e43a202bf45b05479cd`
-- Hash setup_bun.js : `a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a`
-- Exfil GitHub : description « Sha1-Hulud: The Second Coming »
-- Fallback destructif possible (`rm -rf ~` / `$HOME`)
+- New payloads: `setup_bun.js`, `bun_environment.js`
+- bun_environment.js hashes: `62ee164b9b306250c1172583f138c9614139264f889fa99614903c12755468d0`, `f099c5d9ec417d4445a0328ac0ada9cde79fc37410914103ae9c609cbc0ee068`, `cbb9bc5a8496243e02f3cc080efbe3e4a1430ba0671f2e43a202bf45b05479cd`
+- setup_bun.js hash: `a3894003ad1d293ba96d77881ccd2071446dc3f65f434669b49b3da92421901a`
+- GitHub exfiltration: repo description "Sha1-Hulud: The Second Coming"
+- Possible destructive fallback (`rm -rf ~` / `$HOME`)
+
+**Mini Shai-Hulud / TeamPCP family (April-June 2026)**
+
+Threat actor **TeamPCP (aka UNC6780)**, who open-sourced their "Mini Shai-Hulud" malware, triggering a cascade of waves (and copycats). All of them use a **Bun loader** (EDR evasion) and exfiltrate via GitHub dead-drop repositories created on the victim's own account:
+
+| Wave | Date | Ecosystem | Key packages |
+|------|------|-----------|--------------|
+| Bitwarden CLI ("The Third Coming") | 2026-04-22 | npm | `@bitwarden/cli@2026.4.0` (via Checkmarx breach) |
+| SAP CAP ("A Mini Shai-Hulud has Appeared") | 2026-04-29 | npm | `mbt`, `@cap-js/sqlite`, `@cap-js/postgres`, `@cap-js/db-service` |
+| TanStack (**CVE-2026-45321**) | 2026-05-11 | npm + PyPI | 42 `@tanstack/*` pkgs, `@mistralai/mistralai`, `@uipath/cli` (OIDC/Trusted-Publishing hijack, valid SLSA provenance) |
+| AntV ("Here We Go Again") | 2026-05-19 | npm | `@antv/g2,g6,l7,s2`, `echarts-for-react`, `timeago.js`, `size-sensor` (compromised `atool` maintainer account) |
+| Miasma ("The Spreading Blight") | 2026-06-01 | npm | `@redhat-cloud-services/*` (via GitHub Actions OIDC) |
+| Hades ("The End for the Damned") | 2026-06-07 | **PyPI** | 19 projects via `*-setup.pth` hook → Bun → `_index.js` |
+
+Novel TTPs covered: **Bun v1.3.13 runtime** (evasion), **persistence via agent/IDE config files** (`.claude`/`.vscode`/`.cursor`, survives `npm uninstall`), **OIDC/Trusted-Publishing abuse**, **"living-off-trusted-host" exfiltration** (`api.anthropic.com/v1/api`, `filev2.getsession.org`), and **destructive wipe** triggered on token invalidation.
 
 ### 2. Typosquatting detection
 
@@ -180,7 +200,7 @@ cd .npm-quarantine
 - **Windows DLL execution** (rundll32, regsvr32)
 - Malicious files: node-gyp.dll, loader.dll, version.dll
 
-### 5. Hash-based detection (14 variants)
+### 5. Hash-based detection (29 variants)
 - **Shai-Hulud bundle.js** (7 SHA-256 hashes)
 - **Shai-Hulud 2.0 Bun payloads**: `bun_environment.js` (3 hashes), `setup_bun.js` (1 hash)
 - **CVE-2025-54313 Scavenger** (3 SHA-256 hashes)
@@ -194,6 +214,10 @@ cd .npm-quarantine
 - smartscreen-api.com (CVE-2025-54313)
 - npnjs.com (typosquatting)
 - webhook.site/bb8ca5f6-4175-45d2-b042-fc9ebb8170b7 (Shai-Hulud)
+- t.m-kosche.com (Mini Shai-Hulud AntV C2)
+- filev2.getsession.org, api.masscan.cloud, git-tanstack.com (TanStack wave)
+- audit.checkmarx.cx (Bitwarden wave exfil)
+- `api.anthropic.com/v1/api` — **path-only** detection (host is legitimate, abused via bogus path; never blocked outright)
 
 ### 7. Integrity analysis
 - Verification via `npm audit`
@@ -344,15 +368,21 @@ sudo systemctl start npm-security-monitor
 
 - [CrowdStrike NPM Attack 2025](https://socket.dev/blog/ongoing-supply-chain-attack-targets-crowdstrike-npm-packages)
 - [CVE-2025-54313](https://nvd.nist.gov/vuln/detail/CVE-2025-54313)
+- [CVE-2026-45321 (TanStack / Mini Shai-Hulud)](https://snyk.io/blog/tanstack-npm-packages-compromised/)
+- [Mini Shai-Hulud SAP CAP (StepSecurity)](https://www.stepsecurity.io/blog/a-mini-shai-hulud-has-appeared)
+- [Bitwarden CLI hijack (JFrog)](https://research.jfrog.com/post/bitwarden-cli-hijack/)
+- [Shai-Hulud Miasma / Red Hat (Wiz)](https://www.wiz.io/blog/miasma-supply-chain-attack-targeting-redhat-npm-packages)
+- [Shai-Hulud Hades PyPI wave (Socket)](https://socket.dev/blog/shai-hulud-descends-to-hades-miasma-pypi-wave)
+- [AntV ecosystem compromise (Socket)](https://socket.dev/blog/antv-packages-compromised)
 - [npm audit documentation](https://docs.npmjs.com/cli/v8/commands/npm-audit)
 
 ## Notes
 
-- **549 compromised package versions** tracked (updated 2025-10-27)
-- **10 malware file hashes** detected (7 Shai-Hulud + 3 Scavenger)
-- **2 separate attack campaigns** covered (CVE-2025-54313 + Shai-Hulud)
-- Scanner designed to minimize false positives
-- Patterns based on real observed attacks (July-September 2025)
+- **1340 compromised package versions** tracked across npm + PyPI (updated 2026-06-08)
+- **29 malware file hashes** detected (Shai-Hulud v1/v2 + Scavenger + 2026 Mini Shai-Hulud waves)
+- **Multiple attack campaigns** covered: CVE-2025-54313, Shai-Hulud v1/v2, and the 2026 Mini Shai-Hulud / TeamPCP family (CVE-2026-45321)
+- Scanner designed to minimize false positives (verified against legitimate `.claude`/`.vscode` configs, clean PyPI/npm versions, real Anthropic API calls)
+- Patterns based on real observed attacks (July 2025 - June 2026)
 - Regular update of malicious patterns recommended
 - Compatible with all standard NPM projects
 - Quarantine feature allows safe isolation with restoration option
