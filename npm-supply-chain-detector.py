@@ -25,6 +25,9 @@ class NPMSecurityScanner:
         self.high_risk_packages = set()
         self.suspicious_patterns = []
         self.pypi_compromised = {}
+        self.hijacked_actions = {}
+        self.extra_payload_files = set()
+        self._rules = None
 
         # Known compromised packages (Shai-Hulud + CVE-2025-54313)
         self.known_compromised = {
@@ -44,7 +47,7 @@ class NPMSecurityScanner:
             "verror-extra": ["6.0.1"],
             "yargs-help-output": ["5.0.3"],
             "@ctrl/tinycolor": ["*"],
-            "eslint-config-prettier": ["8.10.1", "9.1.0", "9.1.1", "10.1.6", "10.1.7"],
+            "eslint-config-prettier": ["8.10.1", "9.1.1", "10.1.6", "10.1.7"],
             "eslint-plugin-prettier": ["4.2.2", "4.2.3"],
             "synckit": ["0.11.9"],
             "@pkgr/core": ["0.2.8"],
@@ -54,7 +57,17 @@ class NPMSecurityScanner:
         }
         
         self.malicious_patterns = [
-            (r"process\.env\.\w+.*fetch\(", "Potential credential exfiltration"),
+            # Reading one environment variable and calling fetch is what every SDK
+            # does; serialising the *whole* environment and shipping it is not.
+            # The sink may come before or after the copy, and it is usually a
+            # method call (axios.post) rather than a bare one, so both orders and
+            # both call shapes have to be covered. Object.keys(process.env) is
+            # deliberately not included: listing variable names is ordinary.
+            (r"(?:(?:JSON\.stringify|Object\.(?:entries|assign))\s*\([^)\n]{0,40}process\.env\s*\)"
+             r"[\s\S]{0,300}?\b(?:fetch|axios|got|request|https?\.request)(?:\.\w+)?\s*\("
+             r"|\b(?:fetch|axios|got|request|https?\.request)(?:\.\w+)?\s*\("
+             r"[\s\S]{0,300}?(?:JSON\.stringify|Object\.(?:entries|assign))\s*\([^)\n]{0,40}process\.env\s*\))",
+             "Entire process environment serialised and sent to the network", "critical"),
             (r"fs\.readFileSync.*\.ssh", "SSH key access attempt"),
             (r"fs\.readFileSync.*\.aws", "AWS credential access"),
             (r"fs\.readFileSync.*\.npmrc", "NPM token access"),
@@ -65,8 +78,16 @@ class NPMSecurityScanner:
             (r'eval\(.*Buffer\.from\(.*base64', "Base64 decoded eval"),
             
             (r'bundle\.js.*3\.\d+\s*MB', "Large bundled file (Shai-Hulud indicator)"),
-            (r'TruffleHog|trufflehog', "TruffleHog scanner usage"),
-            (r'npm.*publish.*--access.*public', "Automated npm publishing"),
+            # The bare name matches any mention in a comment or README snippet.
+            # What matters is the worm actually running or fetching the scanner.
+            (r'trufflehog(?:3)?\s+(?:filesystem|git|github|gitlab|s3|--\w)'
+             r'|trufflesecurity/trufflehog/releases/download|\btrufflehog_[\d.]+_',
+             "TruffleHog secret scanner invoked or downloaded", "critical"),
+            # "npm publish --access public" is the standard release command for any
+            # scoped package. Publishing from inside code is the worm behaviour.
+            (r'(?:child_process|execSync|spawnSync|execFileSync|exec)\s*\('
+             r'[^)\n]{0,120}\bnpm\s+publish\b',
+             "npm publish invoked from code (worm self-propagation)"),
             
             (r'169\.254\.169\.254', "AWS metadata endpoint access"),
             (r'http://169\.254\.169\.254', "AWS IMDS full URL"),
@@ -78,8 +99,19 @@ class NPMSecurityScanner:
             (r'/latest/meta-data/', "AWS IMDS path"),
             (r'/computeMetadata/v1/', "GCP metadata path"),
             
-            (r'net\.connect|tls\.connect.*\d{1,3}\.\d{1,3}', "Direct IP connection"),
-            (r'dns\.resolve.*exec|spawn', "DNS resolution with command execution"),
+            # Ungrouped alternation before: the pattern collapsed to "net.connect"
+            # and fired on any socket code. A full dotted quad is now required, and
+            # loopback / link-local / RFC1918 addresses are excluded because those
+            # are ordinary development configuration.
+            (r'(?:net|tls)\.connect\s*\([^)\n]{0,160}?'
+             r'(?!(?:127|10|0)\.|192\.168\.|169\.254\.|172\.(?:1[6-9]|2\d|3[01])\.)'
+             r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b',
+             "Direct connection to a hardcoded public IP"),
+            # The alternation used to be ungrouped ('...exec|spawn'), so the whole
+            # pattern reduced to the bare word "spawn" and fired on any package
+            # that starts a child process - which is most CLI wrappers.
+            (r'dns\.resolve\w*\([\s\S]{0,300}?(exec|spawn)\w*\(',
+             "DNS resolution feeding command execution"),
 
             (r'logDiskSpace', "Scavenger malware indicator function"),
             (r'FuckOff', "Scavenger malware XOR key"),
@@ -93,14 +125,17 @@ class NPMSecurityScanner:
             (r'rxnt-authentication.*0\.0\.3', "Patient zero package"),
 
             (r'crowdstrlke|cr0wdstrike|crowdstr1ke', "Potential typosquatting"),
-            (r'setup_bun\.js|bun_environment\.js', "Shai-Hulud 2.0 Bun payload file"),
-            (r'preinstall.*bun_environment\.js', "Shai-Hulud 2.0 preinstall hook"),
-            (r'Sha1-Hulud: The Second Coming', "Shai-Hulud 2.0 GitHub exfil description"),
-            (r'rm -rf\\s+(~|\\$HOME)', "Shai-Hulud 2.0 destructive fallback wiping home"),
+            (r'setup_bun\.js|bun_environment\.js', "Shai-Hulud 2.0 Bun payload file", "critical"),
+            (r'preinstall.*bun_environment\.js', "Shai-Hulud 2.0 preinstall hook", "warning"),
+            (r'Sha1-Hulud: The Second Coming', "Shai-Hulud 2.0 GitHub exfil description", "critical"),
+            (r'rm -rf\s+(~|\$HOME)', "Shai-Hulud 2.0 destructive fallback wiping home", "critical"),
         ]
         
+        # A match here is reported as critical, so every entry must be a host no
+        # honest dependency would contact. npmjs.org is deliberately absent:
+        # registry.npmjs.org is the official npm registry, and matching it flagged
+        # ordinary code. The registry typosquats below cover the actual threat.
         self.suspicious_domains = [
-            r'npmjs\.org(?!$)',
             r'nprnjs\.',
             r'npmj5\.',
             r'npn-js\.',
@@ -115,7 +150,11 @@ class NPMSecurityScanner:
             r'api\.masscan\.cloud',
             r'git-tanstack\.com',
             r'audit\.checkmarx\.cx',
-            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
+            # Hardcoded public IP endpoint. Loopback, link-local and RFC1918
+            # ranges are excluded: those are normal development configuration,
+            # and a bare dotted quad also matched four-part version strings.
+            r'https?://(?!(?:127|10|0)\.|192\.168\.|169\.254\.'
+            r'|172\.(?:1[6-9]|2\d|3[01])\.)\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}',
         ]
         
         # Malicious file hashes (Shai-Hulud + CVE-2025-54313)
@@ -141,6 +180,27 @@ class NPMSecurityScanner:
         # would not be defined yet).
         self.load_iocs()
 
+    def _is_own_file(self, file_path: Path) -> bool:
+        """True for the scanner's own sources and IOC databases.
+
+        Those files quote every campaign marker verbatim, so scanning a
+        directory that contains the scanner otherwise reports the tool itself as
+        malware. Matched by resolved absolute path, never by name, so a file
+        called update-patterns.py in the scanned project is still analysed.
+        """
+        here = Path(__file__).resolve().parent
+        own = {
+            here / "npm-supply-chain-detector.py",
+            here / "update-patterns.py",
+            here / "shai-hulud-iocs.json",
+            here / "malicious-patterns.json",
+            here / "scan-npm-security.sh",
+        }
+        try:
+            return file_path.resolve() in own
+        except OSError:
+            return False
+
     def load_iocs(self):
         """Loads IOCs from the shai-hulud-iocs.json file if available"""
         ioc_file = Path(__file__).parent / "shai-hulud-iocs.json"
@@ -158,26 +218,63 @@ class NPMSecurityScanner:
                 for version, hash_val in iocs["bundle_js_hashes"].items():
                     self.malicious_hashes[hash_val] = f"Shai-Hulud {version}"
 
-            # 2026 Mini Shai-Hulud / TeamPCP family: hashes + C2 + PyPI
-            mini = iocs.get("mini_shai_hulud_2026", {})
-            for hash_val, label in mini.get("file_hashes_sha256", {}).items():
-                self.malicious_hashes[hash_val] = label
-            for domain in mini.get("c2_domains", []):
-                pattern = re.escape(domain)
-                if pattern not in self.suspicious_domains:
-                    self.suspicious_domains.append(pattern)
+            # Every campaign section (mini_shai_hulud_2026, pypi_hades_2026,
+            # npm_campaigns_h2_2026, ...) publishes its hashes and C2 hosts under
+            # the same two keys, so covering a new wave means adding a section to
+            # the JSON - no change needed here. Hashes are lowercased because
+            # vendor IOC tables are inconsistent about case.
+            sha256_re = re.compile(r"[0-9a-fA-F]{64}")
+            for section in iocs.values():
+                if not isinstance(section, dict):
+                    continue
+                for key, value in section.get("file_hashes_sha256", {}).items():
+                    # Sections disagree on orientation: most map hash -> label,
+                    # the Scavenger one maps filename -> hash. Trust whichever
+                    # side actually looks like a digest.
+                    if sha256_re.fullmatch(str(key)):
+                        self.malicious_hashes[key.lower()] = value
+                    elif sha256_re.fullmatch(str(value)):
+                        self.malicious_hashes[value.lower()] = key
+                for domain in section.get("c2_domains", []):
+                    pattern = re.escape(domain)
+                    if pattern not in self.suspicious_domains:
+                        self.suspicious_domains.append(pattern)
 
-            pypi = iocs.get("pypi_hades_2026", {})
-            self.pypi_compromised.update(pypi.get("compromised_packages", {}))
-            for hash_val, label in pypi.get("file_hashes_sha256", {}).items():
-                self.malicious_hashes[hash_val] = label
+            self.pypi_compromised.update(
+                iocs.get("pypi_hades_2026", {}).get("compromised_packages", {})
+            )
 
-            # Code patterns (skip ones already present to avoid duplicate findings)
+            # GitHub Actions whose upstream tags were force-pushed to malicious
+            # commits, so that adding one to the JSON is enough to cover it.
+            for section in iocs.values():
+                if not isinstance(section, dict):
+                    continue
+                for action, meta in section.get("hijacked_github_actions", {}).items():
+                    note = meta.get("note", "upstream tags rewritten") if isinstance(meta, dict) else str(meta)
+                    date = meta.get("date", "") if isinstance(meta, dict) else ""
+                    self.hijacked_actions[action] = f"{note}{f' ({date})' if date else ''}"
+
+            # Extra payload/loader filenames worth opening and hashing. Campaigns
+            # that rotate their loader name (Flooding Dropper ships the same
+            # dropper as _adapter.js, _shim.js, _bootstrap.js and a dozen more)
+            # declare them here instead of hardcoding the list below. These names
+            # are never a finding on their own: the file still has to match a
+            # pattern or a known hash.
+            for section in iocs.values():
+                if not isinstance(section, dict):
+                    continue
+                for name in section.get("loader_filenames", []):
+                    self.extra_payload_files.add(str(name))
+
+            # Code patterns (skip ones already present to avoid duplicate findings).
+            # Entries are [pattern, description, severity]; severity is preserved
+            # so critical campaign markers surface as critical findings.
             if "malicious_code_patterns" in iocs:
                 existing = {p[0] for p in self.malicious_patterns}
                 for pattern_data in iocs["malicious_code_patterns"]:
                     if pattern_data[0] not in existing:
-                        self.malicious_patterns.append((pattern_data[0], pattern_data[1]))
+                        severity = pattern_data[2] if len(pattern_data) > 2 else "warning"
+                        self.malicious_patterns.append((pattern_data[0], pattern_data[1], severity))
                         existing.add(pattern_data[0])
 
             print(f" Loaded {len(self.known_compromised)} compromised npm packages, "
@@ -199,7 +296,9 @@ class NPMSecurityScanner:
         }
         
         self.check_package_files()
-        
+
+        self.check_lockfile_and_installed()
+
         if (self.project_path / "node_modules").exists():
             self.scan_node_modules()
         
@@ -210,6 +309,8 @@ class NPMSecurityScanner:
         self.scan_source_code()
         
         self.verify_package_integrity()
+
+        self.check_build_scripts()
 
         self.check_github_workflows()
 
@@ -258,6 +359,103 @@ class NPMSecurityScanner:
         except Exception as e:
             self.add_finding("error", f"Failed to parse package.json: {e}", str(package_json))
 
+    def check_lockfile_and_installed(self):
+        """Check TRANSITIVE dependencies against the known-compromised database.
+
+        package.json only lists direct dependencies; a compromised package pulled
+        in three levels deep never appears there. This pass covers package-lock.json
+        (v1 "dependencies" tree and v2/v3 "packages" map) and the package.json of
+        every installed package under node_modules.
+        """
+        print(" Checking lockfile and installed packages (transitive deps)...")
+        seen = set()
+        inflated_seen = set()
+
+        # Dependency confusion works by publishing a public package under an
+        # internal name at a version high enough to win resolution, which is why
+        # so many of them land on 9999.0.0, 99.0.2 or 1.0.999. Only runs of three
+        # or more nines count, plus a two-nine major: 1.99.0 is a plausible real
+        # release, 1.0.999 is not. CalVer majors like 2024.1.0 are untouched.
+        inflated_re = re.compile(r"^(?:9{2,}(?:\.|$)|\d+\.(?:9{3,}|\d+\.9{3,})(?:\.|$|[-+]))")
+
+        def flag_inflated(pkg_name, version, location):
+            if not pkg_name or not version or not inflated_re.match(version):
+                return
+            if pkg_name in self.known_compromised:
+                return  # already reported as a confirmed compromise
+            key = (pkg_name, version)
+            if key in inflated_seen:
+                return
+            inflated_seen.add(key)
+            self.add_finding(
+                "warning",
+                f"Version-inflated dependency (dependency-confusion pattern): "
+                f"{pkg_name}@{version}",
+                location,
+                {"package": pkg_name, "version": version}
+            )
+
+        def flag(pkg_name, version, location, source):
+            flag_inflated(pkg_name, version, location)
+            if pkg_name not in self.known_compromised or not version:
+                return
+            versions = self.known_compromised[pkg_name]
+            if "*" in versions or version in versions:
+                key = (pkg_name, version)
+                if key in seen:
+                    return
+                seen.add(key)
+                self.add_finding(
+                    "critical",
+                    f"KNOWN COMPROMISED PACKAGE ({source}): {pkg_name}@{version}",
+                    location,
+                    {"package": pkg_name, "version": version, "source": source}
+                )
+                self.high_risk_packages.add(pkg_name)
+
+        lockfile = self.project_path / "package-lock.json"
+        if lockfile.exists():
+            try:
+                with open(lockfile) as f:
+                    lock_data = json.load(f)
+            except Exception:
+                lock_data = None
+            if lock_data:
+                # Lockfile v2/v3: flat "packages" map keyed by install path
+                for pkg_path, info in (lock_data.get("packages") or {}).items():
+                    if not pkg_path or not isinstance(info, dict):
+                        continue  # "" is the root project itself
+                    name = info.get("name") or pkg_path.split("node_modules/")[-1]
+                    flag(name, info.get("version"), "package-lock.json", "lockfile")
+
+                # Lockfile v1: nested "dependencies" tree
+                def walk_deps(deps):
+                    for name, info in (deps or {}).items():
+                        if not isinstance(info, dict):
+                            continue
+                        flag(name, info.get("version"), "package-lock.json", "lockfile")
+                        walk_deps(info.get("dependencies"))
+                walk_deps(lock_data.get("dependencies"))
+
+        node_modules = self.project_path / "node_modules"
+        if node_modules.exists():
+            for pkg_json in node_modules.rglob("package.json"):
+                parent = pkg_json.parent
+                # Only package roots: node_modules/<name> or node_modules/@scope/<name>
+                is_root = parent.parent.name == "node_modules" or (
+                    parent.parent.name.startswith("@")
+                    and parent.parent.parent.name == "node_modules"
+                )
+                if not is_root:
+                    continue
+                try:
+                    with open(pkg_json) as f:
+                        info = json.load(f)
+                except Exception:
+                    continue
+                if isinstance(info, dict):
+                    flag(info.get("name"), info.get("version"), str(pkg_json), "installed")
+
     def scan_node_modules(self):
         """Scan the node_modules folder for suspicious files"""
         node_modules = self.project_path / "node_modules"
@@ -266,12 +464,28 @@ class NPMSecurityScanner:
             # 2026 Mini Shai-Hulud / TeamPCP payload & loader filenames
             "setup.mjs", "execution.js", "bw1.js", "bw_setup.js",
             "router_init.js", "tanstack_runner.js", "_index.js",
+            # June-July 2026 campaigns (Mastra, IronWorm/jscrambler, aone-cli)
+            "protocal.cjs", "setup.cjs", "intro.js", "aone-cli.js",
+            # August 2026: ChainDrop stage 2, Flooding Dropper cover-story module
+            "Math_Symbol.js", "math_init.js", "telemetry.js",
         ]
+        # Loader names declared by the IOC file (Flooding Dropper rotates through
+        # a dozen of them). Opening the file is harmless - it is only reported if
+        # a pattern or a known hash matches.
+        suspicious_files += sorted(self.extra_payload_files)
+        # Exact-hash lookups carry no false-positive risk, so this set can also
+        # cover ordinary bundle filenames - that is how the Joyfill implants,
+        # which live inside dist bundles rather than a dedicated payload file,
+        # get caught.
         hash_check_files = {
             "bundle.js", "bun_environment.js", "setup_bun.js",
             "setup.mjs", "execution.js", "bw1.js", "bw_setup.js",
             "router_init.js", "tanstack_runner.js", "_index.js",
+            "protocal.cjs", "setup.cjs", "intro.js", "aone-cli.js",
+            "index.cjs.js", "index.es.js", "index.esm.js", "joyfill.min.js",
+            "Math_Symbol.js", "math_init.js",
         }
+        hash_check_files |= self.extra_payload_files
         
         print(" Scanning node_modules...")
         
@@ -287,28 +501,92 @@ class NPMSecurityScanner:
                 if file in suspicious_files:
                     self.analyze_file(file_path)
                     
-                if file.endswith(".js"):
+                # Hash first, and independently of the extension: the 2026
+                # payloads ship as .cjs as well as .js.
+                if file in hash_check_files:
+                    try:
+                        file_hash = self.calculate_file_hash(file_path)
+                    except Exception:
+                        file_hash = None
+                    if file_hash and file_hash.lower() in self.malicious_hashes:
+                        variant = self.malicious_hashes[file_hash.lower()]
+                        self.add_finding(
+                            "critical",
+                            f"KNOWN MALICIOUS FILE: {variant}",
+                            str(file_path),
+                            {"sha256": file_hash, "variant": variant}
+                        )
+
+                if file.endswith((".js", ".cjs", ".mjs")):
                     try:
                         size_mb = file_path.stat().st_size / (1024 * 1024)
-                        if size_mb > 3: 
+                        if size_mb > 3:
                             self.add_finding(
                                 "warning",
                                 f"Large JS file detected ({size_mb:.1f}MB) - potential bundled malware",
                                 str(file_path)
                             )
                             self.analyze_file(file_path)
-                            
-                        if file in hash_check_files:
-                            file_hash = self.calculate_file_hash(file_path)
-                            if file_hash in self.malicious_hashes:
-                                self.add_finding(
-                                    "critical",
-                                    f"KNOWN MALICIOUS FILE: {self.malicious_hashes[file_hash]}",
-                                    str(file_path),
-                                    {"sha256": file_hash, "variant": self.malicious_hashes[file_hash]}
-                                )
-                    except:
+                    except Exception:
                         pass
+
+        self.scan_package_entry_points(node_modules, suspicious_files)
+
+    def scan_package_entry_points(self, node_modules, already_scanned):
+        """Analyse the entry point of every installed package.
+
+        Implants that run at import time do not sit in a file with a suspicious
+        name: the jscrambler and Joyfill payloads shipped inside the dist bundle
+        named by "main", and the Flooding Dropper's index.js is a one-line
+        require of the dropper. Neither has an install hook, so nothing else in
+        this scanner would open them. One file per package keeps the cost
+        bounded - pattern-matching everything under node_modules would not be.
+        """
+        # Names the node_modules walk already opens, so they are not analysed twice.
+        skip_names = set(already_scanned)
+        seen = set()
+        for pkg_json in node_modules.rglob("package.json"):
+            parent = pkg_json.parent
+            is_root = parent.parent.name == "node_modules" or (
+                parent.parent.name.startswith("@")
+                and parent.parent.parent.name == "node_modules"
+            )
+            if not is_root or "@types" in str(parent):
+                continue
+            try:
+                with open(pkg_json) as f:
+                    info = json.load(f)
+            except Exception:
+                continue
+            if not isinstance(info, dict):
+                continue
+
+            candidates = []
+            main = info.get("main")
+            if isinstance(main, str) and main.strip():
+                candidates.append(main.strip())
+            candidates.append("index.js")
+
+            for rel in candidates:
+                try:
+                    target = (parent / rel).resolve()
+                    if target.is_dir():
+                        target = target / "index.js"
+                    # "main" is attacker-controlled text; never follow it out of
+                    # the package directory.
+                    target.relative_to(parent.resolve())
+                    if target.name in skip_names or target in seen:
+                        continue
+                    if not target.is_file():
+                        continue
+                    # Anything over 3MB was already analysed by the walk above.
+                    if target.stat().st_size > 3 * 1024 * 1024:
+                        continue
+                except Exception:
+                    continue
+                self.analyze_file(target)
+                seen.add(target)
+                break
 
     def check_install_hooks(self):
         """Checks for installation hooks in all package.json"""
@@ -367,55 +645,268 @@ class NPMSecurityScanner:
         """Scan source code for malicious patterns"""
         print("Scanning source code...")
         
-        extensions = [".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs"]
-        
+        # Python and .pth are included because the Hades PyPI wave hides its
+        # startup hook in a *-setup.pth file and the aone-cli cluster injects
+        # into the .skills Python scripts of AI developer tools.
+        extensions = [".js", ".ts", ".jsx", ".tsx", ".mjs", ".cjs", ".py", ".pth"]
+
         for ext in extensions:
             for file_path in self.project_path.rglob(f"*{ext}"):
                 if "node_modules" not in str(file_path):
                     self.analyze_file(file_path)
 
+    # Escapes that stand for a character class rather than a literal character.
+    _CLASS_ESCAPES = set("dDwWsSbBAZnrtfvNxuU0123456789")
+    _REGEX_META = set("([{|?*+.^$")
+
+    @staticmethod
+    def _has_top_level_alternation(pattern: str) -> bool:
+        """True if the pattern has a | outside any group or character class."""
+        depth = i = 0
+        in_class = False
+        while i < len(pattern):
+            char = pattern[i]
+            if char == "\\":
+                i += 2
+                continue
+            if in_class:
+                if char == "]":
+                    in_class = False
+            elif char == "[":
+                in_class = True
+            elif char == "(":
+                depth += 1
+            elif char == ")":
+                depth -= 1
+            elif char == "|" and depth == 0:
+                return True
+            i += 1
+        return False
+
+    @classmethod
+    def _required_prefix(cls, pattern: str):
+        """Return a lowercase literal every match of `pattern` must start with.
+
+        Roughly three quarters of the pattern set begins with a distinctive
+        literal (Math_Symbol, dotnet_diag_, metadata\\.tencentyun\\.com, ...).
+        Testing that substring first lets the regex engine skip the file
+        entirely, which matters now that a per-package entry point is analysed.
+        Returns None when no safe prefix can be derived, in which case the
+        pattern is simply always run.
+        """
+        if cls._has_top_level_alternation(pattern):
+            # Only the first branch starts with that literal; the others do not.
+            return None
+        out, i = [], 0
+        while i < len(pattern):
+            char = pattern[i]
+            if char == "\\":
+                if i + 1 >= len(pattern):
+                    break
+                nxt = pattern[i + 1]
+                if nxt in cls._CLASS_ESCAPES:
+                    break
+                out.append(nxt)
+                i += 2
+                continue
+            if char in cls._REGEX_META:
+                break
+            out.append(char)
+            i += 1
+        # A trailing character governed by ?, * or {0,n} is optional, so it
+        # cannot be part of a required prefix.
+        if out and i < len(pattern) and (pattern[i] in "?*" or pattern.startswith("{0", i)):
+            out.pop()
+        prefix = "".join(out)
+        return prefix.lower() if len(prefix) >= 4 else None
+
+    def _compiled_rules(self):
+        """Compile the pattern set once instead of on every file.
+
+        Scanning a package entry point per installed dependency means the whole
+        set runs thousands of times on a real tree, so the per-call compile cache
+        lookup stops being free. Most C2 entries are re.escape()d literals, which
+        a substring test settles far faster than the regex engine. A pattern that
+        will not compile is dropped here rather than silently aborting the
+        analysis of whichever file happened to hit it first.
+        """
+        if self._rules is None:
+            rules = []
+            for entry in self.malicious_patterns:
+                severity = entry[2] if len(entry) > 2 else "warning"
+                try:
+                    rules.append((re.compile(entry[0], re.IGNORECASE),
+                                  entry[1], severity, entry[0],
+                                  self._required_prefix(entry[0])))
+                except re.error as exc:
+                    print(f" Skipping uncompilable pattern {entry[0]!r}: {exc}")
+            literals, regexes = [], []
+            for raw in self.suspicious_domains:
+                unescaped = re.sub(r"\\(.)", r"\1", raw)
+                if re.escape(unescaped) == raw:
+                    literals.append((unescaped, raw))
+                else:
+                    try:
+                        regexes.append((re.compile(raw), raw))
+                    except re.error as exc:
+                        print(f" Skipping uncompilable domain {raw!r}: {exc}")
+            self._rules = (rules, literals, regexes)
+        return self._rules
+
     def analyze_file(self, file_path: Path):
         """Analyzes a file for malicious patterns"""
+        if self._is_own_file(file_path):
+            return
         try:
             with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
                 content = f.read()
-                
-            for pattern, description in self.malicious_patterns:
-                if re.search(pattern, content, re.IGNORECASE):
+
+            rules, domain_literals, domain_regexes = self._compiled_rules()
+            lowered = content.lower()
+
+            for regex, description, severity, raw, prefix in rules:
+                if prefix is not None and prefix not in lowered:
+                    continue
+                if regex.search(content):
                     self.add_finding(
-                        "warning",
+                        severity,
                         description,
                         str(file_path),
-                        {"pattern": pattern}
+                        {"pattern": raw}
                     )
-                    
-            for domain_pattern in self.suspicious_domains:
-                if re.search(domain_pattern, content):
+
+            for literal, raw in domain_literals:
+                if literal in content:  # domains are matched case-sensitively
                     self.add_finding(
                         "critical",
                         "Suspicious domain detected",
                         str(file_path),
-                        {"domain_pattern": domain_pattern}
+                        {"domain_pattern": raw}
                     )
-                    
+            for regex, raw in domain_regexes:
+                if regex.search(content):
+                    self.add_finding(
+                        "critical",
+                        "Suspicious domain detected",
+                        str(file_path),
+                        {"domain_pattern": raw}
+                    )
+
+
         except Exception as e:
             if self.verbose:
                 print(f"Error analyzing {file_path}: {e}")
 
+    def check_build_scripts(self):
+        """Inspect binding.gyp files for install-time command execution.
+
+        The Miasma "Phantom Gyp" wave hides its loader in a binding.gyp rather
+        than in a package.json script, because node-gyp evaluates GYP command
+        expansion - `<!(cmd)` - while building. That runs even under
+        `npm install --ignore-scripts` and under npm v12, which blocks lifecycle
+        scripts by default. A pure-JS package shipping a binding.gyp that
+        executes an interpreter and compiles nothing is the giveaway.
+        """
+        print(" Checking build scripts (binding.gyp)...")
+
+        gyp_files = list(self.project_path.rglob("binding.gyp"))
+        if not gyp_files:
+            return
+
+        # Legitimate addons use <!(...) to print a value: sharp resolves its
+        # libvips paths with <!(node -p "require('../dist/libvips.cjs').x"), and
+        # node-addon-api consumers do the same for include dirs. Matching a
+        # script-file extension anywhere in the expansion flagged all of those.
+        #
+        # What separates Phantom Gyp is the *shape* of the command: it runs a
+        # script file rather than printing an expression, chains shell commands,
+        # or reaches outside its own package.
+        # For a language runtime, -p/-e/-c introduce a quoted expression to
+        # evaluate and print: sharp prints a require(), python prints a sysconfig
+        # path, and a ";" inside that expression is language syntax rather than
+        # shell chaining. For a shell, -c introduces a real command line, so no
+        # such exemption applies there.
+        runtime = r"(?:node|nodejs|bun|deno|python3?|perl|ruby)"
+        shell = r"(?:sh|bash|zsh|npx|curl|wget|eval)"
+        exec_expansion = re.compile(
+            r"<!@?\(\s*(?:sudo\s+)?"
+            r"(?:" + runtime + r"\b(?!\s+(?:-p|-e|-c|--print|--eval)\b)"
+            r"|" + shell + r"\b)"
+            r"(?:"
+            # a script file executed directly
+            r"[^)\n]*?\.(?:js|mjs|cjs|ts|py|sh|pl|rb)\b"
+            r"|"
+            # or shell chaining / output suppression
+            r"[^)\n]*?(?:&&|\|\||;|>\s*/dev/null)"
+            r")"
+            r"[^)\n]*\)"
+        )
+        # A printed expression is exempt from the shape rules above, so it still
+        # has to be checked for the things a value lookup never does.
+        expression_exec = re.compile(
+            r"<!@?\([^)\n]{0,60}?\s-{1,2}(?:p|e|c|print|eval)\b[^)\n]{0,200}?"
+            r"(?:os\.system|subprocess|child_process|execSync|spawnSync"
+            r"|\|\s*(?:sh|bash)\b|curl\s|wget\s|\.\./\.\./)"
+        )
+        # A build file has no business reaching above its own package root;
+        # node-gyp already runs one level down, so "../" is normal and "../../"
+        # is not.
+        escapes_package = re.compile(r"<!@?\([^)\n]{0,200}(?:\.\./\.\./|/tmp/|\$HOME|%TEMP%)")
+        compiles_nothing = re.compile(r'"type"\s*:\s*"none"')
+
+        for gyp in gyp_files:
+            try:
+                content = gyp.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                continue
+
+            match = (exec_expansion.search(content)
+                     or expression_exec.search(content)
+                     or escapes_package.search(content))
+            if match:
+                self.add_finding(
+                    "critical",
+                    "Install-time command execution in binding.gyp "
+                    "(Phantom Gyp - runs even with --ignore-scripts)",
+                    str(gyp),
+                    {"expansion": match.group(0)[:200]}
+                )
+            elif ("<!(" in content or "<!@(" in content) and compiles_nothing.search(content):
+                # Bare command expansion is normal - node-addon-api users locate
+                # their headers that way - so it is only reported when the target
+                # compiles nothing at all, which no real addon does.
+                self.add_finding(
+                    "critical",
+                    "binding.gyp runs a shell command while compiling nothing "
+                    "(type: none) - build step used purely for execution",
+                    str(gyp)
+                )
+
+            self.analyze_file(gyp)
+
     def check_github_workflows(self):
         """Checks for suspicious GitHub workflows"""
         github_dir = self.project_path / ".github" / "workflows"
-        
+
         if github_dir.exists():
             print(" Checking GitHub workflows...")
-            
+
             suspicious_workflow_names = [
                 "shai-hulud.yaml",
-                "shai-hulud.yml", 
+                "shai-hulud.yml",
                 "shai-hulud-workflow.yml",
                 "shai-hulud-workflow.yaml"
             ]
-            
+
+            # Actions whose upstream tags were rewritten to point at malicious
+            # commits. Referencing them by tag resolves to the imposter code, so
+            # only a full 40-character commit SHA is safe. The list comes from
+            # the IOC database, with a fallback for a missing or stale one.
+            hijacked_actions = dict(self.hijacked_actions) or {
+                "codfish/semantic-release-action":
+                    "tags rewritten 2026-06-24 to deliver the Miasma loader",
+            }
+
             for workflow_file in github_dir.glob("*.y*ml"):
                 if workflow_file.name.lower() in suspicious_workflow_names:
                     self.add_finding(
@@ -424,6 +915,27 @@ class NPMSecurityScanner:
                         str(workflow_file),
                         {"attack": "Shai-Hulud", "type": "GitHub Actions persistence"}
                     )
+
+                try:
+                    wf_content = workflow_file.read_text(encoding="utf-8", errors="ignore")
+                except Exception:
+                    continue
+
+                for action, why in hijacked_actions.items():
+                    for ref in re.finditer(
+                        re.escape(action) + r"@(?P<ref>[^\s\"'#]+)", wf_content
+                    ):
+                        pinned = re.fullmatch(r"[0-9a-f]{40}", ref.group("ref"))
+                        self.add_finding(
+                            "warning" if pinned else "critical",
+                            f"Compromised GitHub Action referenced: {action} ({why})",
+                            str(workflow_file),
+                            {
+                                "action": action,
+                                "ref": ref.group("ref"),
+                                "pinned_to_sha": bool(pinned),
+                            }
+                        )
                 
                 try:
                     with open(workflow_file) as f:
@@ -477,26 +989,56 @@ class NPMSecurityScanner:
         config_files = [
             ".claude/settings.json", ".claude/settings.local.json",
             ".vscode/tasks.json", ".cursor/settings.json", ".cursor/tasks.json",
+            # AI instruction files. The TrapDoor campaign poisons these with
+            # attacker instructions - often hidden behind zero-width or
+            # bidirectional Unicode - so the agent itself exfiltrates secrets.
+            "CLAUDE.md", ".claude/CLAUDE.md", "AGENTS.md",
+            ".cursorrules", ".cursor/rules", ".windsurfrules",
+            ".github/copilot-instructions.md",
         ]
         for rel in config_files:
             cfg = self.project_path / rel
-            if cfg.exists():
+            if cfg.exists() and cfg.is_file():
                 self.analyze_file(cfg)
 
+        # Filenames unique to the campaigns: their presence alone is damning.
         loader_names = {"setup.mjs", "execution.js", "router_init.js",
                         "router_runtime.js", "tanstack_runner.js", "_index.js"}
-        for d in [".claude", ".vscode", ".cursor"]:
+        # Names the Miasma waves also drop, but which a project could plausibly
+        # own. Reported only when the file looks like a payload rather than on
+        # the name alone.
+        ambiguous_names = {"index.js", "setup.js"}
+
+        for d in [".claude", ".vscode", ".cursor", ".gemini", ".github"]:
             dpath = self.project_path / d
             if not dpath.exists():
                 continue
             for f in dpath.iterdir():
-                if f.is_file() and f.name in loader_names:
+                if not f.is_file():
+                    continue
+                if f.name in loader_names:
                     self.add_finding(
                         "critical",
                         f"Malware loader dropped in {d}/ ({f.name}) - agent/IDE persistence",
                         str(f),
                         {"campaign": "Mini Shai-Hulud"}
                     )
+                    self.analyze_file(f)
+                elif f.name in ambiguous_names:
+                    # The Miasma droppers are single-line obfuscated blobs of
+                    # several megabytes; a hand-written helper is not.
+                    try:
+                        size_mb = f.stat().st_size / (1024 * 1024)
+                    except OSError:
+                        size_mb = 0
+                    if size_mb > 1:
+                        self.add_finding(
+                            "critical",
+                            f"Large obfuscated script in {d}/ ({f.name}, {size_mb:.1f}MB) "
+                            "- Miasma agent/IDE persistence",
+                            str(f),
+                            {"campaign": "Miasma", "size_mb": round(size_mb, 1)}
+                        )
                     self.analyze_file(f)
 
     def check_pypi_dependencies(self):
@@ -678,7 +1220,7 @@ class NPMSecurityScanner:
             
         self.findings.append(finding)
         
-        emoji = {"critical": "🚨", "warning": "⚠️", "info": "ℹ️", "error": "❌"}.get(severity, "•")
+        emoji = {"critical": "🚨", "high": "❗", "warning": "⚠️", "info": "ℹ️", "error": "❌"}.get(severity, "•")
         print(f"{emoji} [{severity.upper()}] {message}")
         if self.verbose and location:
             print(f"   Location: {location}")
@@ -688,6 +1230,7 @@ class NPMSecurityScanner:
         stats = {
             "total_findings": len(self.findings),
             "critical": sum(1 for f in self.findings if f["severity"] == "critical"),
+            "high": sum(1 for f in self.findings if f["severity"] == "high"),
             "warning": sum(1 for f in self.findings if f["severity"] == "warning"),
             "info": sum(1 for f in self.findings if f["severity"] == "info"),
             "error": sum(1 for f in self.findings if f["severity"] == "error"),
@@ -714,6 +1257,7 @@ class NPMSecurityScanner:
             report.append("SUMMARY:")
             report.append(f"  Total Findings: {stats['total_findings']}")
             report.append(f"  Critical: {stats['critical']}")
+            report.append(f"  High: {stats.get('high', 0)}")
             report.append(f"  Warnings: {stats['warning']}")
             report.append(f"  Info: {stats['info']}")
             report.append(f"  Errors: {stats['error']}")
@@ -750,6 +1294,7 @@ class NPMSecurityScanner:
             report.append("| Severity | Count |")
             report.append("|----------|-------|")
             report.append(f"| Critical | {stats['critical']} |")
+            report.append(f"| High | {stats.get('high', 0)} |")
             report.append(f"| Warning | {stats['warning']} |")
             report.append(f"| Info | {stats['info']} |")
             report.append(f"| Error | {stats['error']} |")

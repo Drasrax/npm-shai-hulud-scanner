@@ -15,6 +15,11 @@ NC='\033[0m'
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SCANNER_SCRIPT="$SCRIPT_DIR/npm-supply-chain-detector.py"
 PATTERNS_FILE="$SCRIPT_DIR/malicious-patterns.json"
+# The detector reads its definitions from the IOC database, not from
+# malicious-patterns.json, so this is the file whose integrity actually
+# determines what gets detected.
+IOC_FILE="$SCRIPT_DIR/shai-hulud-iocs.json"
+UPDATER_SCRIPT="$SCRIPT_DIR/update-patterns.py"
 REPORT_DIR="$SCRIPT_DIR/security-reports"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
@@ -41,7 +46,7 @@ OPTIONS:
     -c, --continuous       Run in continuous monitoring mode
     -i, --interval SECONDS  Scan interval for continuous mode (default: 300)
     -d, --deep             Perform deep scan (slower but more thorough)
-    --update-patterns      Update malicious patterns from online source
+    --update-patterns      Rebuild the IOC database and pattern definitions
     --quarantine          Move suspicious packages to quarantine folder
 
 EXAMPLES:
@@ -86,22 +91,49 @@ check_requirements() {
     if [ ! -f "$PATTERNS_FILE" ]; then
         echo -e "${YELLOW}[!] Patterns file not found, using defaults${NC}"
     fi
-    
+
+    # Missing IOCs is not fatal - the detector falls back to its built-in
+    # patterns - but it silently reduces coverage to a fraction, so warn loudly.
+    if [ ! -f "$IOC_FILE" ]; then
+        echo -e "${YELLOW}[!] IOC database not found: $IOC_FILE${NC}"
+        echo -e "${YELLOW}    Detection is limited to built-in patterns; run --update-patterns to rebuild it${NC}"
+    fi
+
     echo -e "${GREEN}[✓] All requirements satisfied${NC}"
+}
+
+validate_json() {
+    local file="$1"
+    local label="$2"
+
+    [ -f "$file" ] || return 0
+
+    if python3 -m json.tool "$file" > /dev/null 2>&1; then
+        echo -e "${GREEN}[✓] $label is valid JSON${NC}"
+    else
+        echo -e "${RED}[!] $label is invalid JSON: $file${NC}"
+        exit 1
+    fi
 }
 
 update_patterns() {
     echo -e "${BLUE}[*] Updating malicious patterns...${NC}"
-    
-    if [ -f "$PATTERNS_FILE" ]; then
-        python3 -m json.tool "$PATTERNS_FILE" > /dev/null 2>&1
-        if [ $? -eq 0 ]; then
-            echo -e "${GREEN}[✓] Patterns file is valid${NC}"
+
+    # Regenerate the IOC database and re-sync the production pattern file.
+    # Without this the command only ever validated what was already on disk.
+    if [ -f "$UPDATER_SCRIPT" ]; then
+        if python3 "$UPDATER_SCRIPT"; then
+            echo -e "${GREEN}[✓] Definitions regenerated${NC}"
         else
-            echo -e "${RED}[!] Patterns file is invalid JSON${NC}"
+            echo -e "${RED}[!] Definition update failed${NC}"
             exit 1
         fi
+    else
+        echo -e "${YELLOW}[!] Updater not found: $UPDATER_SCRIPT (validating existing files only)${NC}"
     fi
+
+    validate_json "$IOC_FILE" "IOC database"
+    validate_json "$PATTERNS_FILE" "Patterns file"
 }
 
 run_scan() {
