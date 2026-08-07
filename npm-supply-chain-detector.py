@@ -346,6 +346,7 @@ class NPMSecurityScanner:
                             "package.json",
                             {"package": pkg_name, "ref": version}
                         )
+                    self.check_offregistry_dependency(pkg_name, version, "package.json")
 
             if "scripts" in pkg_data:
                 for script_name, script_cmd in pkg_data["scripts"].items():
@@ -358,6 +359,95 @@ class NPMSecurityScanner:
 
         except Exception as e:
             self.add_finding("error", f"Failed to parse package.json: {e}", str(package_json))
+
+    # Hosts that serve arbitrary files and are never a package registry. A
+    # dependency resolved from one of these has bypassed npm entirely: no
+    # registry review, no integrity history, and the bytes can be swapped at any
+    # time without republishing. Private registries (Artifactory, Verdaccio,
+    # GitHub Packages) are deliberately absent - those are ordinary in
+    # enterprises and would drown the finding in noise.
+    _FILE_HOSTS = re.compile(
+        r"^https?://[^/]*?("
+        r"storage\.googleapis\.com|s3[.-][\w-]*\.amazonaws\.com|s3\.amazonaws\.com"
+        r"|blob\.core\.windows\.net|\.r2\.dev|\.b-cdn\.net|cdn\.discordapp\.com"
+        r"|transfer\.sh|temp\.sh|file\.io|anonfiles\.com|gofile\.io|bashupload\.com"
+        r"|oss-[\w-]+\.aliyuncs\.com|cos\.[\w-]+\.myqcloud\.com"
+        r")",
+        re.IGNORECASE,
+    )
+    _TARBALL_SPEC = re.compile(r"^https?://.+\.(?:tgz|tar\.gz|tar)(?:[?#].*)?$", re.IGNORECASE)
+
+    # A registry tarball URL is what every lockfile "resolved" field holds, and
+    # private registries are ordinary in enterprises. Neither is a finding; only
+    # a URL that bypasses registries altogether is.
+    _REGISTRY_URL = re.compile(
+        r"^https?://("
+        r"registry\.(?:npmjs\.org|npmjs\.com|yarnpkg\.com|npmmirror\.com)"
+        r"|npm\.pkg\.github\.com|[^/]*\.jfrog\.io|[^/]*\.pkg\.dev"
+        r"|[^/]*\.myget\.org|[^/]*/artifactory/|[^/]*/repository/npm"
+        r"|[^/]*(?:nexus|verdaccio|npm|registry)[\w.-]*/)",
+        re.IGNORECASE,
+    )
+
+    # Vendors whose GitHub organisation is worth impersonating. A package that
+    # claims one as its repository while not being published under that vendor's
+    # npm scope is misrepresenting where its code comes from.
+    _VENDOR_ORGS = {
+        "anthropics": ("@anthropic-ai/",),
+        "openai": ("@openai/", "openai"),
+        "googleapis": ("@google-cloud/", "@googleapis/"),
+        "microsoft": ("@microsoft/", "@azure/", "@typescript/"),
+        "vercel": ("@vercel/",),
+        "facebook": ("@facebook/", "react", "@react-native/"),
+    }
+
+    def check_offregistry_dependency(self, pkg_name, spec, location):
+        """Flag a dependency whose version spec is a direct tarball URL.
+
+        npm accepts `"dep": "https://host/pkg.tgz"` and installs whatever bytes
+        are served, running the tarball's lifecycle scripts. The August 2026
+        `ltidisafe` cluster used exactly this: hollow packages at inflated 99.x
+        versions whose only dependency pointed at a Google Cloud Storage bucket.
+        """
+        if not isinstance(spec, str) or not self._TARBALL_SPEC.match(spec.strip()):
+            return
+        spec = spec.strip()
+        on_file_host = bool(self._FILE_HOSTS.match(spec))
+        # The npm "/-/" tarball path and any registry host are normal.
+        if not on_file_host and (self._REGISTRY_URL.match(spec) or "/-/" in spec):
+            return
+        self.add_finding(
+            "critical" if on_file_host else "warning",
+            f"Dependency resolved from a direct tarball URL instead of a registry: "
+            f"{pkg_name} -> {spec}",
+            location,
+            {"package": pkg_name, "url": spec, "generic_file_host": on_file_host},
+        )
+
+    def check_declared_provenance(self, info, location):
+        """Flag a package claiming a well-known vendor's repository as its own."""
+        repo = info.get("repository")
+        if isinstance(repo, dict):
+            repo = repo.get("url")
+        if not isinstance(repo, str):
+            return
+        match = re.search(r"github\.com[/:]([\w.-]+)/", repo)
+        if not match:
+            return
+        org = match.group(1).lower()
+        prefixes = self._VENDOR_ORGS.get(org)
+        if not prefixes:
+            return
+        name = info.get("name") or ""
+        if any(name == p or name.startswith(p) for p in prefixes):
+            return
+        self.add_finding(
+            "warning",
+            f"Package claims a {org} repository but is not published under its "
+            f"scope: {name} -> {repo}",
+            location,
+            {"package": name, "declared_repository": repo},
+        )
 
     def check_lockfile_and_installed(self):
         """Check TRANSITIVE dependencies against the known-compromised database.
@@ -427,6 +517,8 @@ class NPMSecurityScanner:
                         continue  # "" is the root project itself
                     name = info.get("name") or pkg_path.split("node_modules/")[-1]
                     flag(name, info.get("version"), "package-lock.json", "lockfile")
+                    self.check_offregistry_dependency(
+                        name, info.get("resolved"), "package-lock.json")
 
                 # Lockfile v1: nested "dependencies" tree
                 def walk_deps(deps):
@@ -434,6 +526,8 @@ class NPMSecurityScanner:
                         if not isinstance(info, dict):
                             continue
                         flag(name, info.get("version"), "package-lock.json", "lockfile")
+                        self.check_offregistry_dependency(
+                            name, info.get("resolved"), "package-lock.json")
                         walk_deps(info.get("dependencies"))
                 walk_deps(lock_data.get("dependencies"))
 
@@ -455,6 +549,14 @@ class NPMSecurityScanner:
                     continue
                 if isinstance(info, dict):
                     flag(info.get("name"), info.get("version"), str(pkg_json), "installed")
+                    self.check_declared_provenance(info, str(pkg_json))
+                    # This file is already open, so hashing it is nearly free -
+                    # and the hollow dependency-confusion lures are identified by
+                    # their package.json rather than by any code they ship.
+                    self.check_known_hash(pkg_json)
+                    for dep_type in ("dependencies", "optionalDependencies"):
+                        for dep, spec in (info.get(dep_type) or {}).items():
+                            self.check_offregistry_dependency(dep, spec, str(pkg_json))
 
     def scan_node_modules(self):
         """Scan the node_modules folder for suspicious files"""
@@ -585,6 +687,7 @@ class NPMSecurityScanner:
                 except Exception:
                     continue
                 self.analyze_file(target)
+                self.check_known_hash(target)
                 seen.add(target)
                 break
 
@@ -719,6 +822,27 @@ class NPMSecurityScanner:
             out.pop()
         prefix = "".join(out)
         return prefix.lower() if len(prefix) >= 4 else None
+
+    def check_known_hash(self, file_path: Path):
+        """Report the file if its SHA-256 is a known malicious payload.
+
+        An exact digest cannot false-positive, so this is safe to run on any
+        file the scanner already has open.
+        """
+        try:
+            digest = self.calculate_file_hash(file_path)
+        except Exception:
+            return
+        if not digest:
+            return
+        variant = self.malicious_hashes.get(digest.lower())
+        if variant:
+            self.add_finding(
+                "critical",
+                f"KNOWN MALICIOUS FILE: {variant}",
+                str(file_path),
+                {"sha256": digest, "variant": variant},
+            )
 
     def _compiled_rules(self):
         """Compile the pattern set once instead of on every file.

@@ -8,12 +8,13 @@ Security toolkit for detecting supply chain vulnerabilities in NPM projects, des
 - **June-July 2026 campaigns** by other actors reusing the same playbook: Mastra / `easy-day-js` (Sapphire Sleet), Injective SDK, jscrambler / IronWorm, the aone-cli RAT cluster, Joyfill / PolinRider
 - **ChainDrop** (August 2026): the keyv / cacheable worm — 444 packages, 2259 versions, ~2 billion monthly installs, with its C2 list held in an Ethereum contract
 - **Flooding Dropper** (August 2026): ~1000 dependency-confusion packages whose dropper runs on `require()`, not on an install hook
+- **AI coding-agent hijack** (August 2026): daemons that take remote input and spawn `claude` / `codex` / `gemini` with `--dangerously-skip-permissions`
 
 ## Purpose
 
 Detect and notify security vulnerabilities in NPM (and now PyPI) dependencies, including:
 
-- **7499 compromised package versions across 3599 npm packages and 95 PyPI projects** (Shai-Hulud v1/v2 + CVE-2025-54313 + the 2026 Mini Shai-Hulud waves + the June-August 2026 campaigns)
+- **7965 compromised package versions across 3693 npm packages and 103 PyPI projects** (Shai-Hulud v1/v2 + CVE-2025-54313 + the 2026 Mini Shai-Hulud waves + the June-August 2026 campaigns)
 - **Transitive dependencies**: known-compromised packages are matched in `package-lock.json` (v1/v2/v3 formats) and installed `node_modules`, not just direct `package.json` dependencies
 - **Cross-ecosystem coverage**: npm + PyPI (Hades wave), with Maven spillover documented
 - Bun-runtime loaders used for EDR evasion (`setup.mjs`, `execution.js`, `bw1.js`, `_index.js`, `Math_Symbol.js`, pinned Bun v1.3.13)
@@ -36,8 +37,8 @@ Detect and notify security vulnerabilities in NPM (and now PyPI) dependencies, i
 - `npm-supply-chain-detector.py` - Main Python detection script
 - `scan-npm-security.sh` - Bash automation and monitoring script
 - `malicious-patterns.json` - Malicious patterns database (production; auto-synced from the IOC database by `update-patterns.py`)
-- `shai-hulud-iocs.json` - Extended IOCs database (3599 npm packages / 7499 versions, 95 PyPI projects, 301 hashes, C2 domains, one section per campaign family) — the file loaded by the Python detector
-- `update-patterns.py` - Pattern database generator/updater (regenerates `shai-hulud-iocs.json` and syncs `malicious-patterns.json`)
+- `shai-hulud-iocs.json` - Extended IOCs database (3693 npm packages / 7965 versions, 103 PyPI projects, 514 hashes, C2 domains, one section per campaign family) — the file loaded by the Python detector
+- `update-patterns.py` - Pattern database generator/updater (regenerates `shai-hulud-iocs.json` and syncs `malicious-patterns.json`). Regeneration is **offline and deterministic**: it touches no network and two runs produce byte-identical files. `--refresh-remote` re-scrapes the vendor page the November 2025 list originally came from, and shape-validates every package name and version before merging — a detection database must not be assembled from an unpinned third-party page.
 
 ## Installation
 
@@ -104,7 +105,7 @@ python3 npm-supply-chain-detector.py -v -o markdown -f report.md
 - `-i, --interval`: Interval between scans (seconds)
 - `-d, --deep`: Deep scan (includes npm audit, outdated packages)
 - `--quarantine`: **Move suspicious packages to quarantine folder**
-- `--update-patterns`: Update patterns from file
+- `--update-patterns`: Rebuild the IOC database and pattern definitions (offline)
 
 ## Quarantine Feature
 
@@ -137,7 +138,7 @@ cd .npm-quarantine
 
 ## Detections
 
-### 1. Known compromised packages (7499 versions)
+### 1. Known compromised packages (7965 versions)
 
 Matched in three places: direct dependencies in `package.json`, the full dependency tree in `package-lock.json` (v1 nested tree and v2/v3 flat `packages` map), and packages actually installed under `node_modules` — so a compromised package pulled in three levels deep is still flagged.
 
@@ -242,6 +243,23 @@ Flooding Dropper is a different problem: roughly a thousand throwaway packages w
 
 Because of that second campaign, the scanner now analyses **the entry point of every installed package** (`main`, falling back to `index.js`), not only files with a known-suspicious name. It also flags **version inflation** — a dependency resolved to `9999.0.0` or `1.0.999` — as a warning, since that is the signature of a dependency-confusion win. CalVer versions such as `2024.1.0` are deliberately not matched.
 
+**August 2026 (2026-08-06/07): nine clusters in 48 hours**
+
+Not one campaign but a burst of unrelated activity, taken from the OSV bulk export — **114 npm packages and 7 PyPI projects**. Three of them introduced techniques the scanner had no rule for:
+
+| Cluster | Ecosystem | What makes it notable |
+|---------|-----------|-----------------------|
+| **AI coding-agent hijack** | npm | `remote-claude-daemon`, `agenthub-multiagent-mcp`, `@addai/*`, `@love-moon/conductor-cli`, `opencode-optimised-toolings`, `@ch4acko3/frontal-lobe` — a daemon polls a WebSocket or Supabase RPC and spawns `claude` / `codex` / `gemini` / `kimi` / `grok` in a PTY with `--dangerously-skip-permissions` |
+| **jsonbin.io dead-drop** | npm | `helmet-pro` (typosquat of `helmet`), `vitest-preview-pro-all` — postinstall fetches an `api.jsonbin.io` record and passes it to `new Function('require', ...)`; the record is attacker-mutable, so the payload changes without republishing |
+| **Off-registry tarball** | npm | `commonweb-balance`, `connect-contingency`, `consumerweb-creditcollection` — hollow packages at inflated `99.x` versions whose only dependency is a direct tarball URL on a Google Cloud Storage bucket |
+| RedShell implants | npm | `streak-cache-map`, `streak-map-cache` — a bundled Linux ELF chmod'd and spawned detached on `require()` |
+| Baileys forks | npm | WhatsApp session relay to a host hidden in a `String.fromCharCode` array |
+| `2026-08-flasq` | PyPI | `fastapii`, `flasq`, `idnna`, `pydanticc` typosquat fastapi/flask/idna/pydantic, override the setup.py install command and steal wallets |
+
+The **AI coding-agent hijack** is a different shape from the instruction-file poisoning already tracked: nothing is written into `CLAUDE.md` or `.cursorrules`. The package runs the agent *itself*, with its safety prompt disabled, driven by whatever the remote peer sends — so the indicator is the permission flag, not the config file. One of them (`agenthub-multiagent-mcp`) also declared `github.com/anthropics/agenthub` as its repository, which is why the scanner now checks whether a package claiming a well-known vendor's repository is actually published under that vendor's scope.
+
+The **off-registry tarball** cluster prompted a structural check rather than a pattern: npm accepts `"dep": "https://host/pkg.tgz"` and installs whatever bytes are served, lifecycle scripts included, entirely outside registry review. Any dependency or lockfile `resolved` entry pointing at a generic file host (Google Cloud Storage, S3, Azure Blob, R2, Aliyun OSS…) is reported critical; any other non-registry tarball URL is a warning. Registry hosts and private registries — Artifactory, Nexus, GitHub Packages, Verdaccio — are recognised and never reported.
+
 ### 2. Typosquatting detection
 
 - Levenshtein distance analysis
@@ -265,11 +283,13 @@ Because of that second campaign, the scanner now analyses **the entry point of e
 - **Windows DLL execution** (rundll32, regsvr32)
 - Malicious files: node-gyp.dll, loader.dll, version.dll
 
-### 5. Hash-based detection (301 variants)
+### 5. Hash-based detection (514 variants)
 - **Shai-Hulud bundle.js** (7 SHA-256 hashes)
 - **Shai-Hulud 2.0 Bun payloads**: `bun_environment.js` (3 hashes), `setup_bun.js` (1 hash)
 - **CVE-2025-54313 Scavenger** (3 SHA-256 hashes)
 - **2026 waves**: Mini Shai-Hulud loaders, Miasma `binding.gyp` and `index.js` blobs, IronWorm native payloads (ELF/PE/Mach-O), Hades wheels and `.pth` hooks, and the June-July campaign payloads
+
+The scanner also hashes every installed `package.json` and every package entry point, both of which it already opens for other checks — that is how the hollow dependency-confusion lures, which are identified by their manifest rather than by any code they ship, are caught. Hashes come from the OSV records' own evidence files wherever possible; the handful that describe a **downloaded** second stage cannot be corroborated that way and carry a `vendor-reported (uncorroborated)` label that appears in the finding itself.
 
 Hashing is not limited to a fixed set of payload filenames any more. Because an exact hash match cannot produce a false positive, ordinary bundle names (`index.cjs.js`, `index.es.js`, `index.esm.js`) are hashed too — that is how the Joyfill implants, which live inside `dist` bundles rather than a dedicated dropper file, are caught. `.cjs` files are hashed as well.
 
@@ -498,8 +518,8 @@ August 2026 — ChainDrop and Flooding Dropper:
 
 ## Notes
 
-- **7499 compromised package versions** tracked across 3599 npm packages and 95 PyPI projects (updated 2026-08-06)
-- **301 malware file hashes** detected (Shai-Hulud v1/v2 + Scavenger + the 2026 Mini Shai-Hulud, Miasma, IronWorm, ChainDrop and Flooding Dropper payloads)
+- **7965 compromised package versions** tracked across 3693 npm packages and 103 PyPI projects (updated 2026-08-07)
+- **514 malware file hashes** detected (Shai-Hulud v1/v2 + Scavenger + the 2026 Mini Shai-Hulud, Miasma, IronWorm, ChainDrop, Flooding Dropper and the 2026-08-06/07 clusters)
 - **Multiple attack campaigns** covered: CVE-2025-54313, Shai-Hulud v1/v2, the 2026 Mini Shai-Hulud / TeamPCP family (CVE-2026-45321), the June-July 2026 campaigns run by other actors, and the August 2026 ChainDrop and Flooding Dropper waves
 - Scanner designed to minimize false positives. A domain match is reported as critical, so the list holds only hosts no honest dependency would contact; `registry.npmjs.org`, the blockchain RPC endpoints, `temp.sh`, `check.torproject.org` and `api.anthropic.com` are all matched by behaviour instead. Verified against legitimate `.claude`/`.vscode` configs, real `node-addon-api` build files, lockfiles with `resolved` URLs, ordinary development addresses (`127.0.0.1`, `0.0.0.0`, RFC1918), CalVer version numbers, an ACME client resolving DNS TXT records, and an optional-binary installer of the download/`chmod 0755`/spawn kind that esbuild and sharp use
 - Patterns based on real observed attacks (July 2025 - July 2026)

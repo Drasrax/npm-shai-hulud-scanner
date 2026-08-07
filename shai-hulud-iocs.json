@@ -11506,7 +11506,8 @@
       "9.6.9"
     ],
     "ach-detail": [
-      "99.0.2"
+      "99.0.2",
+      "99.0.1"
     ],
     "add-two-numbers-x7q9m": [
       "1.0.0",
@@ -11551,7 +11552,16 @@
       "8.6.59",
       "8.6.60",
       "8.6.75",
-      "8.6.77"
+      "8.6.77",
+      "8.6.61",
+      "8.6.63",
+      "8.6.64",
+      "8.6.65",
+      "8.6.66",
+      "8.6.70",
+      "8.6.71",
+      "8.6.72",
+      "8.6.74"
     ],
     "alpha-helper": [
       "1.3.4"
@@ -11843,7 +11853,8 @@
       "1.0.2"
     ],
     "dbk-ui-forms": [
-      "99.0.1"
+      "99.0.1",
+      "99.0.0"
     ],
     "dbmux": [
       "1.0.5",
@@ -11893,7 +11904,8 @@
       "9999.0.0"
     ],
     "electrode-ota-ui-app": [
-      "99.0.1"
+      "99.0.1",
+      "99.0.0"
     ],
     "elephant-array-utils": [
       "1.0.6"
@@ -12089,7 +12101,10 @@
       "0.3.0",
       "0.3.1",
       "0.3.3",
-      "0.3.4"
+      "0.3.4",
+      "0.3.8",
+      "0.4.0",
+      "0.4.1"
     ],
     "log-min": [
       "1.0.13"
@@ -12155,7 +12170,38 @@
     "new-native-tools-linux-x64-gnu": [
       "3.1.40-as2-9923-378-1785154830",
       "3.1.40-browser-release-151-380-1785161758",
-      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-408-1785838091"
+      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-408-1785838091",
+      "3.1.40-as2-9962-369-1784812980",
+      "3.1.40-browser-release-151-359-1784544869",
+      "3.1.40-browser-release-151-362-1784553070",
+      "3.1.40-browser-release-151-363-1784553412",
+      "3.1.40-browser-release-151-365-1784638523",
+      "3.1.40-browser-release-151-368-1784717346",
+      "3.1.40-browser-release-151-371-1784887043",
+      "3.1.40-browser-release-151-373-1784890024",
+      "3.1.40-browser-release-151-375-1784897296",
+      "3.1.40-chrom-381-new-browser-icons-367-1784657143",
+      "3.1.40-chrom-381-new-browser-icons-377-1785143176",
+      "3.1.40-chrom-468-delete-windows-32-bit-358-1784544836",
+      "3.1.40-chrom-553-fix-undeletable-import-cookies-355-1784226602",
+      "3.1.40-chrom-553-fix-undeletable-import-cookies-360-1784545605",
+      "3.1.41-as2-9980-test-400-1785776624",
+      "3.1.41-browser-release-151-389-1785423950",
+      "3.1.41-browser-release-151-upd-native-tools-397-1785772979",
+      "3.1.41-browser-release-151-upd-native-tools-398-1785774129",
+      "3.1.41-chrom-381-new-browser-icons-391-1785747283",
+      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-409-1785839050",
+      "3.1.41-v2026.217.1-native-tools-392-1785759657",
+      "3.1.42",
+      "3.1.42-as2-9980-419-1785846283",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-410-1785839786",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-411-1785839911",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-412-1785840430",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-415-1785842368",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-416-1785842977",
+      "3.1.43",
+      "3.1.43-as2-9980-424-1785851759",
+      "3.1.44-as2-9980-433-1786011509"
     ],
     "node-array-plus": [
       "1.0.9",
@@ -12338,7 +12384,8 @@
       "0.0.1-rc6",
       "0.0.1-rc7",
       "0.0.1-rc8",
-      "0.0.1-rc9"
+      "0.0.1-rc9",
+      "0.0.1-rc36"
     ],
     "sextant-cli-linux-amd64": [
       "0.0.1-rc12",
@@ -12364,7 +12411,8 @@
       "0.0.1-rc5",
       "0.0.1-rc6",
       "0.0.1-rc7",
-      "0.0.1-rc9"
+      "0.0.1-rc9",
+      "0.0.1-rc36"
     ],
     "sextant-cli-linux-arm64": [
       "0.0.1-rc10",
@@ -12564,7 +12612,10 @@
       "0.5.2"
     ],
     "tailwind-hide-scrollbar": [
-      "2.1.5"
+      "2.1.5",
+      "0.0.1",
+      "2.2.0",
+      "2.2.1"
     ],
     "tailwind-opentype": [
       "1.2.3"
@@ -12576,7 +12627,10 @@
       "1.5.1"
     ],
     "tailwindcss-scrollbar-hide": [
-      "2.2.6"
+      "2.2.6",
+      "0.0.1",
+      "2.2.5",
+      "2.3.0"
     ],
     "telemetry-metrics": [
       "0.2.1",
@@ -12619,7 +12673,20 @@
       "1.4.60",
       "1.4.61",
       "1.4.63",
-      "1.4.64"
+      "1.4.64",
+      "1.4.57",
+      "1.4.58",
+      "1.4.62",
+      "1.4.65",
+      "1.4.66",
+      "1.4.67",
+      "1.4.68",
+      "1.4.69",
+      "1.4.70",
+      "1.4.71",
+      "1.4.72",
+      "1.4.73",
+      "1.4.74"
     ],
     "uibabai": [
       "5.7.5"
@@ -12637,7 +12704,10 @@
       "1.3.2"
     ],
     "uzair-rajput-new": [
-      "1.0.1"
+      "1.0.1",
+      "1.1.0",
+      "1.2.0",
+      "1.3.0"
     ],
     "ventrix-kit": [
       "0.5.2",
@@ -13263,7 +13333,11 @@
       "1.0.4"
     ],
     "@astralcore/sl-aura": [
-      "1.0.6"
+      "1.0.6",
+      "1.0.0",
+      "1.0.1",
+      "1.0.4",
+      "1.0.5"
     ],
     "@bowozzz/baileys": [
       "1.0.0",
@@ -13278,16 +13352,40 @@
       "9.9.9"
     ],
     "@ccfly/setup-darwin-arm64": [
-      "0.1.20"
+      "0.1.20",
+      "0.1.10",
+      "0.1.13",
+      "0.1.14",
+      "0.1.2",
+      "0.1.5",
+      "0.1.7",
+      "0.1.8",
+      "0.1.9"
     ],
     "@ccfly/setup-darwin-x64": [
-      "0.1.7"
+      "0.1.7",
+      "0.1.0",
+      "0.1.1",
+      "0.1.13",
+      "0.1.14",
+      "0.1.15",
+      "0.1.16",
+      "0.1.3",
+      "0.1.6",
+      "0.1.8",
+      "0.1.9"
     ],
     "@chnayser/server": [
       "0.1.3"
     ],
     "@cliphijack/santaclaude": [
-      "1.0.104"
+      "1.0.104",
+      "1.0.100",
+      "1.0.102",
+      "1.0.103",
+      "1.0.106",
+      "1.0.107",
+      "1.0.108"
     ],
     "@copilot-mcp/apex": [
       "1.0.0",
@@ -13331,7 +13429,9 @@
     ],
     "@cy4dev/cydemo-bg-color": [
       "5.0.0",
-      "7.0.0"
+      "7.0.0",
+      "4.0.0",
+      "6.0.0"
     ],
     "@finxsecdemo/utils": [
       "1.0.2"
@@ -13340,13 +13440,49 @@
       "1.0.0"
     ],
     "@guangnao/claude-cli": [
-      "1.0.5"
+      "1.0.5",
+      "1.0.12",
+      "1.0.13"
     ],
     "@hoteldev/common": [
       "1.0.9"
     ],
     "@ikbal_fadilah_vanexa01/vanexa-agent": [
-      "1.3.10"
+      "1.3.10",
+      "1.1.51",
+      "1.1.52",
+      "1.1.53",
+      "1.1.54",
+      "1.1.55",
+      "1.1.56",
+      "1.1.57",
+      "1.1.58",
+      "1.1.59",
+      "1.2.0",
+      "1.3.12",
+      "1.3.14",
+      "1.3.15",
+      "1.3.17",
+      "1.3.19",
+      "1.3.21",
+      "1.3.23",
+      "1.3.27",
+      "1.3.28",
+      "1.3.29",
+      "1.3.3",
+      "1.3.31",
+      "1.3.32",
+      "1.3.34",
+      "1.3.35",
+      "1.3.37",
+      "1.3.4",
+      "1.3.40",
+      "1.3.44",
+      "1.3.45",
+      "1.3.6",
+      "1.3.7",
+      "1.3.8",
+      "1.3.9"
     ],
     "@jsimplify/errno": [
       "2.0.0",
@@ -13429,7 +13565,8 @@
     "@lizhao1/memorax-code-internal": [
       "0.1.0",
       "0.1.1",
-      "0.1.2"
+      "0.1.2",
+      "0.1.3"
     ],
     "@mgor/fw-canary-20260725-394b024b": [
       "0.0.2"
@@ -14696,6 +14833,523 @@
     ],
     "x-session-parser": [
       "1.0.0"
+    ],
+    "9remote": [
+      "2.1.1",
+      "2.1.14",
+      "2.1.16",
+      "2.1.20",
+      "2.1.21",
+      "2.1.5",
+      "2.1.6",
+      "2.1.9",
+      "2.2.5",
+      "2.2.6"
+    ],
+    "@0l00000l/auth": [
+      "1.1.3",
+      "1.1.4"
+    ],
+    "@activepieces/piece-base44": [
+      "0.1.7"
+    ],
+    "@activepieces/piece-google-bigquery": [
+      "0.0.5",
+      "0.0.6"
+    ],
+    "@activepieces/piece-google-contacts": [
+      "0.4.7",
+      "0.4.8"
+    ],
+    "@activepieces/piece-google-forms": [
+      "0.5.5",
+      "0.5.6",
+      "0.5.7"
+    ],
+    "@addai/ainode": [
+      "0.3.0",
+      "0.3.1"
+    ],
+    "@addai/entity-runtime": [
+      "0.2.45",
+      "0.2.46",
+      "0.2.47",
+      "0.2.48",
+      "0.2.49",
+      "0.2.50",
+      "0.2.51",
+      "0.2.52",
+      "0.2.53",
+      "0.2.55",
+      "0.2.56",
+      "0.2.58"
+    ],
+    "@addai/node": [
+      "0.11.0",
+      "0.11.1",
+      "0.11.2",
+      "0.4.0",
+      "0.5.0",
+      "0.7.0",
+      "0.8.0",
+      "0.8.1",
+      "0.8.2",
+      "0.9.0"
+    ],
+    "@apicity/meta": [
+      "0.8.0",
+      "0.8.1",
+      "0.8.2",
+      "0.8.3",
+      "0.8.4",
+      "0.8.5",
+      "0.8.6"
+    ],
+    "@astralcore/aura-wb": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.4"
+    ],
+    "@atom8n/inspector": [
+      "0.17.32"
+    ],
+    "@aubea/mars": [
+      "1.0.0",
+      "1.1.0",
+      "1.2.0",
+      "1.2.10",
+      "1.2.11",
+      "1.2.12",
+      "1.2.2",
+      "1.2.3",
+      "1.2.4",
+      "1.2.6",
+      "1.2.7",
+      "1.2.8",
+      "1.2.9"
+    ],
+    "@avi892nash/aegis-grid-runner": [
+      "0.3.3"
+    ],
+    "@bananacool467/ui-tools": [
+      "0.1.0-beta",
+      "0.1.1-beta",
+      "0.1.2-beta",
+      "0.1.3-beta",
+      "0.1.4-beta",
+      "0.1.5-beta",
+      "0.1.6-beta",
+      "0.1.7-beta"
+    ],
+    "@cats-cdf/authentication": [
+      "2.17.1",
+      "3.1.1"
+    ],
+    "@cats-cdf/browser-metrics-meter": [
+      "2.0.0",
+      "3.1.1"
+    ],
+    "@ccfly/setup-linux-arm64": [
+      "0.1.0"
+    ],
+    "@ccfly/setup-linux-x64": [
+      "0.1.0",
+      "0.1.1",
+      "0.1.10",
+      "0.1.14",
+      "0.1.17",
+      "0.1.19",
+      "0.1.2",
+      "0.1.3",
+      "0.1.4",
+      "0.1.9"
+    ],
+    "@ch4acko3/frontal-lobe": [
+      "0.1.12",
+      "0.1.12-preview.2",
+      "0.1.14"
+    ],
+    "@holocronlab/botruntime-runtime": [
+      "2.1.15",
+      "2.2.5",
+      "2.2.7",
+      "2.4.2",
+      "2.5.0",
+      "2.5.4",
+      "2.6.0",
+      "2.6.1",
+      "2.6.3",
+      "2.6.4",
+      "2.9.7"
+    ],
+    "@innocarpe/deepseek-build": [
+      "1.0.0"
+    ],
+    "@itsreduxtm/unpkg-xss-test": [
+      "1.0.5",
+      "1.0.9"
+    ],
+    "@junyoung-kim/reins": [
+      "0.1.6",
+      "0.1.7"
+    ],
+    "@ks-video/kwai-player-web": [
+      "9.1.2"
+    ],
+    "@leejungkiin/awkit": [
+      "3.3.1",
+      "3.3.2",
+      "3.3.3",
+      "3.3.4",
+      "3.3.5",
+      "3.3.8",
+      "3.3.9",
+      "3.4.0",
+      "3.4.1",
+      "3.4.2",
+      "3.4.3",
+      "3.4.4",
+      "3.4.5",
+      "3.4.6",
+      "3.4.7",
+      "3.4.8",
+      "3.5.0",
+      "3.5.10",
+      "3.5.5",
+      "3.5.6",
+      "3.5.7",
+      "3.5.8",
+      "3.5.9",
+      "3.6.0",
+      "3.6.1",
+      "3.6.2"
+    ],
+    "@love-moon/conductor-cli": [
+      "0.7.4",
+      "0.7.5",
+      "0.7.6",
+      "0.8.0"
+    ],
+    "@lyxa.ai/core": [
+      "1.0.129",
+      "1.0.13",
+      "1.0.144-test",
+      "1.0.145-debug",
+      "1.0.16",
+      "1.0.162-test",
+      "1.0.201",
+      "1.0.206",
+      "1.0.23",
+      "1.0.281",
+      "1.0.333",
+      "1.0.37",
+      "1.0.386",
+      "1.0.56",
+      "1.0.79",
+      "1.0.8-debug-1",
+      "1.1.36",
+      "1.1.47",
+      "1.2.24",
+      "1.2.43"
+    ],
+    "@prototypevip/baileys": [
+      "0.0.3"
+    ],
+    "@simplipayng/checkout": [
+      "1.4.2",
+      "1.4.3"
+    ],
+    "@trackunit/iris-app-sdk-vite": [
+      "1.2.10-alpha-d785aff3531.0"
+    ],
+    "@united-airlines-org/atmos-design-system": [
+      "40.0.0",
+      "41.0.0"
+    ],
+    "@vanexalabs-ai/vanexa-agent": [
+      "1.3.50",
+      "1.3.51",
+      "1.3.52",
+      "1.3.53",
+      "1.3.54",
+      "1.3.55",
+      "1.3.56",
+      "1.3.57",
+      "1.3.59",
+      "1.3.60",
+      "1.3.61",
+      "1.3.62"
+    ],
+    "@voxepay/checkout": [
+      "0.5.12",
+      "0.5.13",
+      "0.5.14",
+      "0.5.15",
+      "0.5.16",
+      "0.5.17",
+      "0.5.18",
+      "0.5.19"
+    ],
+    "@wbnr/frontend-shared": [
+      "99.0.0",
+      "99.0.1"
+    ],
+    "@xiaohhhh1/canvas-agent": [
+      "0.4.4"
+    ],
+    "@zahlen/checkout": [
+      "0.2.2"
+    ],
+    "agenthub-multiagent-mcp": [
+      "1.57.0"
+    ],
+    "agenttunnels": [
+      "0.1.11",
+      "0.1.12",
+      "0.1.5",
+      "0.1.6",
+      "0.1.9"
+    ],
+    "aitable-workflow-server": [
+      "9.9.9"
+    ],
+    "beautiful-ui-monitoring": [
+      "1.0.8"
+    ],
+    "cdf-tag-commander-helper": [
+      "3.1.1",
+      "3.6.2"
+    ],
+    "cewe-npm-cops": [
+      "99.9.9"
+    ],
+    "commonweb-balance": [
+      "99.9.1"
+    ],
+    "connect-contingency": [
+      "99.9.1"
+    ],
+    "consumerweb-creditcollection": [
+      "99.9.1"
+    ],
+    "content-common": [
+      "99.9.9"
+    ],
+    "diezyclutch-baileys": [
+      "8.6.78"
+    ],
+    "diezyyasha-baileys": [
+      "8.6.57",
+      "8.6.58",
+      "8.6.59",
+      "8.6.61",
+      "8.6.62",
+      "9.0.0",
+      "9.1.3",
+      "9.1.5",
+      "9.2.0"
+    ],
+    "dpdgroup-css": [
+      "2.0.1"
+    ],
+    "elephant-tusk-runner": [
+      "1.0.0",
+      "1.0.1"
+    ],
+    "express-chai": [
+      "3.7.9"
+    ],
+    "fetchrtds": [
+      "1.1.0"
+    ],
+    "golaaa": [
+      "1.0.0"
+    ],
+    "gpt-terminal-cli": [
+      "1.0.0"
+    ],
+    "helmet-pro": [
+      "10.0.4"
+    ],
+    "internallib_v514": [
+      "1.0.0"
+    ],
+    "jagproject": [
+      "28.1.0",
+      "28.2.0",
+      "28.3.0"
+    ],
+    "lib-frontsga": [
+      "9.999.999"
+    ],
+    "merchantweb-lang-cookie-reset": [
+      "99.99.99"
+    ],
+    "merge-grid-stats": [
+      "1.0.0",
+      "1.0.1",
+      "1.1.0",
+      "1.2.0",
+      "1.3.0",
+      "1.4.0",
+      "1.5.0"
+    ],
+    "move-bcs-codec": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2"
+    ],
+    "nms-dashboard-js": [
+      "9.9.11"
+    ],
+    "opencode-optimised-toolings": [
+      "3.4.0",
+      "4.0.0",
+      "4.0.1"
+    ],
+    "pilgrimage-portal-client": [
+      "99.0.0"
+    ],
+    "poc-ch4rlygr": [
+      "1.1.0",
+      "1.2.0",
+      "1.3.0",
+      "1.4.0",
+      "1.5.0",
+      "1.6.0"
+    ],
+    "poly-provider-api": [
+      "4.6.1"
+    ],
+    "remote-claude-daemon": [
+      "0.3.0",
+      "0.3.4",
+      "0.3.5",
+      "0.3.6",
+      "0.3.7",
+      "0.3.8",
+      "0.3.9",
+      "0.4.2",
+      "0.4.6",
+      "0.4.7",
+      "0.5.0",
+      "0.5.2",
+      "0.5.4",
+      "0.5.5",
+      "0.5.7",
+      "0.5.9",
+      "0.6.0",
+      "0.6.1",
+      "0.6.2",
+      "0.6.6"
+    ],
+    "santana-baileys": [
+      "2.0.2",
+      "2.0.3",
+      "2.0.4"
+    ],
+    "shadowx-fca": [
+      "10.0.0",
+      "10.1.0"
+    ],
+    "squeez": [
+      "1.38.0",
+      "1.40.0",
+      "1.42.1",
+      "1.44.1"
+    ],
+    "streak-cache-map": [
+      "1.0.0"
+    ],
+    "streak-map-cache": [
+      "1.0.0"
+    ],
+    "stretchshop": [
+      "0.7.5"
+    ],
+    "supersig": [
+      "1.0.5"
+    ],
+    "svelte-mapped-metrics": [
+      "1.0.0"
+    ],
+    "svelte-mapping-core": [
+      "1.0.0"
+    ],
+    "tailwindcss-hide-scrollbar": [
+      "2.5.3",
+      "2.5.4"
+    ],
+    "tick-forge": [
+      "11.5.2"
+    ],
+    "trimprompt": [
+      "1.0.35",
+      "1.0.42",
+      "1.0.46",
+      "1.0.47",
+      "1.0.48",
+      "1.0.49"
+    ],
+    "tsihealth-client": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2",
+      "1.0.3",
+      "1.0.4"
+    ],
+    "typst-resume-cli": [
+      "1.0.2",
+      "1.0.3"
+    ],
+    "vite-plugin-cleaner": [
+      "4.1.3"
+    ],
+    "vite-svg-parse": [
+      "1.1.3"
+    ],
+    "vite-vue-path-map": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2"
+    ],
+    "vitest-preview-pro-all": [
+      "10.0.3"
+    ],
+    "wallet-monitor-snap": [
+      "1.0.2",
+      "1.0.4"
+    ],
+    "weight2loss": [
+      "1.0.5"
+    ],
+    "wormgpt-cli": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2",
+      "1.0.3",
+      "1.0.4",
+      "1.0.5",
+      "1.0.6",
+      "1.0.7",
+      "1.0.8"
+    ],
+    "wos-library-ui": [
+      "99.0.0"
+    ],
+    "xdaxx": [
+      "1.0.1"
+    ],
+    "xxdxax": [
+      "1.0.0",
+      "1.0.1"
+    ],
+    "ynastore-baileys": [
+      "1.0.21"
+    ],
+    "zyr-agent": [
+      "1.5.7",
+      "1.6.2"
     ]
   },
   "indicators_of_compromise": {
@@ -16193,6 +16847,96 @@
       "warning"
     ],
     [
+      "--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)",
+      "AI coding agent permission prompt disabled",
+      "warning"
+    ],
+    [
+      "(?:spawn|spawnSync|exec|execSync|execFile|execFileSync|fork)\\s*\\([\\s\\S]{0,400}?--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)|--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)[\\s\\S]{0,400}?(?:spawn|spawnSync|execFile|execFileSync|pty\\.spawn)\\s*\\(",
+      "AI coding agent spawned with its permission prompt disabled",
+      "critical"
+    ],
+    [
+      "permission_?[Mm]ode\\s*(?:===?|:)\\s*[\\\"']bypassPermissions[\\\"']|ensureBypassPermissionsAccepted",
+      "Agent permission bypass selected programmatically",
+      "critical"
+    ],
+    [
+      "(?:wss?://|\\.supabase\\.co/rest/v1/rpc/)[\\s\\S]{0,600}?(?:pty\\.spawn|spawn)\\s*\\(\\s*[\\\"'`](?:claude|codex|gemini|kimi|grok|bash|sh)[\\\"'`]",
+      "Remote channel driving a local agent or shell process",
+      "critical"
+    ],
+    [
+      "\\.frontal_lobe|/frontal/trace-sync",
+      "AI session rollouts uploaded to a third party",
+      "critical"
+    ],
+    [
+      "\\.alonix-toolings-(?:backup|incoming)",
+      "On-PATH agent binary replaced by a rebuilt copy",
+      "critical"
+    ],
+    [
+      "github\\.com/anthropics/agenthub|agenthub-worker\\.(?:service|plist)|com\\.agenthub\\.worker",
+      "agenthub remote-worker implant (falsified Anthropic provenance)",
+      "critical"
+    ],
+    [
+      "(?:api\\.jsonbin\\.io|jsonbin\\.io/v3/b/|pastebin\\.com/raw/|hastebin\\.com|paste\\.ee/r/|termbin\\.com|dpaste\\.(?:com|org)/)[\\s\\S]{0,500}?(?:new\\s+Function\\s*\\(|eval\\s*\\(|vm\\.runIn)",
+      "Remote-hosted record executed as code (mutable dead-drop)",
+      "critical"
+    ],
+    [
+      "6a719632da38895dfeb7128d",
+      "jsonbin record id used by the nodemailer-masquerade dropper",
+      "critical"
+    ],
+    [
+      "lib/utils/smtp-connection/index\\.js",
+      "Dropper path of the nodemailer-masquerade packages",
+      "critical"
+    ],
+    [
+      "String\\.fromCharCode\\(\\s*104\\s*,\\s*116\\s*,\\s*116\\s*,\\s*112",
+      "URL reconstructed from a char-code array (hidden destination)",
+      "critical"
+    ],
+    [
+      "lib[/\\\\]Socket[/\\\\]messages-send\\.js",
+      "Baileys message-send path, the file the WhatsApp forks trojanise",
+      "warning"
+    ],
+    [
+      "\\bREDSHELL\\b|SECURE_BEACON|/redshell\\s+socks\\s+start|RedShell commands:",
+      "RedShell remote-shell implant strings",
+      "critical"
+    ],
+    [
+      "memfd_create\\s*\\(|syscall\\s*\\(\\s*319\\b|\\bMFD_CLOEXEC\\b",
+      "In-memory ELF execution via memfd_create",
+      "warning"
+    ],
+    [
+      "nyxalor_25@proton\\.me",
+      "Account-takeover payload operator address",
+      "critical"
+    ],
+    [
+      "credentials\\s*:\\s*[\\\"']include[\\\"'][\\s\\S]{0,300}?(?:_wpnonce|delete-account|editar-cuenta)",
+      "Authenticated-session abuse against a WordPress account",
+      "critical"
+    ],
+    [
+      "class\\s+\\w+\\s*\\(\\s*(?:install|develop|egg_info|build_py)\\s*\\)[\\s\\S]{0,800}?(?:exec|eval)\\s*\\(\\s*(?:\\w+\\.)?(?:b64decode|decompress|loads|__import__|decrypt)",
+      "setup.py install command decoding and executing a blob",
+      "critical"
+    ],
+    [
+      "(?:urlretrieve|urlopen|requests\\.get)\\s*\\([^)\\n]{0,200}\\)[\\s\\S]{0,400}?os\\.chmod\\s*\\([^)\\n]{0,80}(?:0o?755|493)[\\s\\S]{0,300}?(?:Popen|call|run|system)\\s*\\(",
+      "Python installer downloading, chmodding and running a binary",
+      "critical"
+    ],
+    [
       "detached\\s*:\\s*true[\\s\\S]{0,160}windowsHide\\s*:\\s*true",
       "Detached hidden child process spawned by a dependency (IronWorm dropper)",
       "critical"
@@ -16246,9 +16990,11 @@
     "2026-03-24": "TeamPCP PyPI wave: litellm 1.82.7/1.82.8 (~95M monthly downloads) and telnyx 4.87.1/4.87.2 ship a litellm_init.pth loader executing on every interpreter start; xinference 2.6.0-2.6.2 follows",
     "2026-02-27": "TeamPCP compromises Aqua Security's Trivy; incomplete credential rotation lets the actor return on 03-19 to force-push 76 of 77 trivy-action tags and all setup-trivy tags, then publish malicious aquasec/trivy Docker images (03-22) and hit the Checkmarx KICS/AST actions (03-23). The CanisterWorm npm worm spreads across 71 packages using ICP canisters as dead-drop C2.",
     "2026-08-04": "ChainDrop: keyv@6.0.0 published 09:35 UTC from the hijacked jaredwray GitHub account; the worm republished 444 packages across twelve organisations in under four hours, with valid GitHub Actions provenance, and moved its C2 list into an Ethereum contract (EtherHiding)",
-    "2026-08-05": "Flooding Dropper (sonatype-2026-005660): ~850 throwaway npm packages shadowing one organisation's internal names, dropping a platform-specific binary on require() rather than through an install hook"
+    "2026-08-05": "Flooding Dropper (sonatype-2026-005660): ~850 throwaway npm packages shadowing one organisation's internal names, dropping a platform-specific binary on require() rather than through an install hook",
+    "2026-08-06": "Nine unrelated clusters land within 48h: AI coding-agent hijack daemons (remote-claude-daemon, agenthub-multiagent-mcp, @addai/*, conductor-cli) spawning claude/codex with --dangerously-skip-permissions from a remote channel; jsonbin.io dead-drop droppers masquerading as nodemailer; RedShell ELF implants; off-registry tarball dependency confusion via a Google Cloud Storage bucket; trojanised Baileys WhatsApp forks",
+    "2026-08-07": "PyPI campaign 2026-08-flasq: fastapii, flasq, idnna and pydanticc typosquat fastapi/flask/idna/pydantic, override the setup.py install command, download and run an executable and steal cryptocurrency wallets"
   },
-  "total_compromised_count": 7499,
+  "total_compromised_count": 7965,
   "mini_shai_hulud_2026": {
     "description": "Mini Shai-Hulud / TeamPCP family (Apr-Jun 2026): SAP CAP, Bitwarden CLI, TanStack (CVE-2026-45321), AntV, Miasma (Red Hat), Hades (PyPI). Bun-runtime credential stealer, OIDC/trusted-publishing abuse, cross-ecosystem propagation.",
     "actor": "TeamPCP (aka UNC6780); Miasma/Hades likely copycats reusing the open-sourced code",
@@ -16647,6 +17393,49 @@
       ],
       "walmart-genai-trace": [
         "99.0.0"
+      ],
+      "alphalend-abi": [
+        "1.0.0",
+        "1.0.1",
+        "1.1.0"
+      ],
+      "alphalend-layouts": [
+        "4.0.0",
+        "4.0.1",
+        "4.0.2",
+        "4.1.0"
+      ],
+      "fastapii": [
+        "0.1.1",
+        "0.1.2",
+        "0.2.0",
+        "0.3.0"
+      ],
+      "flasq": [
+        "0.1.1",
+        "0.1.2",
+        "0.2.0",
+        "0.3.0"
+      ],
+      "idnna": [
+        "0.1.1",
+        "0.1.2",
+        "0.2.0",
+        "0.3.0"
+      ],
+      "pydanticc": [
+        "0.1.1",
+        "0.1.2",
+        "0.2.0",
+        "0.3.0"
+      ],
+      "xayoub-xctxteam": [
+        "0.1.0",
+        "0.1.1",
+        "0.1.2"
+      ],
+      "fast-hashes": [
+        "0.1.0"
       ]
     },
     "malicious_files": [
@@ -17172,6 +17961,29 @@
         "entry_point": "dependency confusion - names shadowing internal packages",
         "execution": "runs on require(), so --ignore-scripts and npm v12 defaults do not help",
         "c2": "oob-worker.cf<n>-<hex>.workers.dev with a *.dl.wel1.ru DNS-TXT fallback"
+      },
+      "ai_agent_hijack": {
+        "date": "2026-08-06",
+        "ecosystem": "npm",
+        "entry_point": "packages advertised as remote bridges or agent runtimes",
+        "execution": "a daemon polls a WebSocket or Supabase RPC and spawns claude, codex, gemini, kimi or grok in a PTY with --dangerously-skip-permissions, so the remote peer inherits the agent's file, shell and MCP tooling",
+        "note": "A different shape from the AI-instruction poisoning already tracked: nothing is written into CLAUDE.md or .cursorrules. The package simply runs the agent itself with its safety prompt disabled, which is why the permission flag rather than the config file is the indicator."
+      },
+      "jsonbin_deaddrop": {
+        "date": "2026-08-06",
+        "ecosystem": "npm",
+        "execution": "postinstall spawns a detached, obfuscated child that GETs an api.jsonbin.io record and passes it to new Function('require', ...); the record is attacker-mutable, so the payload changes without republishing the package"
+      },
+      "offregistry_tarball": {
+        "date": "2026-08-06",
+        "ecosystem": "npm",
+        "execution": "hollow dependency-confusion packages at inflated 99.x versions whose only dependency is a direct tarball URL on a Google Cloud Storage bucket, so the installed code never passes through npm at all"
+      },
+      "pypi_flasq": {
+        "date": "2026-08-07",
+        "ecosystem": "PyPI",
+        "osv_campaign": "2026-08-flasq",
+        "execution": "setup.py install override -> downloaded executable -> wallet theft"
       }
     },
     "file_hashes_sha256": {
@@ -17225,14 +18037,234 @@
       "f9b3d90f6f152654966585175c347c75a93a7bd4329d14c316ff051d15a91262": "Flooding Dropper: _platform.js loader",
       "0330d1a4f95190399879962659fa764f9a81e04e9666a799444ffcd6a2b10840": "Flooding Dropper: _support.js loader",
       "1ca4662342185009cf9cafd1a4d585ae1c5a9ecc49e417a6b9bd33b262c6a1f7": "Flooding Dropper: _support.js loader",
-      "e67b7537721a125bb9161eb04ae92003d2d8c05243775925e82e71ad6b61b73c": "Flooding Dropper: _support.js loader"
+      "e67b7537721a125bb9161eb04ae92003d2d8c05243775925e82e71ad6b61b73c": "Flooding Dropper: _support.js loader",
+      "03a4eed9a7bb059df50eb413cf881e06ecf69250feb24a9f9a9c5aa1770e8961": "npm:agenthub-multiagent-mcp:package.json",
+      "047bf11b0bb9a18a1e5092326f98b9f7bee640b3b3aa74f7e9ea207e0b5162f3": "npm:opencode-optimised-toolings:packages/bootstrap/index.js",
+      "051e6a7d32321dba37a5f64d67e3b5e108f8eafea2d43e60d6d1dd5ad0c5e9dc": "npm:merge-grid-stats:install-cb.js",
+      "067d8a16b2d3fd4f9782d2e045b5a337f30c1b0c85e3936bd5a5956838f7b7af": "npm:consumerweb-creditcollection:package.json",
+      "081be31bd66c9860111a7376fd6502173937edd9a0c42dcf02e737d37712b279": "npm:agenttunnels:dist/session-client.js",
+      "082583b62d90da834dc8e262f6999bcd2a1194e3ef3fefca8d70f6c1ebc4fa79": "npm:helmet-pro:lib/utils/smtp-connection/index.js",
+      "08861f89f25f8a326cadf906823bb7a2a5c6c1b8cb619704c56dfa69e740d4a9": "npm:merchantweb-lang-cookie-reset:npm-shrinkwrap.json",
+      "0a9018ad814057b271f1c847062aa9834ad1b6480290eafea9357b7000b4e35c": "npm:@addai/entity-runtime:dist/claude-config.js",
+      "0aa76965a29529ab6ea08a70d4227b8b083a4dc6f4458671216dcb3c8e8eaf6c": "npm:@xsat10/baileys-xsat:lib/Utils/generics.js",
+      "0b9aef51d5ec55d69fb52ada41377ced07c6cff0cad09174390f49081d439b14": "npm:streak-cache-map:dist/index.mjs",
+      "0bd05b67367efa834c19d728c90fa6ad858941f44403e6b9fd99c8d8c4d29b6b": "npm:@avi892nash/aegis-grid-runner:grid.mjs",
+      "0c0ce434f22f9846651216aafad0fca6da933f23cae407d318480f297e146847": "npm:trimprompt:simulate.js",
+      "0cbabc2307a58960e614365b63161a719bc7f972dbc5894583357cbc23711516": "npm:@cliphijack/santaclaude:santaclaude.js",
+      "0ee1f728dbe3f4989662881ea9e2095aae6d6808f48ce0a53baeb70eb4ee3dd8": "npm:@ccfly/setup-darwin-arm64:package.json",
+      "1032db5ca2ac4901e142f2b459b3e783a390e18d214f6d9f23e838aa54109934": "npm:@astralcore/aura-wb:src/commands/unity_dl.js",
+      "10d469cd1863eb6d1bce5ab0ced83933e5d07d94082a2be88eb393aaeb6681e2": "npm:@activepieces/piece-base44:src/index.js",
+      "11c69a0834f2d24b4f59722cef485d9442eeebf69f5a19750ade3e9afa9baf50": "npm:@0l00000l/auth:dist/src/app/config/app.js",
+      "1228de4f3b9cbb38a8794794c4210236f48ea587a7c74b2fdb2dc71fa1b9538c": "npm:trimprompt:filters/git.js",
+      "12b988205c2f1005526b5f3c45bb401a9985c65a777c4fd29ed1d7796d11b637": "npm:@ccfly/setup-darwin-arm64:bin/ccfly-setup",
+      "1592cec35eca9796bcaef872825af69c1b5362b7baa793f9849f573c9e0e4258": "npm:@xiaohhhh1/canvas-agent:dist/relay-bridge.js",
+      "159efe1f2a326113006d6e651bf4185ba825fb3753a12e8a281107779db9a126": "npm:@ccfly/setup-linux-x64:package.json",
+      "16321731f0461ef932f9f5d7ec365d0eb3208901917d0927b57fe1a3201650d0": "npm:vite-plugin-cleaner:package.json",
+      "181d064b60d4607595b474417dbb0c22c964543148b506f58bbfec628e7c0ff5": "npm:gpt-terminal-cli:src/protocol.js",
+      "1851a185b9ad284f1227a2d49f2c46d2b66a4ebcdf16d7ad67ed695ee9ea77ae": "npm:electrode-ota-ui-app:README.md",
+      "1b72be515c519efad59b96f6606901e9726142fecdb0712a0889fb73b0b1b79b": "npm:@xiaohhhh1/canvas-agent:dist/server/http.js",
+      "1cc442fd670a919846700fa6c77d455d002d09cb56880d9c306ab14bbfa5cc05": "npm:cewe-npm-cops:preinstall.js",
+      "1f24d7f512fba7b853e6ed55acb38035b7201621295739331daae1ef7f5653e0": "npm:merchantweb-lang-cookie-reset:package.json",
+      "20bd28b0dfedcff6a8b1eaa77ecaa7928140269ddaaa3019b5c5ce7750d2dd43": "npm:fetchrtds:package.json",
+      "21c7721228ffa5c5bc685cab4fd6bc421971390f236bcf0fdd0662b9a8598f00": "npm:@apicity/meta:dist/src/example.js",
+      "230a4a165ad183ffa6b85d377bcd64558d7cc61d21573da01a25cac18399a4de": "npm:internallib_v514:index.js",
+      "2554f6a0f178c1e259444593ecba820ca569f35f1411ca9f136da8820093bf8e": "npm:@vanexalabs-ai/vanexa-agent:socket.json",
+      "2793e929cce7d05d3d13c28b85698fcc3db19cd79429ad40942284d6f9f3cc4b": "npm:tt-help-cli-ycl:src/watchdog/process-manager.js",
+      "298182aca6c630ee6ba2746f8e4ba7a8c36523b0fd3c1b2b02ab3c74129dee91": "npm:zyr-agent:dist/desktop/electron.js",
+      "2c62ec9aa864e6aaaf003f10017b5895a4607e3edcd5a04ed2711dae6179c010": "npm:@holocronlab/botruntime-runtime:dist/runtime/client.d.ts",
+      "2d5b58230cd5bf2093cde8b7bf751fee8eee1d76acc4df2a8fb71796cf40dcf3": "npm:express-chai:lib/const.js",
+      "2de3b284eb8a271d2d90ccdf475822e831f424a71b4cc4813e15ac86b2300249": "npm:nms-dashboard-js:lib/b02e30.js",
+      "2f1a965f885c72be4bea8853c91217fa1100f1a936875477247f46102d429414": "PyPI:alphalend-layouts:alphalend_layouts/_n.py",
+      "3067e4c5f0425a1f1062932599c0cf8472e5c4ba5b66f7c16c525267e7a62ae6": "npm:@astralcore/aura-wb:src/commands/unity_extra.js",
+      "30e64d6b8c1edbf1630b5363575ec6bea36dd6735c5224c2b9e433ad96bf1351": "npm:aitable-workflow-server:dist/index.js",
+      "31ed0bdecbca0ca46c864d2d520f75934067fffb120d891d6f00dc4e7b05066e": "PyPI:xayoub-xctxteam:src/xAyOuB_XcTxTeaM/main.py",
+      "31f72611bd2025df117b900188501113071d395098e8ce81f83e1fb8410a2d30": "npm:trimprompt:filters/devops.js",
+      "321f05d920a0a5cc680d5dcbcbfc524397c8587bb35fb28e93c42fc22a26de8b": "npm:xdaxx:original.js",
+      "3326adf1ec19436bff2e012db250a6fc596b939746dacb7a7f3ddec818972d9f": "npm:trimprompt:shims.js",
+      "33fab057b3a6c40a1029282d285543009874bb0dd68ec87a0f2e5bddf74c5447": "npm:tt-help-cli-ycl:src/watchdog/upgrader.js",
+      "3432d66c8e228a302a335cc09869639f1eb6061daae1f1f1b3f624064a4f3d8a": "npm:vite-vue-path-map:index.min.js",
+      "34b55ed5796ccceede42fde845dbfa6094327d5336703db230d5706361fe222d": "npm:@lizhao1/memorax-code-internal:bin/memorax-code-plugin-postinstall.mjs",
+      "35e11202d0d213d9109f5302c7a2e9fe28c14987dc9669c1fa9b520f36936635": "npm:@leejungkiin/awkit:symphony/multica-ref/scripts/ensure-postgres.sh",
+      "36aa466fc8e97547c9813d26e3cdf74acf39b017916ab7a07bf71c91189c2d5f": "npm:9remote:dist/install.cjs",
+      "371eecb92bcb777e8e0ef60057a0c0aff26588a422a573c1e469802ba4f75722": "npm:jagproject:scripts/update-wa-version.cjs",
+      "37af87cccf1d6858c1b3d2fb0a12bb7d69f710d6a303b0bf2c280dc7a6efb867": "npm:llm-interceptor:dist/telemetry.js",
+      "3962046de135cac3fbbcfbc6bde64ecc4ed5f0e5633738220e928e2901859bc9": "npm:supersig:dist/supersig.esm.js",
+      "3a1873161e107535155c1f5038ec1e4f3468f10e9504e6710a5bb9c328d26468": "npm:@activepieces/piece-google-contacts:src/index.js",
+      "3a1fa260f74a0fedd38ca5a7ef54a38cf4299fa05e6f4a46dd3cf9caddf5e6e1": "npm:@ks-video/kwai-player-web:scripts/telemetry.js",
+      "3be60ed23888e72f6843532db1ff0dc73aa46db8eb031659fc0360a9bf556e58": "npm:agenthub-multiagent-mcp:dist/worker.js",
+      "3cfaf8e0204f8e1c6109e197c5f20c4c4c12841154ce6321795cbe0b16950429": "npm:wos-library-ui:package.json",
+      "3e15f1692c4075cf29cefa94c84d564a95086ab7a6838a97ea25cd02475a282d": "npm:fetchrtds:scripts/install-check.cjs",
+      "3ef9be7167ca1f023bfce0503cb034e7761032e5c37261b798a532ad9b570faf": "npm:trimprompt:proxy-resp.js",
+      "3f0868571654b0a71f51fc898f8cd9196b922070eac16f862d265979db696219": "npm:trimprompt:dashboard.js",
+      "3f564f0df5a16009ca450256e3e5e0457dcd9202e10f79567b7b2aa354d888b2": "npm:uzair-rajput-new:dist/index.cjs",
+      "3fa857b94e598d0c5541a548f47d349da1d12350600c713795d04822f0499e49": "npm:new-native-tools-linux-x64-gnu:tools.linux-x64-gnu.node",
+      "407dc311d449de0b25fdb03f2d688175ccf92b5266e58cbc919ba20a85681fa4": "npm:@addai/ainode:dist/command-runner.js",
+      "41cceb032f1d37183debf49a308f348b9ce40af6b8df6d920bc9f1370ccac939": "npm:xxdxax:i.js",
+      "423a1dac60a2335fb5ecced51b0c8ffe5b8d04acfbd7f8e1dfd43c10261f227f": "npm:connect-contingency:package.json",
+      "4275061552723f1d31253e74f931ebac93d9f83b772b3c68a53374c1b4c9dd68": "npm:@cats-cdf/authentication:scripts/preinstall.js",
+      "430c5822c257b0ec5953460d9a65d03baa09d354a2fc5b7f529d89bccdfbc8a5": "npm:vitest-preview-pro-all:package.json",
+      "44acc254f4a039ffb0e1973d9b0e067c559e10ae9dfab63df31f0c00f9e64b14": "npm:@astralcore/aura-wb:src/commands/myfunc2.js",
+      "4537b1189ce419f1a595cf47216c03f80e9170ce80dad8d9227a1e52f9cb3466": "npm:streak-math-metrics:dist/math-calc.bin",
+      "455501c6655f9392fa4fdbcbad525687f4321a19670152ee5f289f73e7d789ee": "npm:merge-grid-stats:package.json",
+      "4683329d306b3934e09fc2603fbda1d3c445ab338f368fffb7ea8e94e5f7de3b": "npm:trimprompt:filters/shell.js",
+      "47c716cd5f1705bedd3e40bd2752846d694faac461f89655d17a0a487aca1a84": "npm:@bananacool467/ui-tools:dist/useTerminal.js",
+      "493c2b9ca1717d94e67c7c8f819b87a3c6f2ac8f53a0f2bcb626dd4164572709": "npm:@aubea/mars:dist/mars.mjs",
+      "4994fd95af7eb829f5f7db4a6a54d6dfdcd005683f0ba14bce657a99fc2b72a4": "npm:@trackunit/iris-app-sdk-vite:package.json",
+      "4a3d53a22097d58dddc77b95e009768ede597467999ae954009daa50cf14d35d": "npm:llm-interceptor:defaults.json",
+      "4ad9d00cc57b708b9094b57376136636ecc8afdc947926feea11b63fe67b2f91": "npm:gpt-terminal-cli:src/implant/pty.js",
+      "4b7c09a7c0d888891d1b7b176665d5e86a4005ba96fdb89764860023ff70c068": "npm:@holocronlab/botruntime-runtime:dist/library.js",
+      "4d909a7043492882a60d6b62c0bfa83bd552f99e5f045f6a0c5028cdf477c958": "PyPI:alphalend-layouts:alphalend_layouts/rt/_rt312.pyc",
+      "4e460d49fbbd5d46d142513609a32fed301af10b1bfbbb62f463c9868ae7407b": "npm:trimprompt:filters/index.js",
+      "4f1b649d25540fde69427e3b851ba6d507fa16edb89295b0b2b3aeb11ce2c86b": "npm:@lyxa.ai/core:libraries/event/index.js",
+      "4fb35fc9c11e82f1a3aefd1162df26c7926bbb6ad69a42dc588c348fd9712259": "npm:@guangnao/claude-cli:bin/claude-cli.js",
+      "52c09e519516de27a66a384d20fafd91ae5fd37467612a8b2066ed97133071a0": "npm:sextant-cli-darwin-arm64:package.json",
+      "52f8120faa2287fb065bf2e7d6834890f13c90d79728838eceb941f35b2b6579": "npm:dpdgroup-css:setup.js",
+      "54b0f4a18ccb64765c565c050f930944d34cd2c7c4211c5670e280cb7f9ba3fa": "npm:@ch4acko3/frontal-lobe:lib/frontal-gateway/dist/trace-sync-client.js",
+      "55ee3e2547678cc5d22c9d2c46ed97792b436c5fa823cc72c3173f63d4be95a9": "npm:gpt-terminal-cli:src/implant/loader.js",
+      "585e5dc0ccdb08b9d887f8159d49a63d2e7467184a35c9e7923627705beaaecf": "npm:pilgrimage-portal-client:ping.js",
+      "58ddcfdf87baa17521eeaae8f738ea50450cbbbaeba8b502bfda06f497653d73": "npm:shadowx-fca:module/loginHelper.js",
+      "5b305d4502a3bcb1f379b145c02809deed28d9130ea8f51707076432c0f66b90": "npm:content-common:package.json",
+      "5cf4b922caef4240de4d08047bf691f692be9346cba17138b5a9b68961a8b0dd": "npm:@ch4acko3/frontal-lobe:lib/frontal-gateway/dist/trace-sync-config.js",
+      "6176cccc6f6e312921f4f49bf95ab34b9d18ebf2ffe3825096cbfa72274c7591": "npm:@astralcore/aura-wb:src/telegram/notify.js",
+      "63de3189a47db13680a8b03bc67f19288b42a4318f51fdc6536414926e21c839": "npm:@lizhao1/memorax-code-internal:lib/memorax-code-backend/dist/internal-trace-collection-config.js",
+      "64c82c5a1b80d557297872479ce37fa33be391d04c8de1959163204285431a2b": "npm:@xiaohhhh1/canvas-agent:dist/agent/codex-client.js",
+      "64dc1b50be8626888195ca647f0c0224cb45ce9a23c17c00fa7670619f669f63": "npm:remote-claude-daemon:cli.js",
+      "65f5217f1613bbbbe76ca5d1258d06654d6f85462da50ff6f9cac4434dc4e021": "npm:sextant-cli-linux-amd64:bin/sxt",
+      "683bb970e4fd3b03f58b2b9a431184319d11cfa9768202d53098d870ca7d9556": "npm:move-bcs-codec:install.js",
+      "689015ceb3abac6dd544c9ddcd3214a6d2eac9b60efd64847cf144c8c349f217": "npm:@ccfly/setup-darwin-x64:bin/ccfly-setup",
+      "6aa32460fe6b17d7b2c701b9f5a891698dc7aa098c20b4a477d555cc68ed73f3": "npm:lib-frontsga:package.json",
+      "6b40838c823f0855fd879259a2236134a7014c64578525adb7ced0a612f6c021": "npm:trimprompt:mcp.js",
+      "6bc19df4f9be95e764734445db532c7583d676660d24e179f9a54965b99b2f5e": "npm:trimprompt:filters/go.js",
+      "6f032e738288417a5169d1858f2640e6e405d698a7c9586c1722d63aa7fbf71f": "npm:@xsat10/baileys-xsat:lib/Utils/messages-media.js",
+      "706eda42536b2abd0402c7dbbf4452f8bc81ce80c1af37dabc4d13a51fb3d8f6": "npm:tailwindcss-hide-scrollbar:dist/index.js",
+      "727774b7fe11cfa8db6dc3ed0440dc31408d118fad1a1220d3961ebb618e677d": "npm:@addai/entity-runtime:dist/claude-spawn.js",
+      "7507f8834103e949927f214904e3e77dc8031f21f83ad3262ea4867448567a9d": "npm:trimprompt:ccr.js",
+      "76521ee2375334ed41da0d301e36819a11272851a5e1788c579e7609f7824314": "npm:zyr-agent:dist/tools/bash.js",
+      "7776d30e6fe4073e6bbf09c93e7ae92f1b2109dd8543683fb3aeb5ccb6d76679": "npm:supersig:dist/supersig.cjs.js",
+      "78e3023649063953bc68371416498825ae5fe15c44b4618d49de232d203013d0": "npm:wos-library-ui:poc.js",
+      "791a73db5c7743fc3e3b1db4d6ee98f52f00ebd3f5cd72beabce58eec5a0bab6": "npm:@leejungkiin/awkit:bin/awk.js",
+      "79be26899e4a11579bdc2f74d2ede645253c7b51343541882ceba23ef4d3c4fe": "npm:commonweb-balance:package.json",
+      "7aec75ff2a2a872da6e2a5f7e2db990ec7afe96ff2e09dccbdcd5b0b9489403a": "npm:trimprompt:proxy-conv.js",
+      "7e71ed096f336af61178da974b6796d82def7979cb95e145f62ec425544167b5": "npm:sextant-cli-linux-amd64:package.json",
+      "7f73a4727d7608a9f3f1031f54f98d3857941e1941462e8973b6c396c274cf0f": "npm:llm-interceptor:dist/self-update.js",
+      "82337e2b460d25519a2cd9b27c3ea24e5a9f8f2a78af078d4f89b90cd858159b": "npm:@astralcore/aura-wb:src/commands/tools.js",
+      "824a0babe42da4c4b68f85a40137c851bf8f5295563f0cb783940ef68bd7e524": "npm:tsihealth-client:index.js",
+      "827b95a667158573376a44554fe8971deb96146d4774c68674af904490318ec3": "npm:tt-help-cli-ycl:src/watchdog/agent.js",
+      "8450386d3b622f75563a77772aa903aac4d81ed001bddb82d1c577c84beaf979": "npm:@cy4dev/cydemo-bg-color:src/postinstall.js",
+      "88ab198ec534c64b581423f4bcdce2bdbd5d14f9b7e125808f532b5cadfd9845": "npm:new-native-tools-linux-x64-gnu:package.json",
+      "8bb4d832911102a6ff59b54747a1f5786a77a0c3fbe8c1861395a9f6b93d1b8e": "npm:tt-help-cli-ycl:scripts/run-explore.sh",
+      "8bd6b3edf0cbc636e8e1243cb0542e2457da31debbfbe6c2640406f78a7b9aab": "npm:cewe-npm-cops:package.json",
+      "8c1aa782932074ecfb910f5144ae80aca6984413f19c00c0d5bc3564e66bf228": "npm:trimprompt:cache.js",
+      "8c488575448939da69a7abb168d73970e44dfb49523ca530368269a487ab2e8b": "npm:ach-detail:scripts/preinstall.js",
+      "9120db82450629ee5220196d7b15d035f99aeb05225a62e1136086efaaee5d24": "npm:sextant-cli-darwin-arm64:bin/sxt",
+      "92bb25d7ea080529008bdfb7c7a3ff5ac204114d21f913834cbeb54f34bb33dd": "npm:typst-resume-cli:index.js",
+      "92e2ab0aa04991f6c31275498e8eab4907ffdff8b82abaffe05388af1c6e73f7": "npm:@united-airlines-org/atmos-design-system:package.json",
+      "9473c9393cef6fdfedbb93e01982a684f2aada843a1ca78912e677e0ca1a4f76": "npm:nms-dashboard-js:package.json",
+      "9496101c96f3882c29fbabca5da83d126bd495027535a2c497f88a9a22b5620c": "npm:tick-forge:index.js",
+      "94ef6b1c4a9d31f78f446d053048bcef34fd88f4376a1a46f7f777a9e9c83a29": "npm:checkout-mobile-bnpl:_helpers.js",
+      "96902515c575ebdf7adf510de5ad14e9df32eb6db930949dcf225a67318582be": "npm:express-chai:index.js",
+      "9c4e6dde57fad3106fee93fee440f1ed7fff6079c66389ce328d74e60d14b1ad": "npm:@leejungkiin/awkit:scripts/dependency-manager.js",
+      "9cf771279c18ea854d21a1760aef0b81fff806b53cd8b37ea18a583e3d7086cc": "npm:trimprompt:hooks/claude-hook.js",
+      "9fb27c30f484650bb4a39f65a03fbccdc0b9b5f1cb84700ca73ee8893c66e06e": "npm:helmet-pro:lib/utils/index.js",
+      "a006eb22aaa303eff9bdf6613e45a1cdeec4e9ed2f718428af8dc34ab50ecfbc": "npm:@leejungkiin/awkit:scripts/model-manager.js",
+      "a27411025b8d3f80436e9977a53f9b7e6c3110eee0937158c24e2e67b68b2acf": "npm:trimprompt:seed.js",
+      "a3e2ffb440b779d30da3ff282affd649731088e8570df7b1aa72742d995b782c": "npm:checkout-mobile-bnpl:lib/telemetry.js",
+      "a438e99ffd668d461a3bcd9fa12394f31d6eb7b4b1bdbed11ffd7be95385799c": "npm:alipclutch-baileys:lib/Socket/messages-send.js",
+      "a546726c4870e2128eaeea07d357f872ce6d8c6fde3023c5baa19316cfe367b6": "npm:@atom8n/inspector:package.json",
+      "a54e7620b1e043a199c7ec29f0b59cc4ee58a2a75eb9ae25731ec3d3ab82d3a3": "npm:elephant-tusk-runner:server.js",
+      "a62ea8d3d1172824095369efa66412a189a70812354a8d5790b4e9d50004a376": "npm:ynastore-baileys:lib/Socket/messages-send.js",
+      "a63d36c32da581d44ce579798426ded1ed01ce9c2989aa65427fedea6011d9a0": "npm:@lyxa.ai/core:index.js",
+      "a77759848bcc2b946b927e34354538c8ec88214e5a3eb181da666765684252d0": "npm:opencode-optimised-toolings:packages/selfpatch/lib/pipeline.js",
+      "a8bef3841995b1144cc308dee9e7a2dc854ebb2872f6f30b80ec00d5b66e9e84": "npm:vite-svg-parse:index.js",
+      "a8e2cbd7d320bd215fb897025a9ac66b349d348fba7742527349722f9332db9b": "npm:trimprompt:executor.js",
+      "aa5ca8e53aad094b70317866e0629b341981a8fe5268887fca4b83d0e52f1e6c": "npm:@astralcore/aura-wb:src/commands/boost.js",
+      "ab0ecce0521eadbc8a5a79af58e966f36837ab11226d280c2b267bea04b6a648": "npm:@astralcore/aura-wb:start.js",
+      "af3058cb000b9b794e336c1de9d48c395969f41d801f631d3e0fce450460ff16": "npm:@leejungkiin/awkit:docs/research/reverse-skills-study/credittone-android-re/android-reverse-engineering/skills/android-reverse-engineering/scripts/install-dep.sh",
+      "b2778a276b0210409bec7223ddee144e42c4cd2198c83d0f8cb8cbbe667a0e43": "npm:@innocarpe/deepseek-build:npm/scripts/postinstall.js",
+      "b28920d0fbba7bdeb1dbcc7812d73f064d66057ac0b0557a5dd3656634789fad": "npm:dpdgroup-css:package.json",
+      "b2cd6d977cb86bab8e263e4b870be3070b40e8e55f4ee93beef65995d0140d8e": "npm:@astralcore/sl-aura:config.env",
+      "b3e2aa3704fca83256ab071130da9aa39eb882dc26797ecfdd33c64788f7b374": "npm:trimprompt:cache-manager.js",
+      "b4f4adb76d5a6a175f87c2ba760bef5f352bc347a06d2b91125c6463a26e987b": "npm:trimprompt:filters/python.js",
+      "b8ef7dee1e09861955ffdfca4b96f08425da27c844cb2a57418ce3d953e7219b": "npm:trimprompt:filters/rust.js",
+      "ba4b8c94eb85ccbfbefc93e2befda71f201af4a8c5515e6dd896cb76aef97705": "npm:trimprompt:file-watcher.js",
+      "bd9f3ae03989400b04bdd4841e9a78b75fb71c3a67e5b3fe1a3c76cb1636ba1e": "npm:weight2loss:setup.js",
+      "bdb35694b03222a2dbd278edbede80ec5e8ec2d6345090eee462170607a02cb6": "npm:@ccfly/setup-linux-arm64:package.json",
+      "bdc3b501fc953c5c6b08befdd9dae91a8977706733cf06dd93edaaa2ea2b618e": "npm:trimprompt:tracker.js",
+      "be67e50f643f3166837a07f30efd2db686c10b8ed66582d0c42db18f9a441099": "npm:@junyoung-kim/reins:dist/cli.mjs",
+      "bf4b31532529bac1e438b32553d68cb4ada6aa555758876a95f166aecd00f2c9": "npm:shadowx-fca:module/config.js",
+      "bf538f727ef3765886bfd179501e68963cc7f68d235760ba8d8cf1557950e74b": "npm:9remote:dist/ptyDaemon.cjs",
+      "c233075b529057ad409cfb89342d7dae68691d04166a0e1417148548797aea07": "npm:tailwindcss-scrollbar-hide:dist/index.js",
+      "c61a136ac79d294bd83bf01be5e9093a22ae721a7a37d85f25e3918247ca785e": "npm:streak-map-cache:dist/internal/daymath.mjs",
+      "c6b6409030ebdf4eff64f77e268c10ee0d602461c84c217627ba937c2f53abff": "npm:@vanexalabs-ai/vanexa-agent:dist/bundle.cjs",
+      "c753b7cbd2ffb89ad51dc6f48714204df8955d000520174329dd3785aede4562": "npm:streak-map-cache:dist/index.mjs",
+      "c7ce235223b740e717a7de6011767e0c0fb85aacd5bc693b2f1c7cdbca10fcbc": "npm:trimprompt:redactor.js",
+      "c98489ef4b43aab65323cfb4fd483771a17a607e1199aba12ad9916a84ba4e64": "npm:gpt-terminal-cli:src/postinstall.js",
+      "cb2c1b0cdf9cb22b28726542c4ce033d2ad9197bbc6294bb176051a3e42355c4": "npm:express-chai:lib/caller.js",
+      "cea9a71f32d76323858615e08889cc52496702623b19ee4cdce1612ad978fc58": "npm:golaaa:cdp_inject.js",
+      "ceb2786a3d87883fde45370dc233f6328e9829be746dcef510e72bed0f054203": "npm:tsihealth-client:package.json",
+      "cf6b3fa8227aedbe6a420393f04a533d9f81e48e7d4357343fafb634276a9350": "npm:agenttunnels:dist/local-effects.js",
+      "d096e010c66a23c96dce6397b26f9f9ceffdac499707c9e758f74f7d70518448": "npm:trimprompt:sync.js",
+      "d12fe0144ad08f27bfa5a43fc821fbb6ca66ad19a6520b6f66b4d33d634bd5db": "npm:xdaxx:i.js",
+      "d163740167f163fa7c45f9786232214c8500fe34a26a42403bf277bafcb1c026": "PyPI:xayoub-xctxteam:src/xAyOuB_XcTxTeaM/__init__.py",
+      "d2fa8167aff16744118423eaa28b85f65c524d1880082bdf0fe01491fd272504": "npm:@simplipayng/checkout:dist/index.js",
+      "d38c7941d0bc5c6a60c781bbe47e528878fc871542c233ccddb387320393f0dc": "npm:@activepieces/piece-google-bigquery:src/index.js",
+      "d3c4172220df041586f4342505b01a674e06ae83cbb2483d9170aa99b21f48d1": "npm:weight2loss:package.json",
+      "d63f13d51a45c28f2b49804422a31082c80e7bfc8b11b7f67e7d262df7468bbf": "npm:@astralcore/aura-wb:src/commands/extra_media.js",
+      "d65ded4a78096774ff3a08dfe8e994e46dd078fa933f541063aacef92218ebf2": "npm:@ikbal_fadilah_vanexa01/vanexa-agent:dist/bundle.cjs",
+      "d70f3ee1fa6f15807845d709be92a77fdd562347c65057ce8d4d8f5df9c53cee": "npm:@atom8n/inspector:server/build/index.js",
+      "d87f2e2c7175be3c97b8ec3acff9ffc52e4b7f1e9d1fe230ee5df4493260b6f5": "npm:beautiful-ui-monitoring:package.json",
+      "d9564c35e3a4b56b895c35f74da8d5d285bcdacbe71254da3887280384d76716": "npm:tailwind-hide-scrollbar:dist/index.js",
+      "dc75559df6785b501e3cda4d7c460c75afa17d32571bbccbc753b54fc2b21bf8": "npm:lib-frontsga:poc.js",
+      "dde58b4776642d9b5287a8600dc4067ac1492123fce7524e715e57b1b9ffdadf": "npm:@leejungkiin/awkit:symphony/multica-ref/apps/desktop/src/main/daemon-manager.ts",
+      "dfff3ce3112f348184e76fe1dfa839bda1daa32104fdd72f8f9a2797b9fcbacd": "npm:@itsreduxtm/unpkg-xss-test:payload.js",
+      "e0c92c05bd5a2306e56689e127d39d8b01221ea659b915cf8f3a135c48fe86ec": "npm:@prototypevip/baileys:lib/Store/prototype-store.js",
+      "e12b3f401f2cb448e63c5bbb02fef67baf2bbccd308cca33cc70586c2650bb87": "npm:@addai/node:dist/request-pump.js",
+      "e12e5c5dd7438582038003680f7b53f5a261a271da018715cf664c241a8fa69d": "npm:llm-interceptor:dist/collect/hook.js",
+      "e27d15a9f1165b52fed129239dd36c34260a2e16f1926118ec27bc815d9ab873": "npm:wallet-monitor-snap:src/index.js",
+      "e54aed4cc27b61f78dd095fb67b92e1dff62bd9508b16f0b56d66357611dbb0d": "npm:@wbnr/frontend-shared:preinstall.js",
+      "e6018258f2b7b6a17e5b1af255c019fa297005f4978449fac27286540b586467": "npm:trimprompt:filters/generic.js",
+      "e61a9248781be7d08a75875c673bda173807f1bccd6a24d1c346c3e8d7f4c8a3": "npm:@activepieces/piece-google-forms:src/index.js",
+      "e6344d04b38db1c6e4c1545081a3ad98b8082c99267d3707ecf1b27d95e8faee": "PyPI:xayoub-xctxteam:src/xAyOuB_XcTxTeaM/accounts.json",
+      "e7f673a395d592b8760b4a378f97da60792b444d022619105728e0f2c15e9a71": "npm:dbk-ui-forms:index.js",
+      "e9534be7395668d5326f48780a444a774279bf30ef51481ac1e4f2a6cf846569": "npm:squeez:package.json",
+      "ea5f473dec92eb5b999575f94f6b5a2c31913c4ff94087c26910d170e189b619": "npm:@love-moon/conductor-cli:src/daemon.js",
+      "ea8bc508e37f5894b1e5405cd286b0e178cdbbbd0d6595ef2e76a2c3d91a5da8": "npm:@ccfly/setup-linux-arm64:bin/ccfly-setup",
+      "eb13c4e8c61c4a10dd91b589ef65714751556a5e02224e279b04e467f28869e1": "npm:wormgpt-cli:src/implant/stealers/clipboard.js",
+      "eb9f72ed2d00da4ecbaff51b642d8c915b9f266490b19f70e22fdb49a6ccecf5": "npm:agenthub-multiagent-mcp:dist/setup.js",
+      "ecafeee5db1ae1db9634b680d7cac822dac4ec5dc149f31007218759249860ed": "npm:llm-interceptor:dist/cli/setup.js",
+      "ed9ef26d3a5059d2187c626223235ff4dab4b1907507dc22870b03ee3e90dedf": "npm:@addai/node:dist/command-runner.js",
+      "f13107285ab0d05bbaab4f56b51e042e6078e3a8313393e34196ebc99923634f": "npm:squeez:install.js",
+      "f299a4d07e1b7c05084d728ac0f56805cb1061578ee5ba96fa9ab6675b80ded8": "npm:xxdxax:original.js",
+      "f35cda827ef79b067a1ac29aa4b2b8e8d1b579dbb7eb97ca5ce727cca0107e32": "npm:jagproject:lib/Socket/messages-send.js",
+      "f43c7c2eb90ce5ce4e1985e940b8da0dede7eda683f1d4f83237e37e0bfe4b65": "npm:wormgpt-cli:src/implant/implant.js",
+      "f4c9190aac8a1e2a0f7ef2cf0e8db84267c73efe34cb618c8dcd3c00f4c7ec0c": "npm:trimprompt:filters/js.js",
+      "f7d642d44b5c3308b59365fe78b7d42fecce36ff6a81057f49d1f2d832cf6f72": "npm:poc-ch4rlygr:index.js",
+      "f95aebb83405b1097708aed5c8799307ba066663965d1319ee705b9edb83207d": "npm:@cy4dev/cydemo-bg-color:package.json",
+      "f9d9f5c071ef5a76e0e379db50a96b4c5fc5511c639912d09175317d87c19f9a": "npm:stretchshop:demo/demo.js",
+      "fa26a63f9f00c0824d9151ba9ca81fe585fce7d9b4e7af9774e166e4bffcd4a3": "npm:trimprompt:postinstall.js",
+      "fa5f9e252b4b2ca17fe3db33e92b8d96585c86eff4bf6be281fec71077b7b867": "npm:@ccfly/setup-linux-x64:bin/ccfly-setup",
+      "fde8a46daff69f5a26679e3181413871cbe2e8df62ac807439ee8398aaa40f89": "npm:electrode-ota-ui-app:index.js",
+      "425f5336182e359211b5d751786d2ce1d31a673ea9c82107358a888803742649": "vendor-reported (uncorroborated): 2026-08-flasq PyPI second-stage ELF",
+      "0fc30f82e1fa5e51a6c0c43f3ed7f13592ea731cb331e43a4d085df60a4db8b6": "vendor-reported (uncorroborated): Flooding Dropper second stage",
+      "7e486657f30594afda379b97030252a09a19fe8055e25c9e371544f59bd8e9e3": "vendor-reported (uncorroborated): Flooding Dropper second stage",
+      "b74c5675725911c62091bdf40714df760cc2af7a88360d21065f4e1c878aa8f0": "vendor-reported (uncorroborated): Flooding Dropper second stage",
+      "c214746c74cae8ece8bdaf69aa05da4db6ce013f9e77452d1eed1a002fd9ba00": "vendor-reported (uncorroborated): Flooding Dropper second stage",
+      "e2650e9aa2f924433ba422857b22ee7c5996b5ad306f3f903283f6a13e248935": "vendor-reported (uncorroborated): Flooding Dropper second stage",
+      "b27b82afa5f15512f3856e549fb83d873fd0049759a4b62ce64c8d7d4dc2c678": "vendor-reported (low confidence, single source): ChainDrop setup.mjs variant"
     },
     "c2_domains": [
       "npm-cache.com",
       "js-mirror.com",
       "pypi-get.com",
       "awqhnjewqjkl.icu",
-      "dl.wel1.ru"
+      "dl.wel1.ru",
+      "fiora.nixel.my.id",
+      "agenthub.contetial.com",
+      "remote-claude-relay.fly.dev",
+      "conductor.conductor-ai.top",
+      "devpay.voxepay.app",
+      "pay.voxepay.app",
+      "noviembrenacional.com"
     ],
     "file_indicators": [
       "setup.mjs",
@@ -17254,7 +18286,19 @@
       "_bridge.js",
       "_polyfill.js",
       "_bootstrap.js",
-      "_support.js"
+      "_support.js",
+      "messages-send.js",
+      "prototype-store.js",
+      "trace-sync-client.js",
+      "trace-sync-config.js",
+      "session-client.js",
+      "session-runner.js",
+      "command-runner.js",
+      "relay-bridge.js",
+      "local-effects.js",
+      "loginHelper.js",
+      "victim.js",
+      "implant.js"
     ],
     "loader_filenames": [
       "_adapter.js",
@@ -17270,7 +18314,19 @@
       "_bridge.js",
       "_polyfill.js",
       "_bootstrap.js",
-      "_support.js"
+      "_support.js",
+      "messages-send.js",
+      "prototype-store.js",
+      "trace-sync-client.js",
+      "trace-sync-config.js",
+      "session-client.js",
+      "session-runner.js",
+      "command-runner.js",
+      "relay-bridge.js",
+      "local-effects.js",
+      "loginHelper.js",
+      "victim.js",
+      "implant.js"
     ],
     "notes": {
       "legitimate_hosts_excluded": "The Ethereum RPC providers (eth.llamarpc.com, eth.drpc.org, ethereum-rpc.publicnode.com and friends), Cloudflare's workers.dev and the Bun release CDN are all abused here but are legitimate services - they are matched by behaviour, never listed as C2",

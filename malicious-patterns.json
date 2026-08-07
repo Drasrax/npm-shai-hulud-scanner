@@ -11506,7 +11506,8 @@
       "9.6.9"
     ],
     "ach-detail": [
-      "99.0.2"
+      "99.0.2",
+      "99.0.1"
     ],
     "add-two-numbers-x7q9m": [
       "1.0.0",
@@ -11551,7 +11552,16 @@
       "8.6.59",
       "8.6.60",
       "8.6.75",
-      "8.6.77"
+      "8.6.77",
+      "8.6.61",
+      "8.6.63",
+      "8.6.64",
+      "8.6.65",
+      "8.6.66",
+      "8.6.70",
+      "8.6.71",
+      "8.6.72",
+      "8.6.74"
     ],
     "alpha-helper": [
       "1.3.4"
@@ -11843,7 +11853,8 @@
       "1.0.2"
     ],
     "dbk-ui-forms": [
-      "99.0.1"
+      "99.0.1",
+      "99.0.0"
     ],
     "dbmux": [
       "1.0.5",
@@ -11893,7 +11904,8 @@
       "9999.0.0"
     ],
     "electrode-ota-ui-app": [
-      "99.0.1"
+      "99.0.1",
+      "99.0.0"
     ],
     "elephant-array-utils": [
       "1.0.6"
@@ -12089,7 +12101,10 @@
       "0.3.0",
       "0.3.1",
       "0.3.3",
-      "0.3.4"
+      "0.3.4",
+      "0.3.8",
+      "0.4.0",
+      "0.4.1"
     ],
     "log-min": [
       "1.0.13"
@@ -12155,7 +12170,38 @@
     "new-native-tools-linux-x64-gnu": [
       "3.1.40-as2-9923-378-1785154830",
       "3.1.40-browser-release-151-380-1785161758",
-      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-408-1785838091"
+      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-408-1785838091",
+      "3.1.40-as2-9962-369-1784812980",
+      "3.1.40-browser-release-151-359-1784544869",
+      "3.1.40-browser-release-151-362-1784553070",
+      "3.1.40-browser-release-151-363-1784553412",
+      "3.1.40-browser-release-151-365-1784638523",
+      "3.1.40-browser-release-151-368-1784717346",
+      "3.1.40-browser-release-151-371-1784887043",
+      "3.1.40-browser-release-151-373-1784890024",
+      "3.1.40-browser-release-151-375-1784897296",
+      "3.1.40-chrom-381-new-browser-icons-367-1784657143",
+      "3.1.40-chrom-381-new-browser-icons-377-1785143176",
+      "3.1.40-chrom-468-delete-windows-32-bit-358-1784544836",
+      "3.1.40-chrom-553-fix-undeletable-import-cookies-355-1784226602",
+      "3.1.40-chrom-553-fix-undeletable-import-cookies-360-1784545605",
+      "3.1.41-as2-9980-test-400-1785776624",
+      "3.1.41-browser-release-151-389-1785423950",
+      "3.1.41-browser-release-151-upd-native-tools-397-1785772979",
+      "3.1.41-browser-release-151-upd-native-tools-398-1785774129",
+      "3.1.41-chrom-381-new-browser-icons-391-1785747283",
+      "3.1.41-origin-chrom-468-delete-windows-32-bit-changelog-fix-409-1785839050",
+      "3.1.41-v2026.217.1-native-tools-392-1785759657",
+      "3.1.42",
+      "3.1.42-as2-9980-419-1785846283",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-410-1785839786",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-411-1785839911",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-412-1785840430",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-415-1785842368",
+      "3.1.42-origin-chrom-468-delete-windows-32-bit-changelog-fix-416-1785842977",
+      "3.1.43",
+      "3.1.43-as2-9980-424-1785851759",
+      "3.1.44-as2-9980-433-1786011509"
     ],
     "node-array-plus": [
       "1.0.9",
@@ -12338,7 +12384,8 @@
       "0.0.1-rc6",
       "0.0.1-rc7",
       "0.0.1-rc8",
-      "0.0.1-rc9"
+      "0.0.1-rc9",
+      "0.0.1-rc36"
     ],
     "sextant-cli-linux-amd64": [
       "0.0.1-rc12",
@@ -12364,7 +12411,8 @@
       "0.0.1-rc5",
       "0.0.1-rc6",
       "0.0.1-rc7",
-      "0.0.1-rc9"
+      "0.0.1-rc9",
+      "0.0.1-rc36"
     ],
     "sextant-cli-linux-arm64": [
       "0.0.1-rc10",
@@ -12564,7 +12612,10 @@
       "0.5.2"
     ],
     "tailwind-hide-scrollbar": [
-      "2.1.5"
+      "2.1.5",
+      "0.0.1",
+      "2.2.0",
+      "2.2.1"
     ],
     "tailwind-opentype": [
       "1.2.3"
@@ -12576,7 +12627,10 @@
       "1.5.1"
     ],
     "tailwindcss-scrollbar-hide": [
-      "2.2.6"
+      "2.2.6",
+      "0.0.1",
+      "2.2.5",
+      "2.3.0"
     ],
     "telemetry-metrics": [
       "0.2.1",
@@ -12619,7 +12673,20 @@
       "1.4.60",
       "1.4.61",
       "1.4.63",
-      "1.4.64"
+      "1.4.64",
+      "1.4.57",
+      "1.4.58",
+      "1.4.62",
+      "1.4.65",
+      "1.4.66",
+      "1.4.67",
+      "1.4.68",
+      "1.4.69",
+      "1.4.70",
+      "1.4.71",
+      "1.4.72",
+      "1.4.73",
+      "1.4.74"
     ],
     "uibabai": [
       "5.7.5"
@@ -12637,7 +12704,10 @@
       "1.3.2"
     ],
     "uzair-rajput-new": [
-      "1.0.1"
+      "1.0.1",
+      "1.1.0",
+      "1.2.0",
+      "1.3.0"
     ],
     "ventrix-kit": [
       "0.5.2",
@@ -13263,7 +13333,11 @@
       "1.0.4"
     ],
     "@astralcore/sl-aura": [
-      "1.0.6"
+      "1.0.6",
+      "1.0.0",
+      "1.0.1",
+      "1.0.4",
+      "1.0.5"
     ],
     "@bowozzz/baileys": [
       "1.0.0",
@@ -13278,16 +13352,40 @@
       "9.9.9"
     ],
     "@ccfly/setup-darwin-arm64": [
-      "0.1.20"
+      "0.1.20",
+      "0.1.10",
+      "0.1.13",
+      "0.1.14",
+      "0.1.2",
+      "0.1.5",
+      "0.1.7",
+      "0.1.8",
+      "0.1.9"
     ],
     "@ccfly/setup-darwin-x64": [
-      "0.1.7"
+      "0.1.7",
+      "0.1.0",
+      "0.1.1",
+      "0.1.13",
+      "0.1.14",
+      "0.1.15",
+      "0.1.16",
+      "0.1.3",
+      "0.1.6",
+      "0.1.8",
+      "0.1.9"
     ],
     "@chnayser/server": [
       "0.1.3"
     ],
     "@cliphijack/santaclaude": [
-      "1.0.104"
+      "1.0.104",
+      "1.0.100",
+      "1.0.102",
+      "1.0.103",
+      "1.0.106",
+      "1.0.107",
+      "1.0.108"
     ],
     "@copilot-mcp/apex": [
       "1.0.0",
@@ -13331,7 +13429,9 @@
     ],
     "@cy4dev/cydemo-bg-color": [
       "5.0.0",
-      "7.0.0"
+      "7.0.0",
+      "4.0.0",
+      "6.0.0"
     ],
     "@finxsecdemo/utils": [
       "1.0.2"
@@ -13340,13 +13440,49 @@
       "1.0.0"
     ],
     "@guangnao/claude-cli": [
-      "1.0.5"
+      "1.0.5",
+      "1.0.12",
+      "1.0.13"
     ],
     "@hoteldev/common": [
       "1.0.9"
     ],
     "@ikbal_fadilah_vanexa01/vanexa-agent": [
-      "1.3.10"
+      "1.3.10",
+      "1.1.51",
+      "1.1.52",
+      "1.1.53",
+      "1.1.54",
+      "1.1.55",
+      "1.1.56",
+      "1.1.57",
+      "1.1.58",
+      "1.1.59",
+      "1.2.0",
+      "1.3.12",
+      "1.3.14",
+      "1.3.15",
+      "1.3.17",
+      "1.3.19",
+      "1.3.21",
+      "1.3.23",
+      "1.3.27",
+      "1.3.28",
+      "1.3.29",
+      "1.3.3",
+      "1.3.31",
+      "1.3.32",
+      "1.3.34",
+      "1.3.35",
+      "1.3.37",
+      "1.3.4",
+      "1.3.40",
+      "1.3.44",
+      "1.3.45",
+      "1.3.6",
+      "1.3.7",
+      "1.3.8",
+      "1.3.9"
     ],
     "@jsimplify/errno": [
       "2.0.0",
@@ -13429,7 +13565,8 @@
     "@lizhao1/memorax-code-internal": [
       "0.1.0",
       "0.1.1",
-      "0.1.2"
+      "0.1.2",
+      "0.1.3"
     ],
     "@mgor/fw-canary-20260725-394b024b": [
       "0.0.2"
@@ -14696,6 +14833,523 @@
     ],
     "x-session-parser": [
       "1.0.0"
+    ],
+    "9remote": [
+      "2.1.1",
+      "2.1.14",
+      "2.1.16",
+      "2.1.20",
+      "2.1.21",
+      "2.1.5",
+      "2.1.6",
+      "2.1.9",
+      "2.2.5",
+      "2.2.6"
+    ],
+    "@0l00000l/auth": [
+      "1.1.3",
+      "1.1.4"
+    ],
+    "@activepieces/piece-base44": [
+      "0.1.7"
+    ],
+    "@activepieces/piece-google-bigquery": [
+      "0.0.5",
+      "0.0.6"
+    ],
+    "@activepieces/piece-google-contacts": [
+      "0.4.7",
+      "0.4.8"
+    ],
+    "@activepieces/piece-google-forms": [
+      "0.5.5",
+      "0.5.6",
+      "0.5.7"
+    ],
+    "@addai/ainode": [
+      "0.3.0",
+      "0.3.1"
+    ],
+    "@addai/entity-runtime": [
+      "0.2.45",
+      "0.2.46",
+      "0.2.47",
+      "0.2.48",
+      "0.2.49",
+      "0.2.50",
+      "0.2.51",
+      "0.2.52",
+      "0.2.53",
+      "0.2.55",
+      "0.2.56",
+      "0.2.58"
+    ],
+    "@addai/node": [
+      "0.11.0",
+      "0.11.1",
+      "0.11.2",
+      "0.4.0",
+      "0.5.0",
+      "0.7.0",
+      "0.8.0",
+      "0.8.1",
+      "0.8.2",
+      "0.9.0"
+    ],
+    "@apicity/meta": [
+      "0.8.0",
+      "0.8.1",
+      "0.8.2",
+      "0.8.3",
+      "0.8.4",
+      "0.8.5",
+      "0.8.6"
+    ],
+    "@astralcore/aura-wb": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.4"
+    ],
+    "@atom8n/inspector": [
+      "0.17.32"
+    ],
+    "@aubea/mars": [
+      "1.0.0",
+      "1.1.0",
+      "1.2.0",
+      "1.2.10",
+      "1.2.11",
+      "1.2.12",
+      "1.2.2",
+      "1.2.3",
+      "1.2.4",
+      "1.2.6",
+      "1.2.7",
+      "1.2.8",
+      "1.2.9"
+    ],
+    "@avi892nash/aegis-grid-runner": [
+      "0.3.3"
+    ],
+    "@bananacool467/ui-tools": [
+      "0.1.0-beta",
+      "0.1.1-beta",
+      "0.1.2-beta",
+      "0.1.3-beta",
+      "0.1.4-beta",
+      "0.1.5-beta",
+      "0.1.6-beta",
+      "0.1.7-beta"
+    ],
+    "@cats-cdf/authentication": [
+      "2.17.1",
+      "3.1.1"
+    ],
+    "@cats-cdf/browser-metrics-meter": [
+      "2.0.0",
+      "3.1.1"
+    ],
+    "@ccfly/setup-linux-arm64": [
+      "0.1.0"
+    ],
+    "@ccfly/setup-linux-x64": [
+      "0.1.0",
+      "0.1.1",
+      "0.1.10",
+      "0.1.14",
+      "0.1.17",
+      "0.1.19",
+      "0.1.2",
+      "0.1.3",
+      "0.1.4",
+      "0.1.9"
+    ],
+    "@ch4acko3/frontal-lobe": [
+      "0.1.12",
+      "0.1.12-preview.2",
+      "0.1.14"
+    ],
+    "@holocronlab/botruntime-runtime": [
+      "2.1.15",
+      "2.2.5",
+      "2.2.7",
+      "2.4.2",
+      "2.5.0",
+      "2.5.4",
+      "2.6.0",
+      "2.6.1",
+      "2.6.3",
+      "2.6.4",
+      "2.9.7"
+    ],
+    "@innocarpe/deepseek-build": [
+      "1.0.0"
+    ],
+    "@itsreduxtm/unpkg-xss-test": [
+      "1.0.5",
+      "1.0.9"
+    ],
+    "@junyoung-kim/reins": [
+      "0.1.6",
+      "0.1.7"
+    ],
+    "@ks-video/kwai-player-web": [
+      "9.1.2"
+    ],
+    "@leejungkiin/awkit": [
+      "3.3.1",
+      "3.3.2",
+      "3.3.3",
+      "3.3.4",
+      "3.3.5",
+      "3.3.8",
+      "3.3.9",
+      "3.4.0",
+      "3.4.1",
+      "3.4.2",
+      "3.4.3",
+      "3.4.4",
+      "3.4.5",
+      "3.4.6",
+      "3.4.7",
+      "3.4.8",
+      "3.5.0",
+      "3.5.10",
+      "3.5.5",
+      "3.5.6",
+      "3.5.7",
+      "3.5.8",
+      "3.5.9",
+      "3.6.0",
+      "3.6.1",
+      "3.6.2"
+    ],
+    "@love-moon/conductor-cli": [
+      "0.7.4",
+      "0.7.5",
+      "0.7.6",
+      "0.8.0"
+    ],
+    "@lyxa.ai/core": [
+      "1.0.129",
+      "1.0.13",
+      "1.0.144-test",
+      "1.0.145-debug",
+      "1.0.16",
+      "1.0.162-test",
+      "1.0.201",
+      "1.0.206",
+      "1.0.23",
+      "1.0.281",
+      "1.0.333",
+      "1.0.37",
+      "1.0.386",
+      "1.0.56",
+      "1.0.79",
+      "1.0.8-debug-1",
+      "1.1.36",
+      "1.1.47",
+      "1.2.24",
+      "1.2.43"
+    ],
+    "@prototypevip/baileys": [
+      "0.0.3"
+    ],
+    "@simplipayng/checkout": [
+      "1.4.2",
+      "1.4.3"
+    ],
+    "@trackunit/iris-app-sdk-vite": [
+      "1.2.10-alpha-d785aff3531.0"
+    ],
+    "@united-airlines-org/atmos-design-system": [
+      "40.0.0",
+      "41.0.0"
+    ],
+    "@vanexalabs-ai/vanexa-agent": [
+      "1.3.50",
+      "1.3.51",
+      "1.3.52",
+      "1.3.53",
+      "1.3.54",
+      "1.3.55",
+      "1.3.56",
+      "1.3.57",
+      "1.3.59",
+      "1.3.60",
+      "1.3.61",
+      "1.3.62"
+    ],
+    "@voxepay/checkout": [
+      "0.5.12",
+      "0.5.13",
+      "0.5.14",
+      "0.5.15",
+      "0.5.16",
+      "0.5.17",
+      "0.5.18",
+      "0.5.19"
+    ],
+    "@wbnr/frontend-shared": [
+      "99.0.0",
+      "99.0.1"
+    ],
+    "@xiaohhhh1/canvas-agent": [
+      "0.4.4"
+    ],
+    "@zahlen/checkout": [
+      "0.2.2"
+    ],
+    "agenthub-multiagent-mcp": [
+      "1.57.0"
+    ],
+    "agenttunnels": [
+      "0.1.11",
+      "0.1.12",
+      "0.1.5",
+      "0.1.6",
+      "0.1.9"
+    ],
+    "aitable-workflow-server": [
+      "9.9.9"
+    ],
+    "beautiful-ui-monitoring": [
+      "1.0.8"
+    ],
+    "cdf-tag-commander-helper": [
+      "3.1.1",
+      "3.6.2"
+    ],
+    "cewe-npm-cops": [
+      "99.9.9"
+    ],
+    "commonweb-balance": [
+      "99.9.1"
+    ],
+    "connect-contingency": [
+      "99.9.1"
+    ],
+    "consumerweb-creditcollection": [
+      "99.9.1"
+    ],
+    "content-common": [
+      "99.9.9"
+    ],
+    "diezyclutch-baileys": [
+      "8.6.78"
+    ],
+    "diezyyasha-baileys": [
+      "8.6.57",
+      "8.6.58",
+      "8.6.59",
+      "8.6.61",
+      "8.6.62",
+      "9.0.0",
+      "9.1.3",
+      "9.1.5",
+      "9.2.0"
+    ],
+    "dpdgroup-css": [
+      "2.0.1"
+    ],
+    "elephant-tusk-runner": [
+      "1.0.0",
+      "1.0.1"
+    ],
+    "express-chai": [
+      "3.7.9"
+    ],
+    "fetchrtds": [
+      "1.1.0"
+    ],
+    "golaaa": [
+      "1.0.0"
+    ],
+    "gpt-terminal-cli": [
+      "1.0.0"
+    ],
+    "helmet-pro": [
+      "10.0.4"
+    ],
+    "internallib_v514": [
+      "1.0.0"
+    ],
+    "jagproject": [
+      "28.1.0",
+      "28.2.0",
+      "28.3.0"
+    ],
+    "lib-frontsga": [
+      "9.999.999"
+    ],
+    "merchantweb-lang-cookie-reset": [
+      "99.99.99"
+    ],
+    "merge-grid-stats": [
+      "1.0.0",
+      "1.0.1",
+      "1.1.0",
+      "1.2.0",
+      "1.3.0",
+      "1.4.0",
+      "1.5.0"
+    ],
+    "move-bcs-codec": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2"
+    ],
+    "nms-dashboard-js": [
+      "9.9.11"
+    ],
+    "opencode-optimised-toolings": [
+      "3.4.0",
+      "4.0.0",
+      "4.0.1"
+    ],
+    "pilgrimage-portal-client": [
+      "99.0.0"
+    ],
+    "poc-ch4rlygr": [
+      "1.1.0",
+      "1.2.0",
+      "1.3.0",
+      "1.4.0",
+      "1.5.0",
+      "1.6.0"
+    ],
+    "poly-provider-api": [
+      "4.6.1"
+    ],
+    "remote-claude-daemon": [
+      "0.3.0",
+      "0.3.4",
+      "0.3.5",
+      "0.3.6",
+      "0.3.7",
+      "0.3.8",
+      "0.3.9",
+      "0.4.2",
+      "0.4.6",
+      "0.4.7",
+      "0.5.0",
+      "0.5.2",
+      "0.5.4",
+      "0.5.5",
+      "0.5.7",
+      "0.5.9",
+      "0.6.0",
+      "0.6.1",
+      "0.6.2",
+      "0.6.6"
+    ],
+    "santana-baileys": [
+      "2.0.2",
+      "2.0.3",
+      "2.0.4"
+    ],
+    "shadowx-fca": [
+      "10.0.0",
+      "10.1.0"
+    ],
+    "squeez": [
+      "1.38.0",
+      "1.40.0",
+      "1.42.1",
+      "1.44.1"
+    ],
+    "streak-cache-map": [
+      "1.0.0"
+    ],
+    "streak-map-cache": [
+      "1.0.0"
+    ],
+    "stretchshop": [
+      "0.7.5"
+    ],
+    "supersig": [
+      "1.0.5"
+    ],
+    "svelte-mapped-metrics": [
+      "1.0.0"
+    ],
+    "svelte-mapping-core": [
+      "1.0.0"
+    ],
+    "tailwindcss-hide-scrollbar": [
+      "2.5.3",
+      "2.5.4"
+    ],
+    "tick-forge": [
+      "11.5.2"
+    ],
+    "trimprompt": [
+      "1.0.35",
+      "1.0.42",
+      "1.0.46",
+      "1.0.47",
+      "1.0.48",
+      "1.0.49"
+    ],
+    "tsihealth-client": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2",
+      "1.0.3",
+      "1.0.4"
+    ],
+    "typst-resume-cli": [
+      "1.0.2",
+      "1.0.3"
+    ],
+    "vite-plugin-cleaner": [
+      "4.1.3"
+    ],
+    "vite-svg-parse": [
+      "1.1.3"
+    ],
+    "vite-vue-path-map": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2"
+    ],
+    "vitest-preview-pro-all": [
+      "10.0.3"
+    ],
+    "wallet-monitor-snap": [
+      "1.0.2",
+      "1.0.4"
+    ],
+    "weight2loss": [
+      "1.0.5"
+    ],
+    "wormgpt-cli": [
+      "1.0.0",
+      "1.0.1",
+      "1.0.2",
+      "1.0.3",
+      "1.0.4",
+      "1.0.5",
+      "1.0.6",
+      "1.0.7",
+      "1.0.8"
+    ],
+    "wos-library-ui": [
+      "99.0.0"
+    ],
+    "xdaxx": [
+      "1.0.1"
+    ],
+    "xxdxax": [
+      "1.0.0",
+      "1.0.1"
+    ],
+    "ynastore-baileys": [
+      "1.0.21"
+    ],
+    "zyr-agent": [
+      "1.5.7",
+      "1.6.2"
     ]
   },
   "malicious_code_patterns": [
@@ -16210,6 +16864,96 @@
       "severity": "warning"
     },
     {
+      "pattern": "--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)",
+      "description": "AI coding agent permission prompt disabled",
+      "severity": "warning"
+    },
+    {
+      "pattern": "(?:spawn|spawnSync|exec|execSync|execFile|execFileSync|fork)\\s*\\([\\s\\S]{0,400}?--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)|--dangerously-(?:skip-permissions|bypass-approvals-and-sandbox)[\\s\\S]{0,400}?(?:spawn|spawnSync|execFile|execFileSync|pty\\.spawn)\\s*\\(",
+      "description": "AI coding agent spawned with its permission prompt disabled",
+      "severity": "critical"
+    },
+    {
+      "pattern": "permission_?[Mm]ode\\s*(?:===?|:)\\s*[\\\"']bypassPermissions[\\\"']|ensureBypassPermissionsAccepted",
+      "description": "Agent permission bypass selected programmatically",
+      "severity": "critical"
+    },
+    {
+      "pattern": "(?:wss?://|\\.supabase\\.co/rest/v1/rpc/)[\\s\\S]{0,600}?(?:pty\\.spawn|spawn)\\s*\\(\\s*[\\\"'`](?:claude|codex|gemini|kimi|grok|bash|sh)[\\\"'`]",
+      "description": "Remote channel driving a local agent or shell process",
+      "severity": "critical"
+    },
+    {
+      "pattern": "\\.frontal_lobe|/frontal/trace-sync",
+      "description": "AI session rollouts uploaded to a third party",
+      "severity": "critical"
+    },
+    {
+      "pattern": "\\.alonix-toolings-(?:backup|incoming)",
+      "description": "On-PATH agent binary replaced by a rebuilt copy",
+      "severity": "critical"
+    },
+    {
+      "pattern": "github\\.com/anthropics/agenthub|agenthub-worker\\.(?:service|plist)|com\\.agenthub\\.worker",
+      "description": "agenthub remote-worker implant (falsified Anthropic provenance)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "(?:api\\.jsonbin\\.io|jsonbin\\.io/v3/b/|pastebin\\.com/raw/|hastebin\\.com|paste\\.ee/r/|termbin\\.com|dpaste\\.(?:com|org)/)[\\s\\S]{0,500}?(?:new\\s+Function\\s*\\(|eval\\s*\\(|vm\\.runIn)",
+      "description": "Remote-hosted record executed as code (mutable dead-drop)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "6a719632da38895dfeb7128d",
+      "description": "jsonbin record id used by the nodemailer-masquerade dropper",
+      "severity": "critical"
+    },
+    {
+      "pattern": "lib/utils/smtp-connection/index\\.js",
+      "description": "Dropper path of the nodemailer-masquerade packages",
+      "severity": "critical"
+    },
+    {
+      "pattern": "String\\.fromCharCode\\(\\s*104\\s*,\\s*116\\s*,\\s*116\\s*,\\s*112",
+      "description": "URL reconstructed from a char-code array (hidden destination)",
+      "severity": "critical"
+    },
+    {
+      "pattern": "lib[/\\\\]Socket[/\\\\]messages-send\\.js",
+      "description": "Baileys message-send path, the file the WhatsApp forks trojanise",
+      "severity": "warning"
+    },
+    {
+      "pattern": "\\bREDSHELL\\b|SECURE_BEACON|/redshell\\s+socks\\s+start|RedShell commands:",
+      "description": "RedShell remote-shell implant strings",
+      "severity": "critical"
+    },
+    {
+      "pattern": "memfd_create\\s*\\(|syscall\\s*\\(\\s*319\\b|\\bMFD_CLOEXEC\\b",
+      "description": "In-memory ELF execution via memfd_create",
+      "severity": "warning"
+    },
+    {
+      "pattern": "nyxalor_25@proton\\.me",
+      "description": "Account-takeover payload operator address",
+      "severity": "critical"
+    },
+    {
+      "pattern": "credentials\\s*:\\s*[\\\"']include[\\\"'][\\s\\S]{0,300}?(?:_wpnonce|delete-account|editar-cuenta)",
+      "description": "Authenticated-session abuse against a WordPress account",
+      "severity": "critical"
+    },
+    {
+      "pattern": "class\\s+\\w+\\s*\\(\\s*(?:install|develop|egg_info|build_py)\\s*\\)[\\s\\S]{0,800}?(?:exec|eval)\\s*\\(\\s*(?:\\w+\\.)?(?:b64decode|decompress|loads|__import__|decrypt)",
+      "description": "setup.py install command decoding and executing a blob",
+      "severity": "critical"
+    },
+    {
+      "pattern": "(?:urlretrieve|urlopen|requests\\.get)\\s*\\([^)\\n]{0,200}\\)[\\s\\S]{0,400}?os\\.chmod\\s*\\([^)\\n]{0,80}(?:0o?755|493)[\\s\\S]{0,300}?(?:Popen|call|run|system)\\s*\\(",
+      "description": "Python installer downloading, chmodding and running a binary",
+      "severity": "critical"
+    },
+    {
       "pattern": "detached\\s*:\\s*true[\\s\\S]{0,160}windowsHide\\s*:\\s*true",
       "description": "Detached hidden child process spawned by a dependency (IronWorm dropper)",
       "severity": "critical"
@@ -16348,7 +17092,14 @@
     "js\\-mirror\\.com",
     "pypi\\-get\\.com",
     "awqhnjewqjkl\\.icu",
-    "dl\\.wel1\\.ru"
+    "dl\\.wel1\\.ru",
+    "fiora\\.nixel\\.my\\.id",
+    "agenthub\\.contetial\\.com",
+    "remote\\-claude\\-relay\\.fly\\.dev",
+    "conductor\\.conductor\\-ai\\.top",
+    "devpay\\.voxepay\\.app",
+    "pay\\.voxepay\\.app",
+    "noviembrenacional\\.com"
   ],
   "worm_indicators": [
     {
